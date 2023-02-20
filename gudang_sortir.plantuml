@@ -1,0 +1,46 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class barang {
+   nama_barang: varchar(100)
+   kuantitas: int
+   deskripsi: text
+   id: int
+}
+class detail_transaksi {
+   id_trans: int
+   id_barang: int
+   kuatitas: int
+   deskripsi: text
+   id: int
+}
+class jenis_transaksi {
+   kode: varchar(10)
+   nama_transaksi: varchar(100)
+   id: int
+}
+class sessions {
+   user_email: varchar(255)
+   id: varchar(255)
+}
+class transaksi {
+   tipe_id: int
+   kode_trans: varchar(20)
+   tanggal_trans: date
+   deskripsi: text
+   id: int
+}
+class users {
+   nama: varchar(255)
+   password: varchar(255)
+   email: varchar(255)
+}
+
+detail_transaksi  -[#595959,plain]-^  barang           : "id_barang:id"
+detail_transaksi  -[#595959,plain]-^  transaksi        : "id_trans:id"
+sessions          -[#595959,plain]-^  users            : "user_email:email"
+transaksi         -[#595959,plain]-^  jenis_transaksi  : "tipe_id:id"
+@enduml

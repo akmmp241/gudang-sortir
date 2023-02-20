@@ -1,0 +1,27 @@
+{
+    "name": "404/gudang-sortir",
+    "description": "Aplikasi gudang sortir berbasis web. Dibuat oleh kelompok 404 untuk tugas pjbl",
+    "type": "project",
+    "authors": [
+        {
+            "name": "akmmp241",
+            "email": "akm.mp24@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Akmalmp\\GudangSortir\\": "app"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Akmalmp\\GudangSortir\\": "tests"
+        }
+    },
+    "require": {
+        "php": "8.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "10.*"
+    }
+}
