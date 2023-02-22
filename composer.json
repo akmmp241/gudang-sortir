@@ -10,18 +10,19 @@
     ],
     "autoload": {
         "psr-4": {
-            "Akmalmp\\GudangSortir\\": "app"
+            "Akmalmp\\GudangSortir\\": "app/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Akmalmp\\GudangSortir\\": "tests"
+            "Akmalmp\\GudangSortir\\": "tests/"
         }
     },
     "require": {
-        "php": "8.2"
+        "php": ">=8.2",
+        "ext-pdo": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "10.*"
+        "phpunit/phpunit": "9.5.*"
     }
 }
