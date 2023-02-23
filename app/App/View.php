@@ -4,7 +4,7 @@ namespace Akmalmp\GudangSortir\App;
 
 class View
 {
-    public static function render(string $url, $model)
+    public static function render(string $url, $model): void
     {
         require __DIR__ . '/../View/header.php';
         require __DIR__ . '/../View/' . $url . '.php';

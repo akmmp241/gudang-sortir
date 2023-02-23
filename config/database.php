@@ -7,12 +7,12 @@ function getDatabaseConfig(): array
             "test" => [
                 "url" => "mysql:host=localhost:3306;dbname=gudang_sortir_test",
                 "user" => "akmmp",
-                "pass" => "root"
+                "password" => "root"
             ],
             "production" =>[
                 "url" => "mysql:host=localhost:3306;dbname=gudang_sortir",
                 "user" => "akmmp",
-                "pass" => "root"
+                "password" => "root"
             ]
         ]
     ];

@@ -29,9 +29,6 @@ CREATE TABLE kategori
     PRIMARY KEY (id_kategori)
 ) ENGINE InnoDB;
 
-ALTER TABLE kategori RENAME
-    COLUMN nama_kategori TO nama;
-
 CREATE TABLE barang
 (
     id_barang   VARCHAR(100) NOT NULL PRIMARY KEY,
@@ -43,6 +40,9 @@ CREATE TABLE barang
         REFERENCES kategori (id_kategori),
     UNIQUE KEY barang_unique (id_barang)
 ) ENGINE InnoDB;
+
+ALTER TABLE barang RENAME COLUMN kategori_id TO id_kategori;
+ALTER TABLE barang RENAME COLUMN nama TO nama_barang;
 
 CREATE TABLE jenis_transaksi
 (
@@ -72,3 +72,6 @@ CREATE TABLE detail_transaksi
     CONSTRAINT fk_detail_transaksi_barang FOREIGN KEY (barang_id)
         REFERENCES barang (id_barang)
 ) ENGINE InnoDB;
+
+ALTER TABLE detail_transaksi RENAME COLUMN barang_id TO id_barang;
+ALTER TABLE detail_transaksi RENAME COLUMN transaksi_id TO id_transaksi;

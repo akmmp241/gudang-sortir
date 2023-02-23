@@ -21,7 +21,7 @@ class Router
             'path' => $path,
             'controller' => $controller,
             'function' => $function,
-            'middleware' => $middleware
+            'middleware' => $middleware = []
         ];
     }
 
@@ -51,9 +51,10 @@ class Router
 
                 return;
             }
-
-            http_response_code(404);
-            call_user_func([NotFoundController::class, 'notFound']);
         }
+
+        http_response_code(404);
+        call_user_func([NotFoundController::class, 'notFound']);
+
     }
 }
