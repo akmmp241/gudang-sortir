@@ -7,4 +7,5 @@
         <label for="password"></label><input type="password" name="password" id="password" autocomplete="off" placeholder="masukan password" value="<?= $_POST['password'] ?? '' ?>">
         <input type="submit" name="submit" id="submit">
     </form>
+    <p>Belum punya akun? <a href="/users/register">Register</a></p>
 </div>

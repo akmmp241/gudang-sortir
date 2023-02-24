@@ -13,4 +13,5 @@
         <br>
         <input type="submit" name="submit">
     </form>
+    <p>Sudah punya akun? <a href="/users/register">Login</a></p>
 </div>
