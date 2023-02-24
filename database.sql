@@ -2,7 +2,7 @@ CREATE DATABASE gudang_sortir;
 CREATE DATABASE gudang_sortir_test;
 
 USE gudang_sortir;
-
+USE gudang_sortir_test;
 
 CREATE TABLE users
 (
@@ -23,7 +23,7 @@ CREATE TABLE sessions
 
 CREATE TABLE kategori
 (
-    id_kategori   VARCHAR(100) NOT NULL,
+    id_kategori   INT          NOT NULL AUTO_INCREMENT,
     nama_kategori VARCHAR(100) NOT NULL,
     deskripsi     TEXT         NULL,
     PRIMARY KEY (id_kategori)
@@ -31,18 +31,15 @@ CREATE TABLE kategori
 
 CREATE TABLE barang
 (
-    id_barang   VARCHAR(100) NOT NULL PRIMARY KEY,
-    nama        VARCHAR(100) NOT NULL,
+    id_barang   INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nama_barang VARCHAR(100) NOT NULL,
     kuantitas   INT          NOT NULL DEFAULT 0,
     deskripsi   TEXT         NULL,
-    kategori_id VARCHAR(100) NOT NULL,
-    CONSTRAINT fk_barang_kategori FOREIGN KEY (kategori_id)
+    id_kategori INT          NOT NULL,
+    CONSTRAINT fk_barang_kategori FOREIGN KEY (id_kategori)
         REFERENCES kategori (id_kategori),
     UNIQUE KEY barang_unique (id_barang)
 ) ENGINE InnoDB;
-
-ALTER TABLE barang RENAME COLUMN kategori_id TO id_kategori;
-ALTER TABLE barang RENAME COLUMN nama TO nama_barang;
 
 CREATE TABLE jenis_transaksi
 (
@@ -63,15 +60,24 @@ CREATE TABLE transaksi
 
 CREATE TABLE detail_transaksi
 (
-    transaksi_id INT          NOT NULL PRIMARY KEY,
-    barang_id    VARCHAR(100) NOT NULL,
-    kuantitas    INT          NOT NULL DEFAULT 0,
-    deskripsi    TEXT         NULL,
-    CONSTRAINT fk_detail_transaksi_transaksi FOREIGN KEY (transaksi_id)
+    id_transaksi INT  NOT NULL PRIMARY KEY,
+    id_barang    INT  NOT NULL,
+    kuantitas    INT  NOT NULL DEFAULT 0,
+    deskripsi    TEXT NULL,
+    CONSTRAINT fk_detail_transaksi_transaksi FOREIGN KEY (id_transaksi)
         REFERENCES transaksi (id),
-    CONSTRAINT fk_detail_transaksi_barang FOREIGN KEY (barang_id)
+    CONSTRAINT fk_detail_transaksi_barang FOREIGN KEY (id_barang)
         REFERENCES barang (id_barang)
 ) ENGINE InnoDB;
 
-ALTER TABLE detail_transaksi RENAME COLUMN barang_id TO id_barang;
-ALTER TABLE detail_transaksi RENAME COLUMN transaksi_id TO id_transaksi;
+INSERT INTO jenis_transaksi
+    (kode_transaksi, nama_trans, deskripsi)
+VALUES ('BM',
+        'Barang Masuk',
+        '');
+
+INSERT INTO jenis_transaksi
+(kode_transaksi, nama_trans, deskripsi)
+VALUES ('BK',
+        'Barang Keluar',
+        '');
