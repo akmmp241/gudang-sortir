@@ -36,10 +36,10 @@ class UserController
     public function postRegister(): void
     {
         $request = new UserRegisterRequest();
-        $request->setEmail($_POST['email']);
-        $request->setNama($_POST['nama']);
-        $request->setPassword($_POST['password']);
-        $request->setKonfirmasiPassword($_POST['konfirmasi-password']);
+        $request->setEmail(htmlspecialchars($_POST['email']));
+        $request->setNama(htmlspecialchars($_POST['nama']));
+        $request->setPassword(htmlspecialchars($_POST['password']));
+        $request->setKonfirmasiPassword(htmlspecialchars($_POST['konfirmasi-password']));
 
         try {
             $this->userService->register($request);
@@ -59,8 +59,8 @@ class UserController
     public function postLogin(): void
     {
         $request = new UserLoginRequest();
-        $request->setEmail($_POST['email']);
-        $request->setPassword($_POST['password']);
+        $request->setEmail(htmlspecialchars($_POST['email']));
+        $request->setPassword(htmlspecialchars($_POST['password']));
 
         try {
             $response = $this->userService->login($request);
