@@ -55,7 +55,7 @@ class SessionService
 
     public function destroy(): void
     {
-        $sessionId =$_COOKIE[self::COOKIE_NAME()];
+        $sessionId = $_COOKIE[self::COOKIE_NAME()] ?? '';
         $this->sessionRepository->deleteById($sessionId);
 
         setcookie(self::COOKIE_NAME(), '', 1, "/");
@@ -63,7 +63,7 @@ class SessionService
 
     public function current(): ?User
     {
-        $sessionId = $_COOKIE[self::COOKIE_NAME()];
+        $sessionId = $_COOKIE[self::$COOKIE_NAME] ?? '';
         $session = $this->sessionRepository->findById($sessionId);
         if ($session == null) {
             return null;

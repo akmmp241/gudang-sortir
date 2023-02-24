@@ -7,21 +7,24 @@ use Akmalmp\GudangSortir\App\Router;
 use Akmalmp\GudangSortir\Controller\DashboardController;
 use Akmalmp\GudangSortir\Controller\HomeController;
 use Akmalmp\GudangSortir\Controller\UserController;
+use Akmalmp\GudangSortir\Middleware\LogoutMiddleware;
+use Akmalmp\GudangSortir\Middleware\MustLoginMiddleware;
+use Akmalmp\GudangSortir\Middleware\MustNotLoginMiddleware;
 
 // Home Controller
-Router::add('GET', '/', HomeController::class, 'index', []);
+Router::add('GET', '/', HomeController::class, 'index', [MustNotLoginMiddleware::class]);
 
 // Dashboard Controller
-Router::add('GET', '/dashboard', DashboardController::class, 'dashboard', []);
+Router::add('GET', '/dashboard', DashboardController::class, 'dashboard', [MustLoginMiddleware::class]);
 
 // User Controller
 //      Login page
-Router::add('GET', '/users/login', UserController::class, 'login', []);
-Router::add('POST', '/users/login', UserController::class, 'postLogin', []);
+Router::add('GET', '/users/login', UserController::class, 'login', [MustNotLoginMiddleware::class]);
+Router::add('POST', '/users/login', UserController::class, 'postLogin', [MustNotLoginMiddleware::class]);
 //      Register page
-Router::add('GET', '/users/register', UserController::class, 'register', []);
-Router::add('POST', '/users/register', UserController::class, 'postRegister', []);
+Router::add('GET', '/users/register', UserController::class, 'register', [MustNotLoginMiddleware::class]);
+Router::add('POST', '/users/register', UserController::class, 'postRegister', [MustNotLoginMiddleware::class]);
 //      Logout
-Router::add('GET', '/users/logout', UserController::class, 'logout', []);
+Router::add('GET', '/users/logout', UserController::class, 'logout', [LogoutMiddleware::class]);
 
 Router::run();

@@ -8,7 +8,7 @@ use Akmalmp\GudangSortir\Repository\SessionRepository;
 use Akmalmp\GudangSortir\Repository\UserRepository;
 use Akmalmp\GudangSortir\Service\SessionService;
 
-class MustLoginMiddleware implements Middleware
+class LogoutMiddleware implements Middleware
 {
     private SessionService $sessionService;
 
@@ -24,7 +24,7 @@ class MustLoginMiddleware implements Middleware
     {
         $user = $this->sessionService->current();
         if ($user == null) {
-            View::redirect('/users/login');
+            View::redirect('/');
         }
     }
 }

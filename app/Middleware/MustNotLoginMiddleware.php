@@ -8,23 +8,24 @@ use Akmalmp\GudangSortir\Repository\SessionRepository;
 use Akmalmp\GudangSortir\Repository\UserRepository;
 use Akmalmp\GudangSortir\Service\SessionService;
 
-class MustLoginMiddleware implements Middleware
+class MustNotLoginMiddleware implements Middleware
 {
     private SessionService $sessionService;
 
     public function __construct()
     {
-        $sessionRepository = new SessionRepository(Database::getConnection());
         $userRepository = new UserRepository(Database::getConnection());
+        $sessionRepository = new SessionRepository(Database::getConnection());
         $this->sessionService = new SessionService($sessionRepository, $userRepository);
     }
 
 
-    function before(): void
+    public function before(): void
     {
         $user = $this->sessionService->current();
-        if ($user == null) {
-            View::redirect('/users/login');
+        if ($user != null) {
+            View::redirect('/dashboard');
         }
     }
+
 }

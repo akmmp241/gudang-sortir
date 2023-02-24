@@ -21,7 +21,7 @@ class Router
             'path' => $path,
             'controller' => $controller,
             'function' => $function,
-            'middleware' => $middleware = []
+            'middleware' => $middleware
         ];
     }
 
@@ -42,7 +42,7 @@ class Router
 
 //                Call Middleware
                 foreach ($route['middleware'] as $middleware) {
-                    $instance = new $middleware();
+                    $instance = new $middleware;
                     $instance->before();
                 }
 
