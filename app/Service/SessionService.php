@@ -48,7 +48,7 @@ class SessionService
             throw $exception;
         }
 
-        setcookie(self::COOKIE_NAME(), $session->getId(), time() * (60 * 60 * 24), "/");
+        setcookie(self::COOKIE_NAME(), $session->getId(), time() + (60 * 60 * 24), "/");
 
         return $session;
     }

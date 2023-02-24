@@ -2,7 +2,6 @@
 
 namespace Akmalmp\GudangSortir\Repository;
 
-use Akmalmp\GudangSortir\Config\Database;
 use Akmalmp\GudangSortir\Domain\User;
 use PDO;
 
