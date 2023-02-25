@@ -32,4 +32,9 @@ class DashboardController
             ]
         ]);
     }
+
+    public function kategori(): void
+    {
+        View::render('Dashboard/tambah-kategori', []);
+    }
 }
