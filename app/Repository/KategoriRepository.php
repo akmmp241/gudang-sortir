@@ -29,10 +29,18 @@ class KategoriRepository
         return $kategori;
     }
 
-    public function findAll(): array
+    public function findAll(): ?array
     {
         $statement = $this->connection->query("SELECT id_kategori, nama_kategori, deskripsi FROM kategori");
-        return $statement->fetchAll();
+        try {
+            if ($data = $statement->fetchAll()) {
+                return $data;
+            } else {
+                return null;
+            }
+        } finally {
+            $statement->closeCursor();
+        }
     }
 
     public function findById(string $id_kategori): ?Kategori
@@ -77,9 +85,9 @@ class KategoriRepository
 
     public function deleteById(string $id): void
     {
-
         $statement = $this->connection->prepare("DELETE FROM kategori WHERE id_kategori = ?");
         $statement->execute([$id]);
+        $statement->closeCursor();
     }
 
     public function deleteAll(): void

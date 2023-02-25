@@ -23,7 +23,7 @@ CREATE TABLE sessions
 
 CREATE TABLE kategori
 (
-    id_kategori   INT          NOT NULL AUTO_INCREMENT,
+    id_kategori   VARCHAR(200) NOT NULL,
     nama_kategori VARCHAR(100) NOT NULL,
     deskripsi     TEXT         NULL,
     PRIMARY KEY (id_kategori)
@@ -31,11 +31,11 @@ CREATE TABLE kategori
 
 CREATE TABLE barang
 (
-    id_barang   INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_barang   VARCHAR(200)          NOT NULL PRIMARY KEY,
     nama_barang VARCHAR(100) NOT NULL,
     kuantitas   INT          NOT NULL DEFAULT 0,
     deskripsi   TEXT         NULL,
-    id_kategori INT          NOT NULL,
+    id_kategori VARCHAR(200) NOT NULL,
     CONSTRAINT fk_barang_kategori FOREIGN KEY (id_kategori)
         REFERENCES kategori (id_kategori),
     UNIQUE KEY barang_unique (id_barang)
@@ -61,7 +61,7 @@ CREATE TABLE transaksi
 CREATE TABLE detail_transaksi
 (
     id_transaksi INT  NOT NULL PRIMARY KEY,
-    id_barang    INT  NOT NULL,
+    id_barang    VARCHAR(200)  NOT NULL,
     kuantitas    INT  NOT NULL DEFAULT 0,
     deskripsi    TEXT NULL,
     CONSTRAINT fk_detail_transaksi_transaksi FOREIGN KEY (id_transaksi)

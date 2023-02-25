@@ -15,7 +15,11 @@ use Akmalmp\GudangSortir\Middleware\MustNotLoginMiddleware;
 Router::add('GET', '/', HomeController::class, 'index', [MustNotLoginMiddleware::class]);
 
 // Dashboard Controller
+//      Dashboard
 Router::add('GET', '/dashboard', DashboardController::class, 'dashboard', [MustLoginMiddleware::class]);
+//      Kategori
+Router::add('GET', '/dashboard/kategori', DashboardController::class, 'kategori', [MustLoginMiddleware::class]);
+Router::add('POST', '/dashboard/kategori', DashboardController::class, 'postKategori', [MustLoginMiddleware::class]);
 
 // User Controller
 //      Login page
