@@ -4,22 +4,22 @@ namespace Akmalmp\GudangSortir\Domain;
 
 class Kategori
 {
-    private ?int $id_kategori = null;
+    private string $id_kategori;
     private string $nama_kategori;
     private string $deskripsi = '';
 
     /**
-     * @return int|null
+     * @return string
      */
-    public function getIdKategori(): int
+    public function getIdKategori(): string
     {
         return $this->id_kategori;
     }
 
     /**
-     * @param int|null $id_kategori
+     * @param string $id_kategori
      */
-    public function setIdKategori(?int $id_kategori): void
+    public function setIdKategori(string $id_kategori): void
     {
         $this->id_kategori = $id_kategori;
     }

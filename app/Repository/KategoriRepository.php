@@ -22,7 +22,7 @@ class KategoriRepository
         $statement = $this->connection->prepare("INSERT INTO kategori 
                                             (id_kategori, nama_kategori, deskripsi) VALUES (?, ?, ?)");
         $statement->execute([
-            null,
+            $kategori->getIdKategori(),
             $kategori->getNamaKategori(),
             $kategori->getDeskripsi()
         ]);
@@ -35,7 +35,7 @@ class KategoriRepository
         return $statement->fetchAll();
     }
 
-    public function findById(int $id_kategori): ?Kategori
+    public function findById(string $id_kategori): ?Kategori
     {
         $statement = $this->connection->prepare("SELECT id_kategori, nama_kategori, deskripsi FROM kategori 
                                             WHERE id_kategori = ?");
@@ -75,8 +75,9 @@ class KategoriRepository
         }
     }
 
-    public function deleteById(int $id): void
+    public function deleteById(string $id): void
     {
+
         $statement = $this->connection->prepare("DELETE FROM kategori WHERE id_kategori = ?");
         $statement->execute([$id]);
     }

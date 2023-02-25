@@ -19,25 +19,31 @@ class KategoriRepositoryTest extends TestCase
     public function testSaveSuccess()
     {
         $kategori = new Kategori();
-        $kategori->setIdKategori(53);
+        $kategori->setIdKategori("KMR");
         $kategori->setNamaKategori("Kamera");
         $kategori->setDeskripsi('');
         $this->kategoriRepository->save($kategori);
 
+        $result1 = $this->kategoriRepository->findById("KMR");
         $result2 = $this->kategoriRepository->findByNamaKategori("Kamera");
         self::assertEquals($kategori->getIdKategori(), $result2->getIdKategori());
         self::assertEquals($kategori->getNamaKategori(), $result2->getNamaKategori());
         self::assertEquals($kategori->getDeskripsi(), $result2->getDeskripsi());
+        self::assertEquals($kategori->getIdKategori(), $result1->getIdKategori());
+        self::assertEquals($kategori->getNamaKategori(), $result1->getNamaKategori());
+        self::assertEquals($kategori->getDeskripsi(), $result1->getDeskripsi());
     }
 
     public function testFindAll()
     {
         $kategori1 = new Kategori();
+        $kategori1->setIdKategori("KMR");
         $kategori1->setNamaKategori("Kamera");
         $kategori1->setDeskripsi('');
         $this->kategoriRepository->save($kategori1);
 
         $kategori2 = new Kategori();
+        $kategori2->setIdKategori("LNS");
         $kategori2->setNamaKategori("Lensa");
         $kategori2->setDeskripsi('');
         $this->kategoriRepository->save($kategori2);
@@ -46,19 +52,17 @@ class KategoriRepositoryTest extends TestCase
         self::assertNotNull($result);
     }
 
-
     public function testDeleteByIdSuccess()
     {
         $kategori = new Kategori();
-        $kategori->setIdKategori(56);
+        $kategori->setIdKategori("KMR");
         $kategori->setNamaKategori("Kamera");
         $kategori->setDeskripsi('');
         $this->kategoriRepository->save($kategori);
 
-        $this->kategoriRepository->deleteById(56);
+        $this->kategoriRepository->deleteById("KMR");
+        $result1 = $this->kategoriRepository->findById("KMR");
         $result2 = $this->kategoriRepository->findByNamaKategori("Kamera");
         self::assertNull($result2);
     }
-
-
 }
