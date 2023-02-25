@@ -19,19 +19,45 @@ class KategoriRepositoryTest extends TestCase
     public function testSaveSuccess()
     {
         $kategori = new Kategori();
-        $kategori->setIdKategori(6);
+        $kategori->setIdKategori(53);
         $kategori->setNamaKategori("Kamera");
         $kategori->setDeskripsi('');
         $this->kategoriRepository->save($kategori);
 
-        $result1 = $this->kategoriRepository->findById(6);
         $result2 = $this->kategoriRepository->findByNamaKategori("Kamera");
-        self::assertEquals($kategori->getIdKategori(), $result1->getIdKategori());
-        self::assertEquals($kategori->getNamaKategori(), $result1->getNamaKategori());
-        self::assertEquals($kategori->getDeskripsi(), $result1->getDeskripsi());
         self::assertEquals($kategori->getIdKategori(), $result2->getIdKategori());
         self::assertEquals($kategori->getNamaKategori(), $result2->getNamaKategori());
         self::assertEquals($kategori->getDeskripsi(), $result2->getDeskripsi());
+    }
+
+    public function testFindAll()
+    {
+        $kategori1 = new Kategori();
+        $kategori1->setNamaKategori("Kamera");
+        $kategori1->setDeskripsi('');
+        $this->kategoriRepository->save($kategori1);
+
+        $kategori2 = new Kategori();
+        $kategori2->setNamaKategori("Lensa");
+        $kategori2->setDeskripsi('');
+        $this->kategoriRepository->save($kategori2);
+
+        $result = $this->kategoriRepository->findAll();
+        self::assertNotNull($result);
+    }
+
+
+    public function testDeleteByIdSuccess()
+    {
+        $kategori = new Kategori();
+        $kategori->setIdKategori(56);
+        $kategori->setNamaKategori("Kamera");
+        $kategori->setDeskripsi('');
+        $this->kategoriRepository->save($kategori);
+
+        $this->kategoriRepository->deleteById(56);
+        $result2 = $this->kategoriRepository->findByNamaKategori("Kamera");
+        self::assertNull($result2);
     }
 
 

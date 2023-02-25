@@ -29,6 +29,12 @@ class KategoriRepository
         return $kategori;
     }
 
+    public function findAll(): array
+    {
+        $statement = $this->connection->query("SELECT id_kategori, nama_kategori, deskripsi FROM kategori");
+        return $statement->fetchAll();
+    }
+
     public function findById(int $id_kategori): ?Kategori
     {
         $statement = $this->connection->prepare("SELECT id_kategori, nama_kategori, deskripsi FROM kategori 
