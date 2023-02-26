@@ -24,10 +24,10 @@ class KategoriController
     {
         $data = $this->kategoriService->getAllDataKategori();
         if ($data == null) {
-            View::render('Dashboard/tambah-kategori', []);
+            View::render('Dashboard/kategori', []);
             exit();
         }
-        View::render('Dashboard/tambah-kategori', [
+        View::render('Dashboard/kategori', [
             'kategori' => $data
         ]);
     }
@@ -47,12 +47,13 @@ class KategoriController
             View::redirect('/dashboard/kategori');
         } catch (Exception $exception) {
             $data = $this->kategoriService->getAllDataKategori();
-            View::render('Dashboard/tambah-kategori', [
+            View::render('Dashboard/kategori', [
                 'kategori' => $data,
                 'error' => $exception->getMessage()
             ]);
         }
     }
+
 
     public function hapusKategori(string $id)
     {

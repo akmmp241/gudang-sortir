@@ -9,6 +9,7 @@ use Akmalmp\GudangSortir\Model\TambahKategoriRequest;
 use Akmalmp\GudangSortir\Model\TambahKategoriResponse;
 use Akmalmp\GudangSortir\Repository\KategoriRepository;
 use Exception;
+use function PHPUnit\Framework\isEmpty;
 
 class KategoriService
 {
@@ -78,7 +79,7 @@ class KategoriService
             throw new ValidationExcepetion("Nama kategori tidak boleh mengandung karakter spesial");
         }
 
-        if (!preg_match("/^[A-z\s]+$/", $request->getDeskripsi())) {
+        if (preg_match('/[`#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $request->getDeskripsi())) {
             throw new ValidationExcepetion("Deskripsi tidak boleh mengandung karakter spesial");
         }
     }

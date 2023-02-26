@@ -117,7 +117,7 @@ class UserService
             throw new ValidationExcepetion("Kolom tidak boleh kosong");
         }
 
-        if (!preg_match("#^[a-zA-Z0-9.-]+@[a-zA-Z.]+$#", $request->getEmail())) {
+        if (!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $request->getEmail())) {
             throw new ValidationExcepetion("Email tidak valid");
         }
 

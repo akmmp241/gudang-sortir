@@ -21,8 +21,9 @@ class RegexTest extends TestCase
 
     public function testFilterEmail()
     {
-        $pattern = "#^[a-zA-Z0-9.-]+@[a-zA-Z.]+$#";
-        $email1 = "akmal@gmail.com";
+//        $pattern = "#^[a-zA-Z0-9.-]+@[a-zA-Z.]+$#";
+        $pattern = "/^[_a-z0-9-]{6,30}+(\.[_a-z0-9-]{6,30}+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/";
+        $email1 = "asde@gmail.com";
         $email2 = "<akmal>@gmail.com";
         $email3 = "\"akm\"@gmail.com";
         $email4 = "akmal-no@gmail.com";
