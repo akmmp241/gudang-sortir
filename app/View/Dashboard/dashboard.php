@@ -27,4 +27,6 @@
 <br>
 <a href="/dashboard/kategori">tambah kategori</a>
 <br>
+<a href="/dashboard/barang">tambah barang</a>
+<br>
 <a href="/users/logout">logout</a>

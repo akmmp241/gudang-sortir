@@ -71,11 +71,11 @@ class KategoriService
             throw new ValidationExcepetion("Id dan Nama kategori tidak boleh kosong");
         }
 
-        if (!preg_match("/^[A-Z\s]+$/", $request->getIdKategori())) {
+        if (preg_match('/[a-z0-9`#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $request->getIdKategori())) {
             throw new ValidationExcepetion("Id harus kapital dan tidak boleh mengandung karakter spesial");
         }
 
-        if (!preg_match("/^[A-z\s]+$/", $request->getNamaKategori())) {
+        if (preg_match('/[`#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $request->getNamaKategori())) {
             throw new ValidationExcepetion("Nama kategori tidak boleh mengandung karakter spesial");
         }
 
