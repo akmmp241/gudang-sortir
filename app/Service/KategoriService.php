@@ -7,13 +7,14 @@ use Akmalmp\GudangSortir\Domain\Kategori;
 use Akmalmp\GudangSortir\Exception\ValidationExcepetion;
 use Akmalmp\GudangSortir\Model\TambahKategoriRequest;
 use Akmalmp\GudangSortir\Model\TambahKategoriResponse;
+use Akmalmp\GudangSortir\Repository\BarangRepository;
 use Akmalmp\GudangSortir\Repository\KategoriRepository;
 use Exception;
-use function PHPUnit\Framework\isEmpty;
 
 class KategoriService
 {
     private KategoriRepository $kategoriRepository;
+    private BarangRepository $barangRepository;
 
     /**
      * @param KategoriRepository $kategoriRepository
@@ -21,6 +22,7 @@ class KategoriService
     public function __construct(KategoriRepository $kategoriRepository)
     {
         $this->kategoriRepository = $kategoriRepository;
+        $this->barangRepository = new BarangRepository(Database::getConnection());
     }
 
     /**
@@ -100,11 +102,22 @@ class KategoriService
     {
         try {
             Database::beginTransaction();
+            $this->validateDeleteKategori($id);
             $this->kategoriRepository->deleteById($id);
             Database::commitTransaction();
         } catch (Exception $exception) {
             Database::commitTransaction();
             throw $exception;
+        }
+    }
+
+    /**
+     * @throws ValidationExcepetion
+     */
+    private function validateDeleteKategori(string $id): void
+    {
+        if ($this->barangRepository->findById($id) != null) {
+            throw new ValidationExcepetion("Kategori tidak dapat dihapus");
         }
     }
 }

@@ -51,6 +51,7 @@ class BarangController
         } catch (Exception $exception) {
             $data = $this->kategoriService->getAllDataKategori();
             $id_barang = $this->barangService->idGenerate();
+            $id_barang = substr($id_barang, strlen($id_barang)-5);
             $barang = $this->barangService->getAllDataBarang();
             View::render('Dashboard/barang', [
                 'kategori' => $data,
@@ -69,6 +70,7 @@ class BarangController
         } catch (Exception $exception) {
             $data = $this->kategoriService->getAllDataKategori();
             $id_barang = $this->barangService->idGenerate();
+            $id_barang = substr($id_barang, strlen($id_barang)-5);
             $barang = $this->barangService->getAllDataBarang();
             View::render('Dashboard/barang', [
                 'kategori' => $data,

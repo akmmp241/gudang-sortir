@@ -36,7 +36,7 @@
                     <td><?= $item['id_kategori'] ?></td>
                     <td><?= $item['nama_kategori'] ?></td>
                     <td><?= $item['deskripsi']?></td>
-                    <td><a href="/dashboard/kategori/hapus/<?= $item['id_kategori'] ?>" onclick="return confirm('apakah anda yakin?');">hapus</a></td>
+                    <td><a href="/dashboard/kategori/hapus/<?= $item['id_kategori'] ?>" onclick="return confirm('apakah anda yakin?')">hapus</a></td>
                 </tr>
             <?php } ?>
         <?php } ?>

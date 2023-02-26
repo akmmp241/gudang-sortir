@@ -66,8 +66,7 @@ class BarangService
      */
     private function validateTambahBarangRequaest(TambahBarangRequest $request): void
     {
-        if ($request->getNamaBarang() == null || $request->getDeskripsi() == null ||
-            trim($request->getNamaBarang()) == "") {
+        if ($request->getNamaBarang() == null || trim($request->getNamaBarang()) == "") {
             throw new ValidationExcepetion("Isi semua data");
         }
 

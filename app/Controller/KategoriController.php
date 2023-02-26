@@ -55,13 +55,15 @@ class KategoriController
     }
 
 
-    public function hapusKategori(string $id)
+    public function hapusKategori(string $id): void
     {
         try {
             $this->kategoriService->deleteKategori($id);
             View::redirect('/dashboard/kategori');
         } catch (Exception $exception) {
-            View::render('/dashboard/kategori', [
+            $data = $this->kategoriService->getAllDataKategori();
+            View::render('Dashboard/kategori', [
+                'kategori' => $data,
                 'error' => $exception->getMessage()
             ]);
         }
