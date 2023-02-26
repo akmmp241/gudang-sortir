@@ -4,6 +4,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../config/cssConfig.php';
 
 use Akmalmp\GudangSortir\App\Router;
+use Akmalmp\GudangSortir\Controller\BarangController;
 use Akmalmp\GudangSortir\Controller\DashboardController;
 use Akmalmp\GudangSortir\Controller\HomeController;
 use Akmalmp\GudangSortir\Controller\KategoriController;
@@ -21,7 +22,11 @@ Router::add('GET', '/dashboard', DashboardController::class, 'dashboard', [MustL
 //      Kategori
 Router::add('GET', '/dashboard/kategori', KategoriController::class, 'kategori', [MustLoginMiddleware::class]);
 Router::add('POST', '/dashboard/kategori', KategoriController::class, 'postKategori', [MustLoginMiddleware::class]);
-Router::add('GET', '/dashboard/kategori/hapus/([0-9A-Za-z]*)', KategoriController::class, 'hapusKategori', []);
+Router::add('GET', '/dashboard/kategori/hapus/([0-9A-Za-z]*)', KategoriController::class, 'hapusKategori', [MustLoginMiddleware::class]);
+//      Barang
+Router::add('GET', '/dashboard/barang', BarangController::class, 'barang', [MustLoginMiddleware::class]);
+Router::add('POST', '/dashboard/barang', BarangController::class, 'postBarang', [MustLoginMiddleware::class]);
+Router::add('GET', '/dashboard/barang/hapus/([0-9A-Za-z-]*)', BarangController::class, 'hapusBarang', [MustLoginMiddleware::class]);
 
 // User Controller
 //      Login page
