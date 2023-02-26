@@ -4,24 +4,24 @@ namespace Akmalmp\GudangSortir\Domain;
 
 class Barang
 {
-    private ?int $id_barang;
+    private string $id_barang;
     private string $nama_barang;
     private int $kuantitas = 0;
     private ?string $deskripsi = '';
-    private int $id_kategori;
+    private string $id_kategori;
 
     /**
-     * @return int|null
+     * @return string
      */
-    public function getIdBarang(): ?int
+    public function getIdBarang(): string
     {
         return $this->id_barang;
     }
 
     /**
-     * @param int|null $id_barang
+     * @param string $id_barang
      */
-    public function setIdBarang(?int $id_barang): void
+    public function setIdBarang(string $id_barang): void
     {
         $this->id_barang = $id_barang;
     }
@@ -75,20 +75,18 @@ class Barang
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getIdKategori(): int
+    public function getIdKategori(): string
     {
         return $this->id_kategori;
     }
 
     /**
-     * @param int $id_kategori
+     * @param string $id_kategori
      */
-    public function setIdKategori(int $id_kategori): void
+    public function setIdKategori(string $id_kategori): void
     {
         $this->id_kategori = $id_kategori;
     }
-
-
 }
