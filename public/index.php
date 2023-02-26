@@ -6,6 +6,7 @@ require_once __DIR__ . '/../config/cssConfig.php';
 use Akmalmp\GudangSortir\App\Router;
 use Akmalmp\GudangSortir\Controller\DashboardController;
 use Akmalmp\GudangSortir\Controller\HomeController;
+use Akmalmp\GudangSortir\Controller\KategoriController;
 use Akmalmp\GudangSortir\Controller\UserController;
 use Akmalmp\GudangSortir\Middleware\LogoutMiddleware;
 use Akmalmp\GudangSortir\Middleware\MustLoginMiddleware;
@@ -18,8 +19,9 @@ Router::add('GET', '/', HomeController::class, 'index', [MustNotLoginMiddleware:
 //      Dashboard
 Router::add('GET', '/dashboard', DashboardController::class, 'dashboard', [MustLoginMiddleware::class]);
 //      Kategori
-Router::add('GET', '/dashboard/kategori', DashboardController::class, 'kategori', [MustLoginMiddleware::class]);
-Router::add('POST', '/dashboard/kategori', DashboardController::class, 'postKategori', [MustLoginMiddleware::class]);
+Router::add('GET', '/dashboard/kategori', KategoriController::class, 'kategori', [MustLoginMiddleware::class]);
+Router::add('POST', '/dashboard/kategori', KategoriController::class, 'postKategori', [MustLoginMiddleware::class]);
+Router::add('GET', '/dashboard/kategori/hapus/([0-9A-Za-z]*)', KategoriController::class, 'hapusKategori', []);
 
 // User Controller
 //      Login page

@@ -91,4 +91,19 @@ class KategoriService
         }
         return $data;
     }
+
+    /**
+     * @throws Exception
+     */
+    public function deleteKategori(string $id): void
+    {
+        try {
+            Database::beginTransaction();
+            $this->kategoriRepository->deleteById($id);
+            Database::commitTransaction();
+        } catch (Exception $exception) {
+            Database::commitTransaction();
+            throw $exception;
+        }
+    }
 }
