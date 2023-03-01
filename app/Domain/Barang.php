@@ -4,11 +4,28 @@ namespace Akmalmp\GudangSortir\Domain;
 
 class Barang
 {
+    private string $id;
     private string $id_barang;
     private string $nama_barang;
     private int $kuantitas = 0;
     private ?string $deskripsi = '';
     private string $id_kategori;
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     */
+    public function setId(string $id): void
+    {
+        $this->id = $id;
+    }
 
     /**
      * @return string

@@ -4,7 +4,7 @@ namespace Akmalmp\GudangSortir\Model;
 
 class TambahBarangRequest
 {
-    private ?string $id_barang;
+    private ?string $id;
     private ?string $nama_barang;
     private ?string $deskripsi;
     private ?string $id_kategori;
@@ -12,17 +12,17 @@ class TambahBarangRequest
     /**
      * @return string|null
      */
-    public function getIdBarang(): ?string
+    public function getId(): ?string
     {
-        return $this->id_barang;
+        return $this->id;
     }
 
     /**
-     * @param string|null $id_barang
+     * @param string|null $id
      */
-    public function setIdBarang(?string $id_barang): void
+    public function setId(?string $id): void
     {
-        $this->id_barang = $id_barang;
+        $this->id = $id;
     }
 
     /**

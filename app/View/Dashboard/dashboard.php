@@ -2,9 +2,9 @@
 <h1>halo <?= $model['user']['name'] ?? '' ?></h1>
 <table border="1" cellspacing="0" cellpadding="10">
     <tr>
-        <td colspan="3">DAFTAR KATEGORI</td>
+        <td colspan="3" align="center">DAFTAR KATEGORI</td>
     </tr>
-    <?php if (!isset($model['kategori']))  { ?>
+    <?php if ($model['kategori'] == null) { ?>
         <tr>
             <td>data belum ada</td>
         </tr>
@@ -24,6 +24,37 @@
         <?php } ?>
     <?php } ?>
 </table>
+
+<br><br><br>
+<table border="1" cellspacing="0" cellpadding="10">
+    <tr>
+        <td colspan="5" align="center">DAFTAR BARANG</td>
+    </tr>
+    <?php if ($model['barang'] == null)  { ?>
+        <tr>
+            <td>data belum ada</td>
+        </tr>
+    <?php } else { ?>
+        <tr>
+            <td>ID Barang</td>
+            <td>Nama Barang</td>
+            <td>Kuantitas</td>
+            <td>Deskripsi</td>
+            <td>ID Kategori</td>
+        </tr>
+        <?php foreach ($model['barang'] as $item) { ?>
+
+            <tr>
+                <td><?= $item['id_barang'] ?></td>
+                <td><?= $item['nama_barang'] ?></td>
+                <td><?= $item['kuantitas'] ?></td>
+                <td><?= $item['deskripsi']?></td>
+                <td><?= $item['id_kategori']?></td>
+            </tr>
+        <?php } ?>
+    <?php } ?>
+</table>
+
 <br>
 <a href="/dashboard/kategori">tambah kategori</a>
 <br>

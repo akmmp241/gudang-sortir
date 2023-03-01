@@ -30,7 +30,7 @@ class BarangService
         $this->validateTambahBarangRequaest($request);
         try {
             Database::beginTransaction();
-            $barang = $this->barangRepository->findById($request->getIdBarang());
+            $barang = $this->barangRepository->findById($request->getId());
             if ($barang != null) {
                 throw new ValidationExcepetion("Barang sudah ada");
             }
@@ -40,13 +40,15 @@ class BarangService
                 throw new ValidationExcepetion("Barang sudah ada");
             }
 
-            $kategori = $request->getIdKategori() ;
+            $kategori = $request->getIdKategori();
 
             $barang = new Barang();
-            $barang->setIdBarang($kategori . "-" . $request->getIdBarang());
+            $barang->setId($request->getId());
             $barang->setNamaBarang($request->getNamaBarang());
             $barang->setDeskripsi($request->getDeskripsi());
+            $barang->setDeskripsi($request->getDeskripsi());
             $barang->setIdKategori($request->getIdKategori());
+            $barang->setIdBarang($barang->getIdKategori() . "-" . $barang->getId());
             $this->barangRepository->save($barang);
 
             Database::commitTransaction();
@@ -81,7 +83,7 @@ class BarangService
 
     public function getAllDataBarang(): ?array
     {
-        $data = $this->barangRepository->findAll();
+        $data = $this->barangRepository->findAllAsc();
         if ($data == null) {
             return null;
         }

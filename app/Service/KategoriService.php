@@ -116,7 +116,7 @@ class KategoriService
      */
     private function validateDeleteKategori(string $id): void
     {
-        if ($this->barangRepository->findById($id) != null) {
+        if ($this->barangRepository->findByIdKategori($id) != null) {
             throw new ValidationExcepetion("Kategori tidak dapat dihapus");
         }
     }

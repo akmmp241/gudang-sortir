@@ -41,6 +41,8 @@ CREATE TABLE barang
     UNIQUE KEY barang_unique (id_barang)
 ) ENGINE InnoDB;
 
+ALTER TABLE barang ADD COLUMN id VARCHAR(200) NOT NULL;
+
 CREATE TABLE jenis_transaksi
 (
     kode_transaksi VARCHAR(10)  NOT NULL PRIMARY KEY,

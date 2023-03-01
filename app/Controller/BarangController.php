@@ -29,7 +29,6 @@ class BarangController
     {
         $data = $this->kategoriService->getAllDataKategori();
         $id_barang = $this->barangService->idGenerate();
-        $id_barang = substr($id_barang, strlen($id_barang)-5);
         $barang = $this->barangService->getAllDataBarang();
         View::render('Dashboard/barang', [
             'kategori' => $data,
@@ -41,7 +40,7 @@ class BarangController
     public function postBarang(): void
     {
         $request = new TambahBarangRequest();
-        $request->setIdBarang(htmlspecialchars(trim($_POST['id-barang'] ?? '')));
+        $request->setId(htmlspecialchars(trim($_POST['id-barang'] ?? '')));
         $request->setNamaBarang(htmlspecialchars(trim($_POST['nama-barang'] ?? '')));
         $request->setIdKategori($_POST['id-kategori']);
         $request->setDeskripsi(htmlspecialchars(trim($_POST['deskripsi'] ?? '')));
@@ -51,13 +50,12 @@ class BarangController
         } catch (Exception $exception) {
             $data = $this->kategoriService->getAllDataKategori();
             $id_barang = $this->barangService->idGenerate();
-            $id_barang = substr($id_barang, strlen($id_barang)-5);
             $barang = $this->barangService->getAllDataBarang();
             View::render('Dashboard/barang', [
                 'kategori' => $data,
                 'id' => $id_barang,
-                'error' => $exception->getMessage(),
-                'barang' => $barang
+                'barang' => $barang,
+                'error' => $exception->getMessage()
             ]);
         }
     }
@@ -70,13 +68,12 @@ class BarangController
         } catch (Exception $exception) {
             $data = $this->kategoriService->getAllDataKategori();
             $id_barang = $this->barangService->idGenerate();
-            $id_barang = substr($id_barang, strlen($id_barang)-5);
             $barang = $this->barangService->getAllDataBarang();
             View::render('Dashboard/barang', [
                 'kategori' => $data,
                 'id' => $id_barang,
-                'error' => $exception->getMessage(),
-                'barang' => $barang
+                'barang' => $barang,
+                'error' => $exception->getMessage()
             ]);
         }
     }
