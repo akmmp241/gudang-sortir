@@ -4,7 +4,6 @@ namespace Akmalmp\GudangSortir\Controller;
 
 use Akmalmp\GudangSortir\App\View;
 use Akmalmp\GudangSortir\Config\Database;
-use Akmalmp\GudangSortir\Model\TambahKategoriRequest;
 use Akmalmp\GudangSortir\Repository\BarangRepository;
 use Akmalmp\GudangSortir\Repository\KategoriRepository;
 use Akmalmp\GudangSortir\Repository\SessionRepository;
@@ -12,7 +11,6 @@ use Akmalmp\GudangSortir\Repository\UserRepository;
 use Akmalmp\GudangSortir\Service\BarangService;
 use Akmalmp\GudangSortir\Service\KategoriService;
 use Akmalmp\GudangSortir\Service\SessionService;
-use Exception;
 
 class DashboardController
 {

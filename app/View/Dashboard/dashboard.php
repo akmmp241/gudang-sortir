@@ -26,7 +26,7 @@
 </table>
 
 <br><br><br>
-<table border="1" cellspacing="0" cellpadding="10">
+<table border="1" cellspacing="0" cellpadding="10" >
     <tr>
         <td colspan="5" align="center">DAFTAR BARANG</td>
     </tr>
@@ -59,5 +59,7 @@
 <a href="/dashboard/kategori">tambah kategori</a>
 <br>
 <a href="/dashboard/barang">tambah barang</a>
+<br>
+<a href="/users/profile">Profile</a>
 <br>
 <a href="/users/logout">logout</a>

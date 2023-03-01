@@ -35,6 +35,17 @@ Router::add('POST', '/users/login', UserController::class, 'postLogin', [MustNot
 //      Register page
 Router::add('GET', '/users/register', UserController::class, 'register', [MustNotLoginMiddleware::class]);
 Router::add('POST', '/users/register', UserController::class, 'postRegister', [MustNotLoginMiddleware::class]);
+//      Profile
+Router::add('GET', '/users/profile', UserController::class, 'profile', [MustLoginMiddleware::class]);
+//      Update Password
+Router::add('GET', '/users/profile/update-password', UserController::class, 'updatePassword', [MustLoginMiddleware::class]);
+Router::add('POST', '/users/profile/update-password', UserController::class, 'postUpdatePassword', [MustLoginMiddleware::class]);
+//      Update Email
+Router::add('GET', '/users/profile/update-email', UserController::class, 'updateEmail', [MustLoginMiddleware::class]);
+Router::add('POST', '/users/profile/update-email', UserController::class, 'postUpdateEmail', [MustLoginMiddleware::class]);
+//      Update Nama
+Router::add('GET', '/users/profile/update-nama', UserController::class, 'updateNama', [MustLoginMiddleware::class]);
+Router::add('POST', '/users/profile/update-nama', UserController::class, 'postUpdateNama', [MustLoginMiddleware::class]);
 //      Logout
 Router::add('GET', '/users/logout', UserController::class, 'logout', [LogoutMiddleware::class]);
 
