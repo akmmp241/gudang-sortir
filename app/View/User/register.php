@@ -3,7 +3,7 @@
         <p class="error"><?= $model['error'] ?></p>
     <?php } ?>
     <form action="/users/register" method="post">
-        <label for="email"></label><input type="text" name="email" id="email" autocomplete="off" placeholder="masukan email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
+        <label for="email"></label><input type="email" name="email" id="email" autocomplete="off" placeholder="masukan email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
         <br>
         <label for="nama"></label><input type="text" name="nama" id="nama" autocomplete="off" placeholder="masukan nama lengkap" value="<?= htmlspecialchars($_POST['nama'] ?? '') ?>">
         <br>
