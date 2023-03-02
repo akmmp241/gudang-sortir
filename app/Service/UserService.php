@@ -76,7 +76,7 @@ class UserService
             throw new ValidationExcepetion("kolom tidak boleh kosong");
         }
 
-        if (!preg_match("#^[a-zA-Z0-9.-]+@[a-zA-Z.]+$#", $request->getEmail())) {
+        if (!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $request->getEmail())) {
             throw new ValidationExcepetion("email tidak valid");
         }
 
@@ -195,6 +195,10 @@ class UserService
             $user = $this->userRepository->findById($request->getId());
             if ($user == null) {
                 throw new ValidationExcepetion("user tidak ditemukan");
+            }
+
+            if ($user->getEmail() == $request->getEmail()) {
+                throw new ValidationExcepetion("email tidak bisa sama");
             }
 
             $user->setEmail($request->getEmail());

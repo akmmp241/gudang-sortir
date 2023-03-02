@@ -129,7 +129,8 @@ class UserController
         } catch (Exception $exception) {
             $user = $this->sessionService->current();
             View::render('User/email', [
-                'email' => $user->getEmail()
+                'email' => $user->getEmail(),
+                'error' => $exception->getMessage()
             ]);
         }
     }
