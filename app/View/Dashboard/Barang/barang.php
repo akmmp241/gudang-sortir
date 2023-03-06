@@ -36,19 +36,19 @@
         <tr>
             <td colspan="6">DAFTAR BARANG</td>
         </tr>
+        <tr>
+            <td>ID Barang</td>
+            <td>Nama Barang</td>
+            <td>Kuantitas</td>
+            <td>Deskripsi</td>
+            <td>ID Kategori</td>
+            <td>Aksi</td>
+        </tr>
         <?php if (!isset($model['barang']))  { ?>
             <tr>
-                <td>data belum ada</td>
+                <td colspan="6" align="center">data belum ada</td>
             </tr>
         <?php } else { ?>
-            <tr>
-                <td>ID Barang</td>
-                <td>Nama Barang</td>
-                <td>Kuantitas</td>
-                <td>Deskripsi</td>
-                <td>ID Kategori</td>
-                <td>Aksi</td>
-            </tr>
             <?php foreach ($model['barang'] as $item) { ?>
 
                 <tr>

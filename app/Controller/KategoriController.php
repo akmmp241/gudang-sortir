@@ -23,13 +23,9 @@ class KategoriController
     }
     public function kategori(): void
     {
-        $data = $this->kategoriService->getAllDataKategori();
-        if ($data == null) {
-            View::render('Dashboard/kategori', []);
-            exit();
-        }
-        View::render('Dashboard/kategori', [
-            'kategori' => $data
+        $kategori = $this->kategoriService->getAllDataKategori();
+        View::render('Dashboard/Kategori/kategori', [
+            'kategori' => $kategori
         ]);
     }
 
@@ -48,7 +44,7 @@ class KategoriController
             View::redirect('/dashboard/kategori');
         } catch (Exception $exception) {
             $data = $this->kategoriService->getAllDataKategori();
-            View::render('Dashboard/kategori', [
+            View::render('Dashboard/Kategori/kategori', [
                 'kategori' => $data,
                 'error' => $exception->getMessage()
             ]);
@@ -58,7 +54,7 @@ class KategoriController
     public function ubahKategori(string $id): void
     {
         $kategori = $this->kategoriService->findKategoriById($id);
-        View::render('Dashboard/ubah-kategori', [
+        View::render('Dashboard/Kategori/ubah-kategori', [
             'id_kategori' => $kategori->getIdKategori(),
             'nama_kategori' => $kategori->getNamaKategori(),
             'deskripsi' => $kategori->getDeskripsi()
@@ -79,7 +75,7 @@ class KategoriController
             View::redirect('/dashboard/kategori');
         } catch (Exception $exception) {
             $kategori = $this->kategoriService->findKategoriById($id);
-            View::render('Dashboard/ubah-kategori', [
+            View::render('Dashboard/Kategori/ubah-kategori', [
                 'id_kategori' => $kategori->getIdKategori(),
                 'nama_kategori' => $kategori->getNamaKategori(),
                 'deskripsi' => $kategori->getDeskripsi(),
@@ -95,7 +91,7 @@ class KategoriController
             View::redirect('/dashboard/kategori');
         } catch (Exception $exception) {
             $data = $this->kategoriService->getAllDataKategori();
-            View::render('Dashboard/kategori', [
+            View::render('Dashboard/Kategori/kategori', [
                 'kategori' => $data,
                 'error' => $exception->getMessage()
             ]);

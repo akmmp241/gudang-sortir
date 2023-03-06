@@ -19,17 +19,17 @@
         <tr>
             <td colspan="4">DAFTAR KATEGORI</td>
         </tr>
+        <tr>
+            <td>ID Kategori</td>
+            <td>Nama Kategori</td>
+            <td>Deskripsi</td>
+            <td>Aksi</td>
+        </tr>
         <?php if (!isset($model['kategori']))  { ?>
             <tr>
-                <td>data belum ada</td>
+                <td colspan="4" align="center">data belum ada</td>
             </tr>
         <?php } else { ?>
-            <tr>
-                <td>ID Kategori</td>
-                <td>Nama Kategori</td>
-                <td>Deskripsi</td>
-                <td>Aksi</td>
-            </tr>
             <?php foreach ($model['kategori'] as $item) { ?>
 
                 <tr>

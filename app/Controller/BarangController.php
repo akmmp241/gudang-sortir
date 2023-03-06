@@ -31,7 +31,7 @@ class BarangController
         $data = $this->kategoriService->getAllDataKategori();
         $id_barang = $this->barangService->idGenerate();
         $barang = $this->barangService->getAllDataBarang($_GET['sort'] ?? null);
-        View::render('Dashboard/barang', [
+        View::render('Dashboard/Barang/barang', [
             'kategori' => $data,
             'id' => $id_barang,
             'barang' => $barang
@@ -52,7 +52,7 @@ class BarangController
             $data = $this->kategoriService->getAllDataKategori();
             $id_barang = $this->barangService->idGenerate();
             $barang = $this->barangService->getAllDataBarang($_GET['sort'] ?? null);
-            View::render('Dashboard/barang', [
+            View::render('Dashboard/Barang/barang', [
                 'kategori' => $data,
                 'id' => $id_barang,
                 'barang' => $barang,
@@ -64,7 +64,7 @@ class BarangController
     public function ubahBarang(string $id): void
     {
         $barang = $this->barangService->findBarangByIdBarang($id);
-        View::render('Dashboard/ubah-barang', [
+        View::render('Dashboard/Barang/ubah-barang', [
             'id_barang' => $barang->getIdBarang(),
             'nama_barang' => $barang->getNamaBarang(),
             'deskripsi' => $barang->getDeskripsi()
@@ -85,7 +85,7 @@ class BarangController
             View::redirect('/dashboard/barang');
         } catch (Exception $exception) {
             $barang = $this->barangService->findBarangByIdBarang($id);
-            View::render('Dashboard/ubah-barang', [
+            View::render('Dashboard/Barang/ubah-barang', [
                 'id_barang' => $barang->getIdBarang(),
                 'nama_barang' => $barang->getNamaBarang(),
                 'deskripsi' => $barang->getDeskripsi(),
@@ -103,7 +103,7 @@ class BarangController
             $data = $this->kategoriService->getAllDataKategori();
             $id_barang = $this->barangService->idGenerate();
             $barang = $this->barangService->getAllDataBarang($_GET['sort'] ?? null);
-            View::render('Dashboard/barang', [
+            View::render('Dashboard/Barang/barang', [
                 'kategori' => $data,
                 'id' => $id_barang,
                 'barang' => $barang,
