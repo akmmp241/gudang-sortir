@@ -4,6 +4,7 @@ namespace Akmalmp\GudangSortir\Controller;
 
 use Akmalmp\GudangSortir\App\View;
 use Akmalmp\GudangSortir\Config\Database;
+use Akmalmp\GudangSortir\Model\KategoriUpdateRequest;
 use Akmalmp\GudangSortir\Model\TambahKategoriRequest;
 use Akmalmp\GudangSortir\Repository\KategoriRepository;
 use Akmalmp\GudangSortir\Service\KategoriService;
@@ -54,6 +55,38 @@ class KategoriController
         }
     }
 
+    public function ubahKategori(string $id): void
+    {
+        $kategori = $this->kategoriService->findKategoriById($id);
+        View::render('Dashboard/ubah-kategori', [
+            'id_kategori' => $kategori->getIdKategori(),
+            'nama_kategori' => $kategori->getNamaKategori(),
+            'deskripsi' => $kategori->getDeskripsi()
+        ]);
+    }
+
+    public function postUbahKategori(string $id): void
+    {
+        $kategori = $this->kategoriService->findKategoriById($id);
+
+        $request = new KategoriUpdateRequest();
+        $request->setIdKategori($kategori->getIdKategori());
+        $request->setNamaKategori(htmlspecialchars(trim($_POST['nama-kategori'] ?? '')));
+        $request->setDeskripsi(htmlspecialchars(trim($_POST['deskripsi'] ?? '')));
+
+        try {
+            $this->kategoriService->ubahKategori($request);
+            View::redirect('/dashboard/kategori');
+        } catch (Exception $exception) {
+            $kategori = $this->kategoriService->findKategoriById($id);
+            View::render('Dashboard/ubah-kategori', [
+                'id_kategori' => $kategori->getIdKategori(),
+                'nama_kategori' => $kategori->getNamaKategori(),
+                'deskripsi' => $kategori->getDeskripsi(),
+                'error' => $exception->getMessage()
+            ]);
+        }
+    }
 
     public function hapusKategori(string $id): void
     {

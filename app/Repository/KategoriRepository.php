@@ -29,6 +29,17 @@ class KategoriRepository
         return $kategori;
     }
 
+    public function update(Kategori $kategori): Kategori
+    {
+        $statement = $this->connection->prepare("UPDATE kategori SET nama_kategori = ?, deskripsi = ? WHERE id_kategori = ?");
+        $statement->execute([
+            $kategori->getNamaKategori(),
+            $kategori->getDeskripsi(),
+            $kategori->getIdKategori()
+        ]);
+        return $kategori;
+    }
+
     public function findAll(): ?array
     {
         $statement = $this->connection->query("SELECT id_kategori, nama_kategori, deskripsi FROM kategori");

@@ -9,6 +9,8 @@ use Akmalmp\GudangSortir\Controller\DashboardController;
 use Akmalmp\GudangSortir\Controller\HomeController;
 use Akmalmp\GudangSortir\Controller\KategoriController;
 use Akmalmp\GudangSortir\Controller\UserController;
+use Akmalmp\GudangSortir\Middleware\BarangMiddleware;
+use Akmalmp\GudangSortir\Middleware\KategoriMiddleware;
 use Akmalmp\GudangSortir\Middleware\LogoutMiddleware;
 use Akmalmp\GudangSortir\Middleware\MustLoginMiddleware;
 use Akmalmp\GudangSortir\Middleware\MustNotLoginMiddleware;
@@ -23,11 +25,14 @@ Router::add('GET', '/dashboard', DashboardController::class, 'dashboard', [MustL
 Router::add('GET', '/dashboard/kategori', KategoriController::class, 'kategori', [MustLoginMiddleware::class]);
 Router::add('POST', '/dashboard/kategori', KategoriController::class, 'postKategori', [MustLoginMiddleware::class]);
 Router::add('GET', '/dashboard/kategori/hapus/([0-9A-Za-z]*)', KategoriController::class, 'hapusKategori', [MustLoginMiddleware::class]);
-Router::add('GET', '/dashboard/kategori/ubah-kategori/([A-Z]*)', KategoriController::class, 'ubahKategori', [MustLoginMiddleware::class]);
+Router::add('GET', '/dashboard/kategori/ubah-kategori/([0-9A-Za-z]*)', KategoriController::class, 'ubahKategori', [MustLoginMiddleware::class, KategoriMiddleware::class]);
+Router::add('POST', '/dashboard/kategori/ubah-kategori/([0-9A-Za-z]*)', KategoriController::class, 'postUbahKategori', [MustLoginMiddleware::class, KategoriMiddleware::class]);
 //      Barang
 Router::add('GET', '/dashboard/barang', BarangController::class, 'barang', [MustLoginMiddleware::class]);
 Router::add('POST', '/dashboard/barang', BarangController::class, 'postBarang', [MustLoginMiddleware::class]);
 Router::add('GET', '/dashboard/barang/hapus/([0-9A-Za-z-]*)', BarangController::class, 'hapusBarang', [MustLoginMiddleware::class]);
+Router::add('GET', '/dashboard/barang/ubah-barang/([0-9A-Za-z-]*)', BarangController::class, 'ubahBarang', [MustLoginMiddleware::class, BarangMiddleware::class]);
+Router::add('POST', '/dashboard/barang/ubah-barang/([0-9A-Za-z-]*)', BarangController::class, 'postUbahBarang', [MustLoginMiddleware::class, BarangMiddleware::class]);
 
 // User Controller
 //      Login page
