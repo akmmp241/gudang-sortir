@@ -3,7 +3,7 @@
         <p class="error"><?= $model['error'] ?></p>
     <?php } ?>
     <form action="/dashboard/barang" method="post">
-        <input type="text" name="id-barang" id="id-barang" value="<?= $model['id'] ?? '' ?>" autocomplete="off" placeholder="id barang" readonly>
+        <input type="text" name="id-barang" id="id-barang" value="<?= $model['id'] ?? '' ?>" autocomplete="off" readonly >
         <br>
         <input type="text" name="nama-barang" id="nama-barang" value="<?= htmlspecialchars($_POST['nama-barang'] ?? '') ?>" autocomplete="off" placeholder="nama barang">
         <br>
@@ -25,6 +25,13 @@
     <a href="/dashboard">kembali ke dashboard</a>
 
     <br><br><br>
+    <form action="/dashboard/barang" onchange="this.form.submit()">
+        <label for="sort">Urutkan dari yang </label>
+        <input type="radio" name="sort" onchange="this.form.submit()" value="terbaru">
+        <label for="terbaru">terbaru</label>
+        <input type="radio" onchange="this.form.submit()" name="sort" value="terlama">
+        <label for="terlama">terlama</label>
+    </form>
     <table border="1" cellspacing="0" cellpadding="10">
         <tr>
             <td colspan="6">DAFTAR BARANG</td>
@@ -50,7 +57,10 @@
                     <td><?= $item['kuantitas'] ?></td>
                     <td><?= $item['deskripsi']?></td>
                     <td><?= $item['id_kategori']?></td>
-                    <td><a href="/dashboard/barang/hapus/<?= $item['id_barang'] ?>" onclick="return confirm('apakah anda yakin?');">hapus</a></td>
+                    <td>
+                        <a href="/dashboard/barang/hapus/<?= $item['id_barang'] ?>" onclick="return confirm('apakah anda yakin?');">hapus</a>
+                        <a href="/dashboard/barang/ubah-barang/<?= $item['id_barang'] ?>">ubah</a>
+                    </td>
                 </tr>
             <?php } ?>
         <?php } ?>

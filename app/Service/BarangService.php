@@ -5,6 +5,8 @@ namespace Akmalmp\GudangSortir\Service;
 use Akmalmp\GudangSortir\Config\Database;
 use Akmalmp\GudangSortir\Domain\Barang;
 use Akmalmp\GudangSortir\Exception\ValidationExcepetion;
+use Akmalmp\GudangSortir\Model\BarangUpdateRequest;
+use Akmalmp\GudangSortir\Model\BarangUpdateResponse;
 use Akmalmp\GudangSortir\Model\TambahBarangRequest;
 use Akmalmp\GudangSortir\Model\TambahBarangResponse;
 use Akmalmp\GudangSortir\Repository\BarangRepository;
@@ -81,13 +83,71 @@ class BarangService
         }
     }
 
-    public function getAllDataBarang(): ?array
+    /**
+     * @throws Exception
+     */
+    public function ubahBarang(BarangUpdateRequest $request): BarangUpdateResponse
     {
-        $data = $this->barangRepository->findAllAsc();
+        $this->validateUbahBarangRequest($request);
+        try {
+            Database::beginTransaction();
+            $barang = $this->barangRepository->findByIdBarang($request->getIdBarang());
+
+            $barang->setNamaBarang($request->getNamaBarang());
+            $barang->setDeskripsi($request->getDeskripsi());
+
+            $this->barangRepository->update($barang);
+
+            Database::commitTransaction();
+
+            $response = new BarangUpdateResponse();
+            $response->setBarang($barang);
+
+            return $response;
+        } catch (Exception $exception) {
+            Database::rollbackTransaction();
+            throw $exception;
+        }
+    }
+
+    /**
+     * @throws ValidationExcepetion
+     */
+    private function validateUbahBarangRequest(BarangUpdateRequest $request): void
+    {
+        if ($request->getNamaBarang() == null || trim($request->getNamaBarang()) == "") {
+            throw new ValidationExcepetion("Isi semua data");
+        }
+
+        if (preg_match('/[`#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $request->getNamaBarang())) {
+            throw new ValidationExcepetion("Nama kategori tidak boleh mengandung karakter spesial");
+        }
+
+        if (preg_match('/[`#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $request->getDeskripsi())) {
+            throw new ValidationExcepetion("Deskripsi tidak boleh mengandung karakter spesial");
+        }
+    }
+
+    public function getAllDataBarang(?string $sort = null): ?array
+    {
+        if ($sort == "terlama") {
+            $data = $this->barangRepository->findAllDesc();
+        } else {
+            $data = $this->barangRepository->findAllAsc();
+        }
         if ($data == null) {
             return null;
         }
         return $data;
+    }
+
+    public function findBarangByIdBarang(string $id): ?Barang
+    {
+        $barang = $this->barangRepository->findByIdBarang($id);
+        if ($barang == null) {
+            return null;
+        }
+        return $barang;
     }
 
     /**

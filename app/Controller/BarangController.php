@@ -4,6 +4,7 @@ namespace Akmalmp\GudangSortir\Controller;
 
 use Akmalmp\GudangSortir\App\View;
 use Akmalmp\GudangSortir\Config\Database;
+use Akmalmp\GudangSortir\Model\BarangUpdateRequest;
 use Akmalmp\GudangSortir\Model\TambahBarangRequest;
 use Akmalmp\GudangSortir\Repository\BarangRepository;
 use Akmalmp\GudangSortir\Repository\KategoriRepository;
@@ -29,7 +30,7 @@ class BarangController
     {
         $data = $this->kategoriService->getAllDataKategori();
         $id_barang = $this->barangService->idGenerate();
-        $barang = $this->barangService->getAllDataBarang();
+        $barang = $this->barangService->getAllDataBarang($_GET['sort'] ?? null);
         View::render('Dashboard/barang', [
             'kategori' => $data,
             'id' => $id_barang,
@@ -42,7 +43,7 @@ class BarangController
         $request = new TambahBarangRequest();
         $request->setId(htmlspecialchars(trim($_POST['id-barang'] ?? '')));
         $request->setNamaBarang(htmlspecialchars(trim($_POST['nama-barang'] ?? '')));
-        $request->setIdKategori($_POST['id-kategori']);
+        $request->setIdKategori($_POST['id-kategori'] ?? '');
         $request->setDeskripsi(htmlspecialchars(trim($_POST['deskripsi'] ?? '')));
         try {
             $this->barangService->tambahBarang($request);
@@ -50,11 +51,44 @@ class BarangController
         } catch (Exception $exception) {
             $data = $this->kategoriService->getAllDataKategori();
             $id_barang = $this->barangService->idGenerate();
-            $barang = $this->barangService->getAllDataBarang();
+            $barang = $this->barangService->getAllDataBarang($_GET['sort'] ?? null);
             View::render('Dashboard/barang', [
                 'kategori' => $data,
                 'id' => $id_barang,
                 'barang' => $barang,
+                'error' => $exception->getMessage()
+            ]);
+        }
+    }
+
+    public function ubahBarang(string $id): void
+    {
+        $barang = $this->barangService->findBarangByIdBarang($id);
+        View::render('Dashboard/ubah-barang', [
+            'id_barang' => $barang->getIdBarang(),
+            'nama_barang' => $barang->getNamaBarang(),
+            'deskripsi' => $barang->getDeskripsi()
+        ]);
+    }
+
+    public function postUbahBarang(string $id): void
+    {
+        $barang = $this->barangService->findBarangByIdBarang($id);
+
+        $request = new BarangUpdateRequest();
+        $request->setIdBarang($barang->getIdBarang());
+        $request->setNamaBarang($_POST['nama-barang']);
+        $request->setDeskripsi($_POST['deskripsi']);
+
+        try {
+            $this->barangService->ubahBarang($request);
+            View::redirect('/dashboard/barang');
+        } catch (Exception $exception) {
+            $barang = $this->barangService->findBarangByIdBarang($id);
+            View::render('Dashboard/ubah-barang', [
+                'id_barang' => $barang->getIdBarang(),
+                'nama_barang' => $barang->getNamaBarang(),
+                'deskripsi' => $barang->getDeskripsi(),
                 'error' => $exception->getMessage()
             ]);
         }
@@ -68,7 +102,7 @@ class BarangController
         } catch (Exception $exception) {
             $data = $this->kategoriService->getAllDataKategori();
             $id_barang = $this->barangService->idGenerate();
-            $barang = $this->barangService->getAllDataBarang();
+            $barang = $this->barangService->getAllDataBarang($_GET['sort'] ?? null);
             View::render('Dashboard/barang', [
                 'kategori' => $data,
                 'id' => $id_barang,

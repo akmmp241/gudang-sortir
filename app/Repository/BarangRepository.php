@@ -32,6 +32,18 @@ class BarangRepository
         return $barang;
     }
 
+    public function update(Barang $barang): Barang
+    {
+        $statement = $this->connection->prepare("UPDATE barang SET nama_barang = ?, kuantitas= ?, deskripsi = ? WHERE id_barang = ?");
+        $statement->execute([
+            $barang->getNamaBarang(),
+            $barang->getKuantitas(),
+            $barang->getDeskripsi(),
+            $barang->getIdBarang()
+        ]);
+        return $barang;
+    }
+
     public function findAllAsc(): ?array
     {
         $statement = $this->connection->query("SELECT id, id_barang, nama_barang, kuantitas, deskripsi, id_kategori FROM barang ORDER BY id");
@@ -64,6 +76,30 @@ class BarangRepository
     {
         $statement = $this->connection->prepare(
             "SELECT id, id_barang, nama_barang, kuantitas, deskripsi, id_kategori FROM barang WHERE id = ?"
+        );
+        $statement->execute([$id]);
+        try {
+            if ($row = $statement->fetch()) {
+                $barang = new Barang();
+                $barang->setId($row['id']);
+                $barang->setIdBarang($row['id_barang']);
+                $barang->setNamaBarang($row['nama_barang']);
+                $barang->setKuantitas($row['kuantitas']);
+                $barang->setDeskripsi($row['deskripsi']);
+                $barang->setIdKategori($row['id_kategori']);
+                return $barang;
+            } else {
+                return null;
+            }
+        } finally {
+            $statement->closeCursor();
+        }
+    }
+
+    public function findByIdBarang(string $id): ?Barang
+    {
+        $statement = $this->connection->prepare(
+            "SELECT id, id_barang, nama_barang, kuantitas, deskripsi, id_kategori FROM barang WHERE id_barang = ?"
         );
         $statement->execute([$id]);
         try {
