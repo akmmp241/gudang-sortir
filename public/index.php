@@ -1,13 +1,14 @@
 <?php
 
 require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../config/cssConfig.php';
+require_once __DIR__ . '/../config/assetsConfig.php';
 
 use Akmalmp\GudangSortir\App\Router;
 use Akmalmp\GudangSortir\Controller\BarangController;
 use Akmalmp\GudangSortir\Controller\DashboardController;
 use Akmalmp\GudangSortir\Controller\HomeController;
 use Akmalmp\GudangSortir\Controller\KategoriController;
+use Akmalmp\GudangSortir\Controller\TransaksiController;
 use Akmalmp\GudangSortir\Controller\UserController;
 use Akmalmp\GudangSortir\Middleware\BarangMiddleware;
 use Akmalmp\GudangSortir\Middleware\KategoriMiddleware;
@@ -15,10 +16,10 @@ use Akmalmp\GudangSortir\Middleware\LogoutMiddleware;
 use Akmalmp\GudangSortir\Middleware\MustLoginMiddleware;
 use Akmalmp\GudangSortir\Middleware\MustNotLoginMiddleware;
 
-// Home Controller
+// HOME CONTROLLER
 Router::add('GET', '/', HomeController::class, 'index', [MustNotLoginMiddleware::class]);
 
-// Dashboard Controller
+// DASHBOARD CONTROLLER
 //      Dashboard
 Router::add('GET', '/dashboard', DashboardController::class, 'dashboard', [MustLoginMiddleware::class]);
 //      Kategori
@@ -34,7 +35,7 @@ Router::add('GET', '/dashboard/barang/hapus/([0-9A-Za-z-]*)', BarangController::
 Router::add('GET', '/dashboard/barang/ubah-barang/([0-9A-Za-z-]*)', BarangController::class, 'ubahBarang', [MustLoginMiddleware::class, BarangMiddleware::class]);
 Router::add('POST', '/dashboard/barang/ubah-barang/([0-9A-Za-z-]*)', BarangController::class, 'postUbahBarang', [MustLoginMiddleware::class, BarangMiddleware::class]);
 
-// User Controller
+// USER CONTROLLER
 //      Login page
 Router::add('GET', '/users/login', UserController::class, 'login', [MustNotLoginMiddleware::class]);
 Router::add('POST', '/users/login', UserController::class, 'postLogin', [MustNotLoginMiddleware::class]);
@@ -54,5 +55,15 @@ Router::add('GET', '/users/profile/update-nama', UserController::class, 'updateN
 Router::add('POST', '/users/profile/update-nama', UserController::class, 'postUpdateNama', [MustLoginMiddleware::class]);
 //      Logout
 Router::add('GET', '/users/logout', UserController::class, 'logout', [LogoutMiddleware::class]);
+
+// TRANSACTION CONTROLLER
+//      Data Transaksi
+Router::add('GET', '/dashboard/transaksi', TransaksiController::class, 'transaksi', [MustLoginMiddleware::class]);
+//      Barang Masuk
+Router::add('GET', '/dashboard/transaksi/barang-masuk', TransaksiController::class, 'transaksiBarang', [MustLoginMiddleware::class]);
+Router::add('POST', '/dashboard/transaksi/barang-masuk', TransaksiController::class, 'postTransaksiBarang', [MustLoginMiddleware::class]);
+//      Barang Keluar
+Router::add('GET', '/dashboard/transaksi/barang-keluar', TransaksiController::class, 'transaksiBarang', [MustLoginMiddleware::class]);
+Router::add('POST', '/dashboard/transaksi/barang-keluar', TransaksiController::class, 'postTransaksiBarang', [MustLoginMiddleware::class]);
 
 Router::run();

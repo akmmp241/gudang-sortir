@@ -48,7 +48,7 @@ class BarangRepository
     {
         $statement = $this->connection->query("SELECT id, id_barang, nama_barang, kuantitas, deskripsi, id_kategori FROM barang ORDER BY id");
         try {
-            if ($data = $statement->fetchAll()) {
+            if ($data = $statement->fetchAll(PDO::FETCH_ASSOC)) {
                 return $data;
             } else {
                 return null;
@@ -62,7 +62,7 @@ class BarangRepository
     {
         $statement = $this->connection->query("SELECT id, id_barang, nama_barang, kuantitas, deskripsi, id_kategori FROM barang ORDER BY id DESC");
         try {
-            if ($data = $statement->fetchAll()) {
+            if ($data = $statement->fetchAll(PDO::FETCH_ASSOC)) {
                 return $data;
             } else {
                 return null;
@@ -79,7 +79,7 @@ class BarangRepository
         );
         $statement->execute([$id]);
         try {
-            if ($row = $statement->fetch()) {
+            if ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
                 $barang = new Barang();
                 $barang->setId($row['id']);
                 $barang->setIdBarang($row['id_barang']);
@@ -103,7 +103,7 @@ class BarangRepository
         );
         $statement->execute([$id]);
         try {
-            if ($row = $statement->fetch()) {
+            if ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
                 $barang = new Barang();
                 $barang->setId($row['id']);
                 $barang->setIdBarang($row['id_barang']);
@@ -127,7 +127,7 @@ class BarangRepository
         );
         $statement->execute([$id]);
         try {
-            if ($row = $statement->fetch()) {
+            if ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
                 $barang = new Barang();
                 $barang->setId($row['id']);
                 $barang->setIdBarang($row['id_barang']);
@@ -151,7 +151,7 @@ class BarangRepository
         );
         $statement->execute([$nama]);
         try {
-            if ($row = $statement->fetch()) {
+            if ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
                 $barang = new Barang();
                 $barang->setId($row['id']);
                 $barang->setIdBarang($row['id_barang']);
@@ -171,8 +171,25 @@ class BarangRepository
     public function getMaxId(): ?string
     {
         $statement1 = $this->connection->query("SELECT max(id) as id FROM barang");
-        $row = $statement1->fetch();
+        $row = $statement1->fetch(PDO::FETCH_ASSOC);
+        $statement1->closeCursor();
         return $row['id'];
+    }
+
+    public function getStok(string $id): ?int
+    {
+        $statement = $this->connection->prepare("SELECT kuantitas FROM barang WHERE id_barang = ?");
+        $statement->execute([$id]);
+        try {
+            if ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+                return $row['kuantitas'];
+            } else {
+                return null;
+            }
+        } finally {
+            $statement->closeCursor();
+        }
+
     }
 
     public function deleteById(string $id): void

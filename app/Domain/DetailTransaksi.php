@@ -4,39 +4,39 @@ namespace Akmalmp\GudangSortir\Domain;
 
 class DetailTransaksi
 {
-    private ?int $id_transaksi;
-    private ?int $id_barang;
-    private int $kuantitas = 0;
+    private string $id_transaksi;
+    private string $id_barang;
+    private int $kuantitas;
     private string $deskripsi = '';
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getIdTransaksi(): ?int
+    public function getIdTransaksi(): string
     {
         return $this->id_transaksi;
     }
 
     /**
-     * @param int|null $id_transaksi
+     * @param int $id_transaksi
      */
-    public function setIdTransaksi(?int $id_transaksi): void
+    public function setIdTransaksi(string $id_transaksi): void
     {
         $this->id_transaksi = $id_transaksi;
     }
 
     /**
-     * @return int|null
+     * @return string
      */
-    public function getIdBarang(): ?int
+    public function getIdBarang(): string
     {
         return $this->id_barang;
     }
 
     /**
-     * @param int|null $id_barang
+     * @param string $id_barang
      */
-    public function setIdBarang(?int $id_barang): void
+    public function setIdBarang(string $id_barang): void
     {
         $this->id_barang = $id_barang;
     }

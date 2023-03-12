@@ -55,6 +55,7 @@
     <?php } ?>
 </table>
 
+<a href="/dashboard/transaksi">Transaksi</a>
 <br>
 <a href="/dashboard/kategori">tambah kategori</a>
 <br>

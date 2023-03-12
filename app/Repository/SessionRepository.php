@@ -19,7 +19,9 @@ class SessionRepository
 
     public function save(Session $session): Session
     {
-        $statement = $this->connection->prepare("INSERT INTO sessions (id, user_id, user_email) VALUES (?, ?, ?)");
+        $statement = $this->connection->prepare(
+            "INSERT INTO sessions (id, user_id, user_email) VALUES (?, ?, ?)"
+        );
         $statement->execute([
             $session->getId(),
             $session->getUserId(),
@@ -30,7 +32,9 @@ class SessionRepository
 
     public function findById(string $id): ?Session
     {
-        $statement = $this->connection->prepare("SELECT id, user_id, user_email FROM sessions WHERE id = ?");
+        $statement = $this->connection->prepare(
+            "SELECT id, user_id, user_email FROM sessions WHERE id = ?"
+        );
         $statement->execute([$id]);
         try {
             if ($row = $statement->fetch()) {
@@ -49,12 +53,16 @@ class SessionRepository
 
     public function deleteById(string $id): void
     {
-        $statement = $this->connection->prepare("DELETE FROM sessions WHERE id = ?");
+        $statement = $this->connection->prepare(
+            "DELETE FROM sessions WHERE id = ?"
+        );
         $statement->execute([$id]);
     }
 
     public function deleteAll(): void
     {
-        $this->connection->exec("DELETE FROM sessions");
+        $this->connection->exec(
+            "DELETE FROM sessions"
+        );
     }
 }

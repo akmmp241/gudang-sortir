@@ -31,7 +31,8 @@ CREATE TABLE kategori
 
 CREATE TABLE barang
 (
-    id_barang   VARCHAR(200)          NOT NULL PRIMARY KEY,
+    id_barang   VARCHAR(200) NOT NULL PRIMARY KEY,
+    id          VARCHAR(200) NOT NULL,
     nama_barang VARCHAR(100) NOT NULL,
     kuantitas   INT          NOT NULL DEFAULT 0,
     deskripsi   TEXT         NULL,
@@ -40,8 +41,6 @@ CREATE TABLE barang
         REFERENCES kategori (id_kategori),
     UNIQUE KEY barang_unique (id_barang)
 ) ENGINE InnoDB;
-
-ALTER TABLE barang ADD COLUMN id VARCHAR(200) NOT NULL;
 
 CREATE TABLE jenis_transaksi
 (
@@ -52,23 +51,27 @@ CREATE TABLE jenis_transaksi
 
 CREATE TABLE transaksi
 (
-    id                INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    transaksi_kode    VARCHAR(10) NOT NULL,
-    tanggal_transaksi DATE        NOT NULL,
-    deskripsi         TEXT        NULL,
-    CONSTRAINT fk_transaksi_jenis_transaksi FOREIGN KEY (transaksi_kode)
+    id                INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_transaksi      VARCHAR(255) NOT NULL UNIQUE KEY,
+    kode_transaksi    VARCHAR(10)  NOT NULL,
+    tanggal_transaksi DATE         NOT NULL,
+    deskripsi         TEXT         NULL,
+    CONSTRAINT fk_transaksi_jenis_transaksi
+        FOREIGN KEY (kode_transaksi)
         REFERENCES jenis_transaksi (kode_transaksi)
 ) ENGINE InnoDB;
 
 CREATE TABLE detail_transaksi
 (
-    id_transaksi INT  NOT NULL PRIMARY KEY,
+    id_transaksi VARCHAR(255)  NOT NULL PRIMARY KEY,
     id_barang    VARCHAR(200)  NOT NULL,
     kuantitas    INT  NOT NULL DEFAULT 0,
     deskripsi    TEXT NULL,
-    CONSTRAINT fk_detail_transaksi_transaksi FOREIGN KEY (id_transaksi)
-        REFERENCES transaksi (id),
-    CONSTRAINT fk_detail_transaksi_barang FOREIGN KEY (id_barang)
+    CONSTRAINT fk_detail_transaksi_transaksi
+        FOREIGN KEY (id_transaksi)
+        REFERENCES transaksi (id_transaksi),
+    CONSTRAINT fk_detail_transaksi_barang
+        FOREIGN KEY (id_barang)
         REFERENCES barang (id_barang)
 ) ENGINE InnoDB;
 

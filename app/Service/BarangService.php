@@ -81,6 +81,10 @@ class BarangService
         if (preg_match('/[`#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $request->getDeskripsi())) {
             throw new ValidationExcepetion("Deskripsi tidak boleh mengandung karakter spesial");
         }
+
+        if ($request->getIdKategori() == null || trim($request->getIdKategori() == "" || $request->getIdKategori() == "kosong")) {
+            throw new ValidationExcepetion("Belum ada data kategori");
+        }
     }
 
     /**
@@ -170,5 +174,10 @@ class BarangService
         $id_barang = $this->barangRepository->getMaxId();
         $id_barang++;
         return sprintf("%05s", $id_barang);
+    }
+
+    public function getStok(string $id): ?int
+    {
+        return $this->barangRepository->getStok($id);
     }
 }
