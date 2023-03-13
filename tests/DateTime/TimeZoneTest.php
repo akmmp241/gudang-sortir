@@ -26,14 +26,18 @@ class TimeZoneTest extends TestCase
         echo $tanggalNow->format('m/d/Y');
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testCreateDate()
     {
         $date = "03/07/2023";
-
-        $tanggal = date_create($date);
+        $time = new DateTime();
+        $time = $time->getTimestamp();
+        $tanggal = new DateTime($date);
 
         print_r($tanggal);
-        echo $tanggal->format('Y-m-d');
+        echo $tanggal->format("Y-m-d H:i:s");
 
         assertNotNull($tanggal);
     }

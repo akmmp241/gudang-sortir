@@ -27,7 +27,7 @@ class TransaksiRepository
             null,
             $transaksi->getIdTransaksi(),
             $transaksi->getTransaksiKode(),
-            $transaksi->getTanggalTransaksi()->format('Y-m-d'),
+            $transaksi->getTanggalTransaksi()->format('Y-m-d H:i:s'),
             $transaksi->getDeskripsi()
         ]);
         return $transaksi;
@@ -45,7 +45,7 @@ class TransaksiRepository
                 $transaksi->setId($row['id']);
                 $transaksi->setIdTransaksi($row['id_transaksi']);
                 $transaksi->setTransaksiKode($row['kode_transaksi']);
-                $transaksi->setTanggalTransaksi(DateTime::createFromFormat('Y-m-d', $row['tanggal_transaksi']));
+                $transaksi->setTanggalTransaksi(new DateTime($row['tanggal_transaksi']));
                 $transaksi->setDeskripsi($row['deskripsi']);
                 return $transaksi;
             } else {

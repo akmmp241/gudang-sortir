@@ -54,25 +54,25 @@ CREATE TABLE transaksi
     id                INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_transaksi      VARCHAR(255) NOT NULL UNIQUE KEY,
     kode_transaksi    VARCHAR(10)  NOT NULL,
-    tanggal_transaksi DATE         NOT NULL,
+    tanggal_transaksi DATETIME     NOT NULL,
     deskripsi         TEXT         NULL,
     CONSTRAINT fk_transaksi_jenis_transaksi
         FOREIGN KEY (kode_transaksi)
-        REFERENCES jenis_transaksi (kode_transaksi)
+            REFERENCES jenis_transaksi (kode_transaksi)
 ) ENGINE InnoDB;
 
 CREATE TABLE detail_transaksi
 (
-    id_transaksi VARCHAR(255)  NOT NULL PRIMARY KEY,
-    id_barang    VARCHAR(200)  NOT NULL,
-    kuantitas    INT  NOT NULL DEFAULT 0,
-    deskripsi    TEXT NULL,
+    id_transaksi VARCHAR(255) NOT NULL PRIMARY KEY,
+    id_barang    VARCHAR(200) NOT NULL,
+    kuantitas    INT          NOT NULL DEFAULT 0,
+    deskripsi    TEXT         NULL,
     CONSTRAINT fk_detail_transaksi_transaksi
         FOREIGN KEY (id_transaksi)
-        REFERENCES transaksi (id_transaksi),
+            REFERENCES transaksi (id_transaksi),
     CONSTRAINT fk_detail_transaksi_barang
         FOREIGN KEY (id_barang)
-        REFERENCES barang (id_barang)
+            REFERENCES barang (id_barang)
 ) ENGINE InnoDB;
 
 INSERT INTO jenis_transaksi
@@ -82,7 +82,10 @@ VALUES ('BM',
         '');
 
 INSERT INTO jenis_transaksi
-(kode_transaksi, nama_trans, deskripsi)
+    (kode_transaksi, nama_trans, deskripsi)
 VALUES ('BK',
         'Barang Keluar',
         '');
+
+DROP DATABASE gudang_sortir;
+DROP DATABASE gudang_sortir_test;

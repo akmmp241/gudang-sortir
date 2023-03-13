@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../config/assetsConfig.php';
+require_once __DIR__ . '/../config/database.php';
 
 use Akmalmp\GudangSortir\App\Router;
 use Akmalmp\GudangSortir\Controller\BarangController;

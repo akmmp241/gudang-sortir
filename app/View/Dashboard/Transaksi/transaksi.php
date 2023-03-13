@@ -3,6 +3,15 @@
     <br>
     <a href="/dashboard">Kembali ke dashboard</a>
     <br><br>
+    <select name="field" id="field-select" onchange="window.location='?field='+this.value+'&order='+document.getElementById('order-select').value;">
+        <option value="id" <?php if(!isset($_GET['field']) || $_GET['field']=='id'){echo "selected";} ?> >Id Transaksi</option>
+        <option value="tanggal_transaksi" <?php if(isset($_GET['field']) && $_GET['field']=='tanggal_transaksi'){echo "selected";} ?>>Tanggal</option>
+    </select>
+    <select name="order" id="order-select" onchange="window.location='?field='+document.getElementById('field-select').value+'&order='+this.value;">
+        <option value="ASC" <?php if(!isset($_GET['order']) || $_GET['order']=='ASC'){echo "selected";} ?> >ASC</option>
+        <option value="DESC" <?php if(isset($_GET['order']) && $_GET['order']=='DESC'){echo "selected";} ?> >DESC</option>
+    </select>
+    <br><br><br>
     <table border="1" cellpadding="5" cellspacing="0">
         <tr>
             <th>ID transaksi</th>

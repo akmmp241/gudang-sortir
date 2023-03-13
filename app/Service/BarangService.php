@@ -74,8 +74,8 @@ class BarangService
             throw new ValidationExcepetion("Isi semua data");
         }
 
-        if (preg_match('/[`#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $request->getNamaBarang())) {
-            throw new ValidationExcepetion("Nama kategori tidak boleh mengandung karakter spesial");
+        if (preg_match('/[`#$%^&*()+=\\[\]\';,.\/{}|":<>?~\\\\]/', $request->getNamaBarang())) {
+            throw new ValidationExcepetion("Nama Barang tidak boleh mengandung karakter spesial");
         }
 
         if (preg_match('/[`#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $request->getDeskripsi())) {

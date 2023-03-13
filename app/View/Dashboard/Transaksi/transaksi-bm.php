@@ -5,7 +5,7 @@
     <form action="/dashboard/transaksi/barang-masuk" method="post">
         <input type="text" name="id-transaksi" value="<?= $model['id_transaksi'] ?>" readonly>
         <br>
-        <input type="date" name="tanggal" value="<?= $model['tanggal'] ?? '' ?>">
+        <input type="datetime-local" name="tanggal" value="<?= $model['tanggal'] ?? '' ?>">
         <br>
         <select name="id-barang" id="id-barang">
             <?php if (isset($model['barang'])) { ?>

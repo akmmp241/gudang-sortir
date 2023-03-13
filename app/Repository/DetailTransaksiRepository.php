@@ -53,10 +53,9 @@ class DetailTransaksiRepository
         }
     }
 
-    public function getTransaksiHistori(): ?array
+    public function getTransaksiHistori(string $field, string $order): ?array
     {
-        $statement = $this->connection->prepare(
-            "SELECT d.id_transaksi       AS id_transaksi,
+        $query = "SELECT d.id_transaksi       AS id_transaksi,
                            jt.nama_trans       AS jenis_transaksi,
                            t.tanggal_transaksi AS tanggal_transaksi,
                            d.kuantitas         AS barang_masuk,
@@ -67,8 +66,8 @@ class DetailTransaksiRepository
                         JOIN transaksi t        ON t.id_transaksi   = d.id_transaksi
                         JOIN barang b           ON d.id_barang      = b.id_barang
                         JOIN jenis_transaksi jt ON t.kode_transaksi = jt.kode_transaksi 
-                    ORDER BY t.id"
-        );
+                    ORDER BY t." . $field . ' ' . $order;
+        $statement = $this->connection->prepare($query);
         $statement->execute([]);
         try  {
             if ($data = $statement->fetchAll(PDO::FETCH_ASSOC)) {

@@ -176,9 +176,9 @@ class TransaksiService
         return sprintf("%06s", $transaksi);
     }
 
-    public function getDataTransaksi(): ?array
+    public function getDataTransaksi(string $field, string $order): ?array
     {
-        $data = $this->detailTransaksiRepository->getTransaksiHistori();
+        $data = $this->detailTransaksiRepository->getTransaksiHistori($field, $order);
         if ($data == null) {
             return null;
         }

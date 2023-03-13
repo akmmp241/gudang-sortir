@@ -46,5 +46,3 @@ Options All -Indexes
 # Disable server signature start
 	ServerSignature Off
 # Disable server signature end
-
-php_value memory_limit 3000M;

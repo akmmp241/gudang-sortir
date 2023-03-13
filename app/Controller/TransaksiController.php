@@ -38,7 +38,7 @@ class TransaksiController
 
     public function transaksi(): void
     {
-        $transaksi = $this->transaksiService->getDataTransaksi();
+        $transaksi = $this->transaksiService->getDataTransaksi($_GET['field'] ?? 'id', $_GET['order'] ?? 'ASC');
         View::render('Dashboard/Transaksi/transaksi', [
             'data_transaksi' => $transaksi
         ]);
@@ -65,7 +65,7 @@ class TransaksiController
 
         View::render($halamanBarang, [
             'id_transaksi' => $idTransaksi,
-            'tanggal' => $tanggalNow->format('Y-m-d'),
+            'tanggal' => $tanggalNow->format('Y-m-d H:i'),
             'barang' => $barang
         ]);
     }
@@ -114,7 +114,7 @@ class TransaksiController
 
             View::render($halamanBarang, [
                 'id_transaksi' => $idTransaksi,
-                'tanggal' => $tanggalNow->format('Y-m-d'),
+                'tanggal' => $tanggalNow->format('Y-m-d H:i'),
                 'barang' => $barang,
                 'error' => $exception->getMessage()
             ]);
