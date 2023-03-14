@@ -23,10 +23,9 @@ CREATE TABLE sessions
 
 CREATE TABLE kategori
 (
-    id_kategori   VARCHAR(200) NOT NULL,
+    id_kategori   VARCHAR(200) NOT NULL PRIMARY KEY ,
     nama_kategori VARCHAR(100) NOT NULL,
-    deskripsi     TEXT         NULL,
-    PRIMARY KEY (id_kategori)
+    deskripsi     TEXT         NULL
 ) ENGINE InnoDB;
 
 CREATE TABLE barang
