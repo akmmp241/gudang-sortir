@@ -2,7 +2,7 @@
 
 namespace Akmalmp\GudangSortir\App;
 
-use Akmalmp\GudangSortir\Controller\NotFoundController;
+use Akmalmp\GudangSortir\Controller\ErrorDocumentController;
 
 class Router
 {
@@ -27,11 +27,15 @@ class Router
 
     public static function run(): void
     {
+//        SET PATH
+        // default path
         $path = "/";
+        // path from url
         if (isset($_SERVER['PATH_INFO'])) {
             $path = $_SERVER['PATH_INFO'];
         }
 
+//        REQUEST METHOD GET | POST
         $method = $_SERVER['REQUEST_METHOD'];
 
         foreach (self::$routes as $route) {
@@ -54,7 +58,6 @@ class Router
         }
 
         http_response_code(404);
-        call_user_func([NotFoundController::class, 'notFound']);
-
+        call_user_func([ErrorDocumentController::class, 'notFound']);
     }
 }

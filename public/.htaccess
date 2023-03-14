@@ -37,11 +37,16 @@ Options All -Indexes
 	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 </IfModule>
 
-<IfModule !mod_rewrite.c>
+<IfModule mod_rewrite.c>
 	# If we don't have mod_rewrite installed, all 404's
 	# can be sent to index.php, and everything works as normal.
-	ErrorDocument 404 index.php
+#        ErrorDocument 404 index.php
+        ErrorDocument 403 /forbidden
 </IfModule>
+
+<FilesMatch "\.(ini|psd|log|sh|css)$">
+ErrorDocument 403 /forbidden
+</FilesMatch>
 
 # Disable server signature start
 	ServerSignature Off

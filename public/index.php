@@ -9,6 +9,7 @@ use Akmalmp\GudangSortir\Controller\BarangController;
 use Akmalmp\GudangSortir\Controller\DashboardController;
 use Akmalmp\GudangSortir\Controller\HomeController;
 use Akmalmp\GudangSortir\Controller\KategoriController;
+use Akmalmp\GudangSortir\Controller\ErrorDocumentController;
 use Akmalmp\GudangSortir\Controller\TransaksiController;
 use Akmalmp\GudangSortir\Controller\UserController;
 use Akmalmp\GudangSortir\Middleware\BarangMiddleware;
@@ -66,5 +67,9 @@ Router::add('POST', '/dashboard/transaksi/barang-masuk', TransaksiController::cl
 //      Barang Keluar
 Router::add('GET', '/dashboard/transaksi/barang-keluar', TransaksiController::class, 'transaksiBarang', [MustLoginMiddleware::class]);
 Router::add('POST', '/dashboard/transaksi/barang-keluar', TransaksiController::class, 'postTransaksiBarang', [MustLoginMiddleware::class]);
+
+// ASSETS
+//      css
+Router::add('GET', '/forbidden', ErrorDocumentController::class, 'forbidden', []);
 
 Router::run();

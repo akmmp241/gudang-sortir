@@ -2,10 +2,10 @@
 
 function getCss(): string
 {
-    return "/assets/css/";
+    return "/assets/css/jndajksndjdnas.css";
 }
 
 function getJavaScript(): string
 {
-    return "/assets/JS/";
+    return "/assets/JS/script.js";
 }
