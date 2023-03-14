@@ -75,16 +75,20 @@ class KategoriService
             throw new ValidationExcepetion("Id dan Nama kategori tidak boleh kosong");
         }
 
-        if (preg_match('/[a-z0-9`#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $request->getIdKategori())) {
+        if (preg_match('/[a-z0-9`!@#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $request->getIdKategori())) {
             throw new ValidationExcepetion("Id harus kapital dan tidak boleh mengandung karakter spesial");
         }
 
-        if (preg_match('/[`#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $request->getNamaKategori())) {
+        if (preg_match('/[`!@#$%^&*()+=\\[\]\';,.\/{}|":<>?~\\\\]/', $request->getNamaKategori())) {
             throw new ValidationExcepetion("Nama kategori tidak boleh mengandung karakter spesial");
         }
 
-        if (preg_match('/[`#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $request->getDeskripsi())) {
+        if (preg_match('/[`!@#$%^&*()+=\\[\]\';,.\/{}|":<>?~\\\\]/', $request->getDeskripsi())) {
             throw new ValidationExcepetion("Deskripsi tidak boleh mengandung karakter spesial");
+        }
+
+        if (strlen($request->getIdKategori()) > 10) {
+            throw new ValidationExcepetion("Id maksimal 10 huruf");
         }
     }
 
@@ -119,7 +123,7 @@ class KategoriService
     private function validateDeleteKategori(string $id): void
     {
         if ($this->barangRepository->findByIdKategori($id) != null) {
-            throw new ValidationExcepetion("Kategori tidak dapat dihapus");
+            throw new ValidationExcepetion("Terdapat barang dengan kategori tersebut");
         }
     }
 
@@ -131,6 +135,11 @@ class KategoriService
         $this->validateKategoriUpdateRequest($request);
         try {
             Database::beginTransaction();
+
+            $kategori = $this->kategoriRepository->findByNamaKategori($request->getNamaKategori());
+            if (trim($kategori != null)) {
+                throw new ValidationExcepetion("kategori sudah tersedia");
+            }
             $kategori = $this->kategoriRepository->findById($request->getIdKategori());
 
             $kategori->setNamaKategori($request->getNamaKategori());
@@ -160,15 +169,15 @@ class KategoriService
             throw new ValidationExcepetion("Id dan Nama kategori tidak boleh kosong");
         }
 
-        if (preg_match('/[a-z0-9`#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $request->getIdKategori())) {
+        if (preg_match('/[a-z0-9`!@#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $request->getIdKategori())) {
             throw new ValidationExcepetion("Id harus kapital dan tidak boleh mengandung karakter spesial");
         }
 
-        if (preg_match('/[`#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $request->getNamaKategori())) {
+        if (preg_match('/[`!@#$%^&*()+=\\[\]\';,.\/{}|":<>?~\\\\]/', $request->getNamaKategori())) {
             throw new ValidationExcepetion("Nama kategori tidak boleh mengandung karakter spesial");
         }
 
-        if (preg_match('/[`#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $request->getDeskripsi())) {
+        if (preg_match('/[`!@#$%^&*()+=\\[\]\';,.\/{}|":<>?~\\\\]/', $request->getDeskripsi())) {
             throw new ValidationExcepetion("Deskripsi tidak boleh mengandung karakter spesial");
         }
     }

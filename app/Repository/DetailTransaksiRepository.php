@@ -53,6 +53,28 @@ class DetailTransaksiRepository
         }
     }
 
+    public function findByIdBarang(string $id_barang): ?DetailTransaksi
+    {
+        $statement = $this->connection->prepare(
+            "SELECT id_transaksi, id_barang, kuantitas, deskripsi FROM detail_transaksi WHERE id_barang = ?"
+        );
+        $statement->execute([$id_barang]);
+        try {
+            if ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+                $detailTransaksi = new DetailTransaksi();
+                $detailTransaksi->setIdTransaksi($row['id_transaksi']);
+                $detailTransaksi->setIdBarang($row['id_barang']);
+                $detailTransaksi->setKuantitas($row['kuantitas']);
+                $detailTransaksi->setDeskripsi($row['deskripsi']);
+                return $detailTransaksi;
+            } else {
+                return null;
+            }
+        } finally {
+            $statement->closeCursor();
+        }
+    }
+
     public function getTransaksiHistori(string $field, string $order): ?array
     {
         $query = "SELECT d.id_transaksi       AS id_transaksi,
@@ -66,7 +88,7 @@ class DetailTransaksiRepository
                         JOIN transaksi t        ON t.id_transaksi   = d.id_transaksi
                         JOIN barang b           ON d.id_barang      = b.id_barang
                         JOIN jenis_transaksi jt ON t.kode_transaksi = jt.kode_transaksi 
-                    ORDER BY t." . $field . ' ' . $order;
+                    ORDER BY " . $field . ' ' . $order;
         $statement = $this->connection->prepare($query);
         $statement->execute([]);
         try  {
@@ -78,5 +100,10 @@ class DetailTransaksiRepository
         } finally {
             $statement->closeCursor();
         }
+    }
+
+    public function deleteAll(): void
+    {
+        $this->connection->exec("DELETE FROM detail_transaksi");
     }
 }

@@ -17,10 +17,10 @@ class JenisTransaksiRepositoryTest extends TestCase
 
     public function testGetJT()
     {
-        $jenisTransaksi = $this->jenisTransaksiRepository->findByCode("BM");
+        $jenisTransaksiBm = $this->jenisTransaksiRepository->findByCode("BM");
+        $jenisTransaksiBk = $this->jenisTransaksiRepository->findByCode("Bk");
 
-        self::assertEquals("BM", $jenisTransaksi->getKodeTrasaksi());
+        self::assertEquals("BM", $jenisTransaksiBm->getKodeTrasaksi());
+        self::assertEquals("BK", $jenisTransaksiBk->getKodeTrasaksi());
     }
-
-
 }

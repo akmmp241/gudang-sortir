@@ -39,7 +39,7 @@ class SessionServiceTest extends TestCase
      */
     public function testCreate()
     {
-        $session = $this->sessionService->create(43, "wow@gmail.com");
+        $session = $this->sessionService->create(73, "wow@gmail.com");
         $cookie = SessionService::COOKIE_NAME();
         $this->expectOutputRegex("[{$cookie}: {$session->getId()}]");
 
@@ -52,7 +52,7 @@ class SessionServiceTest extends TestCase
     {
         $session = new Session();
         $session->setId(uniqid());
-        $session->setUserId(45);
+        $session->setUserId(74);
         $session->setUserEmail("wow@gmail.com");
 
         $this->sessionRepository->save($session);
@@ -73,7 +73,7 @@ class SessionServiceTest extends TestCase
     {
         $session = new Session();
         $session->setId(uniqid());
-        $session->setUserId(46);
+        $session->setUserId(75);
         $session->setUserEmail("wow@gmail.com");
         $this->sessionRepository->save($session);
 

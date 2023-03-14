@@ -5,6 +5,7 @@ namespace Akmalmp\GudangSortir\Repository;
 use Akmalmp\GudangSortir\Config\Database;
 use Akmalmp\GudangSortir\Domain\Kategori;
 use PHPUnit\Framework\TestCase;
+use function PHPUnit\Framework\assertEquals;
 
 class KategoriRepositoryTest extends TestCase
 {
@@ -12,9 +13,36 @@ class KategoriRepositoryTest extends TestCase
 
     protected function setUp(): void
     {
+        $detailTransaksiRepository = new DetailTransaksiRepository(Database::getConnection());
+        $detailTransaksiRepository->deleteAll();
+        $barangRepository = new BarangRepository(Database::getConnection());
+        $barangRepository->deleteAll();
         $this->kategoriRepository = new KategoriRepository(Database::getConnection());
         $this->kategoriRepository->deleteAll();
+
     }
+
+    public function testUpdateSuccess()
+    {
+        $kategori = new Kategori();
+        $kategori->setIdKategori("KMR");
+        $kategori->setNamaKategori("Kamera");
+        $kategori->setDeskripsi('');
+        $this->kategoriRepository->save($kategori);
+
+        $kategori = new Kategori();
+        $kategori->setIdKategori("KMR");
+        $kategori->setNamaKategori("Kamera SOny");
+        $kategori->setDeskripsi('waw');
+
+        $this->kategoriRepository->update($kategori);
+
+        $result = $this->kategoriRepository->findById($kategori->getIdKategori());
+
+        assertEquals($result->getNamaKategori(), $kategori->getNamaKategori());
+        assertEquals($result->getDeskripsi(), $kategori->getDeskripsi());
+    }
+
 
     public function testSaveSuccess()
     {

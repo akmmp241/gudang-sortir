@@ -176,22 +176,6 @@ class BarangRepository
         return $row['id'];
     }
 
-    public function getStok(string $id): ?int
-    {
-        $statement = $this->connection->prepare("SELECT kuantitas FROM barang WHERE id_barang = ?");
-        $statement->execute([$id]);
-        try {
-            if ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-                return $row['kuantitas'];
-            } else {
-                return null;
-            }
-        } finally {
-            $statement->closeCursor();
-        }
-
-    }
-
     public function deleteById(string $id): void
     {
         $statement = $this->connection->prepare("DELETE FROM barang WHERE id_barang = ?");

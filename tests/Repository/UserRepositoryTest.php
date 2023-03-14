@@ -21,7 +21,7 @@ class UserRepositoryTest extends TestCase
     public function testSaveSuccess()
     {
         $user = new User();
-        $user->setId(20);
+        $user->setId(72);
         $user->setEmail("manpridi@gmail.com");
         $user->setNama("Akmal Manpri");
         $user->setPassword("12345678");
@@ -43,7 +43,7 @@ class UserRepositoryTest extends TestCase
 
     public function testFindNotFound()
     {
-        $user1 = $this->userRepository->findById(1);
+        $user1 = $this->userRepository->findById(2);
         $user2 = $this->userRepository->findByEmail("notfound");
         self::assertNull($user1);
         self::assertNull($user2);

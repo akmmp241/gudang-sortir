@@ -10,6 +10,7 @@ use Akmalmp\GudangSortir\Model\BarangUpdateResponse;
 use Akmalmp\GudangSortir\Model\TambahBarangRequest;
 use Akmalmp\GudangSortir\Model\TambahBarangResponse;
 use Akmalmp\GudangSortir\Repository\BarangRepository;
+use Akmalmp\GudangSortir\Repository\DetailTransaksiRepository;
 use Exception;
 
 class BarangService
@@ -74,11 +75,11 @@ class BarangService
             throw new ValidationExcepetion("Isi semua data");
         }
 
-        if (preg_match('/[`#$%^&*()+=\\[\]\';,.\/{}|":<>?~\\\\]/', $request->getNamaBarang())) {
+        if (preg_match('/[`!@#$%^&*()+=\\[\]\';,.\/{}|":<>?~\\\\]/', $request->getNamaBarang())) {
             throw new ValidationExcepetion("Nama Barang tidak boleh mengandung karakter spesial");
         }
 
-        if (preg_match('/[`#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $request->getDeskripsi())) {
+        if (preg_match('/[`!@#$%^&*()+=\\[\]\';,.\/{}|":<>?~\\\\]/', $request->getDeskripsi())) {
             throw new ValidationExcepetion("Deskripsi tidak boleh mengandung karakter spesial");
         }
 
@@ -123,11 +124,11 @@ class BarangService
             throw new ValidationExcepetion("Isi semua data");
         }
 
-        if (preg_match('/[`#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $request->getNamaBarang())) {
+        if (preg_match('/[`!@#$%^&*()+=\\[\]\';,.\/{}|":<>?~\\\\]/', $request->getNamaBarang())) {
             throw new ValidationExcepetion("Nama kategori tidak boleh mengandung karakter spesial");
         }
 
-        if (preg_match('/[`#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $request->getDeskripsi())) {
+        if (preg_match('/[`!@#$%^&*()+=\\[\]\';,.\/{}|":<>?~\\\\]/', $request->getDeskripsi())) {
             throw new ValidationExcepetion("Deskripsi tidak boleh mengandung karakter spesial");
         }
     }
@@ -161,11 +162,20 @@ class BarangService
     {
         try {
             Database::beginTransaction();
+            $this->validateDeleteBarang($id);
             $this->barangRepository->deleteById($id);
             Database::commitTransaction();
         } catch (Exception $exception) {
             Database::commitTransaction();
             throw $exception;
+        }
+    }
+
+    private function validateDeleteBarang(string $id): void
+    {
+        $barang = $this->barangRepository->findByIdBarang($id);
+        if ($barang->getKuantitas() > 0) {
+            throw new ValidationExcepetion("Barang yang memiliki stok lebih dari 0 tidak dapat dihapus");
         }
     }
 

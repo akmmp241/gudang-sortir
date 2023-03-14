@@ -3,11 +3,11 @@
     <br>
     <a href="/dashboard">Kembali ke dashboard</a>
     <br><br>
-    <select name="field" id="field-select" onchange="window.location='?field='+this.value+'&order='+document.getElementById('order-select').value;">
-        <option value="id" <?php if(!isset($_GET['field']) || $_GET['field']=='id'){echo "selected";} ?> >Id Transaksi</option>
-        <option value="tanggal_transaksi" <?php if(isset($_GET['field']) && $_GET['field']=='tanggal_transaksi'){echo "selected";} ?>>Tanggal</option>
+    <select name="field" id="field-select">
+        <option value="t.id" <?php if(!isset($_GET['field']) || $_GET['field']=='t.id'){echo "selected";} ?> >Id Transaksi</option>
+        <option value="t.tanggal_transaksi" <?php if(isset($_GET['field']) && $_GET['field']=='t.tanggal_transaksi'){echo "selected";} ?>>Tanggal</option>
     </select>
-    <select name="order" id="order-select" onchange="window.location='?field='+document.getElementById('field-select').value+'&order='+this.value;">
+    <select name="order" id="order-select">
         <option value="ASC" <?php if(!isset($_GET['order']) || $_GET['order']=='ASC'){echo "selected";} ?> >ASC</option>
         <option value="DESC" <?php if(isset($_GET['order']) && $_GET['order']=='DESC'){echo "selected";} ?> >DESC</option>
     </select>
@@ -45,3 +45,4 @@
     <br>
     <a href="/dashboard/transaksi/barang-keluar">barang keluar</a>
 </div>
+<script src="/ass"></script>

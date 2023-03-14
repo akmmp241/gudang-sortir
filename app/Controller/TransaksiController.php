@@ -38,7 +38,7 @@ class TransaksiController
 
     public function transaksi(): void
     {
-        $transaksi = $this->transaksiService->getDataTransaksi($_GET['field'] ?? 'id', $_GET['order'] ?? 'ASC');
+        $transaksi = $this->transaksiService->getDataTransaksi($_GET['field'] ?? 't.id', $_GET['order'] ?? 'ASC');
         View::render('Dashboard/Transaksi/transaksi', [
             'data_transaksi' => $transaksi
         ]);

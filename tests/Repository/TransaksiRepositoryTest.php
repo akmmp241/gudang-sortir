@@ -6,6 +6,8 @@ use Akmalmp\GudangSortir\Config\Database;
 use Akmalmp\GudangSortir\Domain\Transaksi;
 use DateTime;
 use PHPUnit\Framework\TestCase;
+use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertNull;
 
 class TransaksiRepositoryTest extends TestCase
 {
@@ -14,24 +16,40 @@ class TransaksiRepositoryTest extends TestCase
     protected function setUp(): void
     {
         $this->transaksiRepository = new TransaksiRepository(Database::getConnection());
+        $this->transaksiRepository->deleteAll();
     }
 
-
-    public function testCreate()
+    public function testSaveSuccess()
     {
-        $date = new DateTime();
-
         $transaksi = new Transaksi();
-        $transaksi->setId(30);
-        $transaksi->setTransaksiKode("BM");
-        $transaksi->setTanggalTransaksi($date);
+        $transaksi->setId(20);
+        $transaksi->setTransaksiKode('BM');
+        $transaksi->setIdTransaksi($transaksi->getTransaksiKode() . "-" . sprintf('%06s', $transaksi->getId()));
+        $transaksi->setTanggalTransaksi(new DateTime());
         $transaksi->setDeskripsi('');
-
         $this->transaksiRepository->save($transaksi);
 
-        $transaksi = $this->transaksiRepository->findById($transaksi->getId());
+        $result = $this->transaksiRepository->findById($transaksi->getIdTransaksi());
 
-        print_r($transaksi);
+        assertEquals($result->getIdTransaksi(), $transaksi->getIdTransaksi());
     }
+
+    public function testDeleteSuccess()
+    {
+        $transaksi = new Transaksi();
+        $transaksi->setId(21);
+        $transaksi->setTransaksiKode('BM');
+        $transaksi->setIdTransaksi($transaksi->getTransaksiKode() . "-" . sprintf('%06s', $transaksi->getId()));
+        $transaksi->setTanggalTransaksi(new DateTime());
+        $transaksi->setDeskripsi('');
+        $this->transaksiRepository->save($transaksi);
+
+        $this->transaksiRepository->deleteById($transaksi->getIdTransaksi());
+
+        $result = $this->transaksiRepository->findById($transaksi->getIdTransaksi());
+
+        assertNull($result);
+    }
+
 
 }

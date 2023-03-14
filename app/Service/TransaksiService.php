@@ -96,14 +96,13 @@ class TransaksiService
     {
         $this->validateTransaksiBarangRequest($request);
         try {
+            Database::beginTransaction();
 
             $barang = $this->barangRepository->findByIdBarang($request->getIdBarang());
 
             if ($request->getKuantitas() > $barang->getKuantitas()) {
                 throw new ValidationExcepetion("Barang tidak bisa keluar melebihi stok");
             }
-
-            Database::beginTransaction();
 
             $jenisTransaksi = $this->jenisTransaksiRepository->findByCode("BK");
 
