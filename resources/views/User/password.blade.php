@@ -1,6 +1,6 @@
 <h1>{{ $title }}</h1>
 <div>
-    <form action="/users/login" method="POST">
+    <form action="/users/update-password" method="POST">
         @csrf
         @error('error')
             <p>{{ $message }}</p>
