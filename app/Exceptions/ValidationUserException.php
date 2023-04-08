@@ -3,7 +3,6 @@
 namespace App\Exceptions;
 
 use Exception;
-use http\Env\Response;
 
 class ValidationUserException extends Exception
 {
