@@ -3,6 +3,7 @@
 namespace App\Repositories\User;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\User;
 
@@ -13,5 +14,31 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
     {
     }
 
-//    delete branch
+    public function save(User $user): void
+    {
+        $user->save();
+    }
+
+    public function updating(User $user): void
+    {
+        $user->update();
+    }
+
+    public function findById(int $id): ?User
+    {
+        return User::find($id);
+    }
+
+    public function findByEmail(string $email): ?User
+    {
+        return User::where('email', $email)->first();
+    }
+
+    public function auth(array $dataUser): bool
+    {
+        return Auth::attempt([
+            'email' => $dataUser['email'],
+            'password' => $dataUser['password']
+        ]);
+    }
 }
