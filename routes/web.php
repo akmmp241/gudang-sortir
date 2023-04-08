@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/dashbaord', [DashboardController::class, 'dashboard']);
 
 Route::get('/users/login', [UserController::class, 'login'])
     ->middleware(['must.not.login']);
