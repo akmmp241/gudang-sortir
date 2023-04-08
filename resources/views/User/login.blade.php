@@ -11,5 +11,6 @@
         <label for="password">password: </label><label>
             <input type="password" name="password" autocomplete="off" placeholder="your fullname" value="{{ old('password', '') }}">
         </label>
+        <button type="submit" name="submit">Submit</button>
     </form>
 </div>

@@ -17,5 +17,6 @@
         <label for="confirm">confirm: </label><label>
             <input type="password" name="confirm" autocomplete="off" placeholder="your fullname" value="{{ old('confirm', '') }}">
         </label>
+        <button type="submit" name="submit">Submit</button>
     </form>
 </div>
