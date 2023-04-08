@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Akmalmp\GudangSortir\Exception\ValidationExcepetion;
 use App\Exceptions\ValidationUserException;
 use App\Repositories\User\UserRepository;
 use Illuminate\Foundation\Http\FormRequest;

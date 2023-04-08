@@ -76,7 +76,7 @@ class UserController extends Controller
             $this->userService->updatePassword($request);
             return redirect('/dashboard');
         } catch (ValidationUserException $e) {
-            return back()->withErrors(['error' => $e->getMessage]);
+            return back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 }
