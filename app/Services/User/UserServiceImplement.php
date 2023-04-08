@@ -32,21 +32,13 @@ class UserServiceImplement extends Service implements UserService
     public function register(RegisterRequest $request): void
     {
         RegisterRequest::validating($request, $this->userRepository);
-        try {
-            DB::beginTransaction();
 
-            $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
 
-            $this->userRepository->save($user);
-
-            DB::commit();
-        } catch (Exception $exception) {
-            DB::rollBack();
-            throw $exception;
-        }
+        $this->userRepository->save($user);
     }
 
     /**
