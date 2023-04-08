@@ -2,21 +2,75 @@
 
 namespace App\Services\User;
 
+use App\Exceptions\ValidationUserException;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UpdatePasswordRequest;
+use App\Http\Requests\UpdateProfileRequest;
+use App\Models\User;
+use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use LaravelEasyRepository\Service;
 use App\Repositories\User\UserRepository;
 
-class UserServiceImplement extends Service implements UserService{
+class UserServiceImplement extends Service implements UserService
+{
+    protected UserRepository $userRepository;
 
-     /**
-     * don't change $this->mainRepository variable name
-     * because used in extends service class
-     */
-     protected $mainRepository;
-
-    public function __construct(UserRepository $mainRepository)
+    public function __construct(UserRepository $userRepository)
     {
-      $this->mainRepository = $mainRepository;
+        $this->userRepository = $userRepository;
     }
 
     // Define your custom methods :)
+
+    /**
+     * @throws ValidationUserException
+     * @throws Exception
+     */
+    public function register(RegisterRequest $request): void
+    {
+        RegisterRequest::validating($request, $this->userRepository);
+        try {
+            DB::beginTransaction();
+
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+
+            $this->userRepository->save($user);
+
+            DB::commit();
+        } catch (Exception $exception) {
+            DB::rollBack();
+            throw $exception;
+        }
+    }
+
+    /**
+     * @throws ValidationUserException
+     */
+    public function login(LoginRequest $request): ?User
+    {
+        $info = $this->userRepository->auth([
+            'name' => $request->name,
+            'password' => $request->password
+        ]);
+
+        if (!$info) {
+            throw ValidationUserException::loginFailed();
+        }
+
+        return $this->userRepository->findByEmail($request->email);
+    }
+
+    public function updatePassword(UpdatePasswordRequest $request)
+    {
+    }
+
+    public function updateProfile(UpdateProfileRequest $request)
+    {
+    }
 }
