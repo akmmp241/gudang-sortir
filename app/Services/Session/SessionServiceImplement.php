@@ -29,7 +29,8 @@ class SessionServiceImplement extends Service implements SessionService
 
         $this->sessionRepository->save($session);
 
-        Cookie::make(self::$COOKIE_NAME, $session->token, 60 * 24, '/');
+        setcookie(self::$COOKIE_NAME, $session->token, time() + (60 * 60 * 24), '/');
+//        Cookie::make(self::$COOKIE_NAME, $session->token, 60 * 24, '/');
     }
 
     public function destroying(): void
@@ -37,12 +38,13 @@ class SessionServiceImplement extends Service implements SessionService
         $token = Cookie::get(self::$COOKIE_NAME, '');
         $session = $this->sessionRepository->deleteByToken($token);
 
-        Cookie::forget(self::$COOKIE_NAME, '/');
+        setcookie(self::$COOKIE_NAME, '', 1, '/');
+//        Cookie::forget(self::$COOKIE_NAME, '/');
     }
 
     public function current(): ?User
     {
-        $token = Cookie::get(self::$COOKIE_NAME, '');
+        $token = $_COOKIE[self::$COOKIE_NAME] ?? '';
         $session = $this->sessionRepository->findByToken($token);
         if ($session == null) {
             return null;

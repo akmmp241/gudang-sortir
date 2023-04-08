@@ -36,7 +36,7 @@ class UserController extends Controller
     {
         try {
             $this->userService->register($request);
-            return response()->redirectTo('/users/login');
+            return redirect('/users/login');
         } catch (Exception $exception) {
             return redirect()->back()->withErrors(['error' => $exception->getMessage()]);
         }
@@ -56,7 +56,7 @@ class UserController extends Controller
             $this->sessionService->creating($user->id);
             return redirect()->intended('/dashboard');
         } catch (ValidationUserException $exception) {
-            return redirect()->back()->withErrors(['error' => $exception->getMessage()]);
+            return back()->withErrors(['error' => $exception->getMessage()]);
         }
     }
 }
