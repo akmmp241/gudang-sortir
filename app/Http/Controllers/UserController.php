@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\ValidationUserException;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Services\Session\SessionService;
 use App\Services\Session\SessionServiceImplement;
 use App\Services\User\UserService;
@@ -38,7 +39,7 @@ class UserController extends Controller
             $this->userService->register($request);
             return redirect('/users/login');
         } catch (Exception $exception) {
-            return redirect()->back()->withErrors(['error' => $exception->getMessage()]);
+            return back()->withErrors(['error' => $exception->getMessage()]);
         }
     }
 
@@ -57,6 +58,25 @@ class UserController extends Controller
             return redirect()->intended('/dashboard');
         } catch (ValidationUserException $exception) {
             return back()->withErrors(['error' => $exception->getMessage()]);
+        }
+    }
+
+    public function updatePassword(): View
+    {
+        return view('User.password', [
+            'title' => 'update password'
+        ]);
+    }
+
+    public function postUpdatePassword(UpdatePasswordRequest $request): RedirectResponse
+    {
+        $userId = $this->sessionService->current()->id;
+        $request->id = $userId;
+        try {
+            $this->userService->updatePassword($request);
+            return redirect('/dashboard');
+        } catch (ValidationUserException $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 }

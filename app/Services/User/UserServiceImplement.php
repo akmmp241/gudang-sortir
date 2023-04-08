@@ -61,11 +61,21 @@ class UserServiceImplement extends Service implements UserService
         return $this->userRepository->findByEmail($request->email);
     }
 
+    /**
+     * @throws ValidationUserException
+     */
     public function updatePassword(UpdatePasswordRequest $request)
     {
+        UpdatePasswordRequest::validating($request, $this->userRepository);
+
+        $user = $this->userRepository->findById($request->id);
+        $user->password = Hash::make($request->newPassword);
+
+        $this->userRepository->updating($user);
     }
 
     public function updateProfile(UpdateProfileRequest $request)
     {
+
     }
 }

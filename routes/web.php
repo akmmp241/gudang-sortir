@@ -30,6 +30,10 @@ Route::get('/users/register', [UserController::class, 'register'])
     ->middleware(['must.not.login']);
 Route::post('/users/register', [UserController::class, 'postRegister'])
     ->middleware(['must.not.login']);
+Route::get('/users/update-password', [UserController::class, 'updatePassword'])
+    ->middleware('must.login');
+Route::post('/users/update-password', [UserController::class, 'postUpdatePassword'])
+    ->middleware('must.login');
 
 Route::get('/welcome', function () {
     return view('welcome');

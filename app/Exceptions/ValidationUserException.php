@@ -62,6 +62,11 @@ class ValidationUserException extends Exception
         throw new self('email atau password salah');
     }
 
+    public static function userNotFound()
+    {
+        throw new self('user tidak ditemukan');
+    }
+
     /**
      * @throws ValidationUserException
      */
