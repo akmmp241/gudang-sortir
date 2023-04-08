@@ -18,8 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'home'])
     ->middleware('must.not.login');
-    
-Route::get('/dashbaord', [DashboardController::class, 'dashboard']);
+
+Route::get('/dashbaord', [DashboardController::class, 'dashboard'])
+    ->middleware('must.login');
 
 Route::get('/users/login', [UserController::class, 'login'])
     ->middleware(['must.not.login']);
