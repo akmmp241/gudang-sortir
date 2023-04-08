@@ -61,6 +61,12 @@ class UserController extends Controller
         }
     }
 
+    public function logout(): RedirectResponse
+    {
+        $this->sessionService->destroying();
+        return redirect('/');
+    }
+
     public function updatePassword(): View
     {
         return view('User.password', [
