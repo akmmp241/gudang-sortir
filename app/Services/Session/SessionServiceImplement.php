@@ -35,7 +35,7 @@ class SessionServiceImplement extends Service implements SessionService
 
     public function destroying(): void
     {
-        $token = Cookie::get(self::$COOKIE_NAME, '');
+        $token = $_COOKIE[self::$COOKIE_NAME] ?? '';
         $session = $this->sessionRepository->deleteByToken($token);
 
         setcookie(self::$COOKIE_NAME, '', 1, '/');

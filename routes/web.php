@@ -34,6 +34,8 @@ Route::get('/users/update-password', [UserController::class, 'updatePassword'])
     ->middleware('must.login');
 Route::post('/users/update-password', [UserController::class, 'postUpdatePassword'])
     ->middleware('must.login');
+Route::get('/users/logout', [UserController::class, 'logout'])
+    ->middleware('must.login');
 
 Route::get('/welcome', function () {
     return view('welcome');
