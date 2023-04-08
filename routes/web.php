@@ -24,7 +24,11 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])
 
 Route::get('/users/login', [UserController::class, 'login'])
     ->middleware(['must.not.login']);
-Route::get('/users/register', [UserController::class, 'login'])
+Route::post('/users/login', [UserController::class, 'postLogin'])
+    ->middleware(['must.not.login']);
+Route::get('/users/register', [UserController::class, 'register'])
+    ->middleware(['must.not.login']);
+Route::post('/users/register', [UserController::class, 'postRegister'])
     ->middleware(['must.not.login']);
 
 Route::get('/welcome', function () {
