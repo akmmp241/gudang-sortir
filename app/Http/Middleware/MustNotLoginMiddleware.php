@@ -21,5 +21,6 @@ class MustNotLoginMiddleware
         if ($user != null) {
             return redirect()->back();
         }
+        return $next($request);
     }
 }

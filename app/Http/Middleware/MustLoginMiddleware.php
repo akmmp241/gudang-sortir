@@ -22,5 +22,6 @@ class MustLoginMiddleware
         if ($user == null) {
             return redirect('/users/login');
         }
+        return $next($request);
     }
 }
