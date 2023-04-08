@@ -11,7 +11,6 @@ use App\Services\User\UserService;
 use App\Services\User\UserServiceImplement;
 use Exception;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class UserController extends Controller
