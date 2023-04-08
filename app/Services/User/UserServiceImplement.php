@@ -68,11 +68,9 @@ class UserServiceImplement extends Service implements UserService
 
     public function updatePassword(UpdatePasswordRequest $request)
     {
-        // TODO: Implement updatePassword() method.
     }
 
     public function updateProfile(UpdateProfileRequest $request)
     {
-        // TODO: Implement updateProfile() method.
     }
 }
