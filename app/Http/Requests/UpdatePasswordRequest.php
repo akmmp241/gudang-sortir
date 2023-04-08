@@ -39,7 +39,7 @@ class UpdatePasswordRequest extends FormRequest
             throw ValidationUserException::blank();
         }
 
-        if (strlen($request->oldPasswor) < 8 || strlen($request->newPassword) < 8) {
+        if (strlen($request->oldPassword) < 8 || strlen($request->newPassword) < 8) {
             throw ValidationUserException::minimumPassword();
         }
 
@@ -48,7 +48,7 @@ class UpdatePasswordRequest extends FormRequest
             throw ValidationUserException::userNotFound();
         }
 
-        if (Hash::check($request->oldPassword, $user->password)) {
+        if (!Hash::check($request->oldPassword, $user->password)) {
             throw ValidationUserException::custom('password lama salah');
         }
 
