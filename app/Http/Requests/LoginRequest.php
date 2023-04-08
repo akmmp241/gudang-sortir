@@ -31,7 +31,7 @@ class LoginRequest extends FormRequest
     /**
      * @throws ValidationUserException
      */
-    public static function validating(self $request, UserRepository $userRepository)
+    public static function validating(self $request)
     {
         if ($request->email == null || $request->password == null ||
             trim($request->email) == "" || trim($request->password) == "") {
