@@ -6,6 +6,10 @@ use App\Exceptions\ValidationUserException;
 use App\Repositories\User\UserRepository;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property $email
+ * @property $password
+ */
 class LoginRequest extends FormRequest
 {
     /**

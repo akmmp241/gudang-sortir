@@ -4,6 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property $name
+ * @property $email
+ */
 class UpdateProfileRequest extends FormRequest
 {
     /**
