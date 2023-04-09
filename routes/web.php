@@ -16,26 +16,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'home'])
-    ->middleware('must.not.login');
+//      Home Page
+Route::get('/', [HomeController::class, 'home'])->middleware('must.not.login');
 
-Route::get('/dashboard', [DashboardController::class, 'dashboard'])
-    ->middleware('must.login');
+//      Dashboard Page
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware('must.login');
 
-Route::get('/users/login', [UserController::class, 'login'])
-    ->middleware(['must.not.login']);
-Route::post('/users/login', [UserController::class, 'postLogin'])
-    ->middleware(['must.not.login']);
-Route::get('/users/register', [UserController::class, 'register'])
-    ->middleware(['must.not.login']);
-Route::post('/users/register', [UserController::class, 'postRegister'])
-    ->middleware(['must.not.login']);
-Route::get('/users/update-password', [UserController::class, 'updatePassword'])
-    ->middleware('must.login');
-Route::post('/users/update-password', [UserController::class, 'postUpdatePassword'])
-    ->middleware('must.login');
-Route::get('/users/logout', [UserController::class, 'logout'])
-    ->middleware('must.login');
+//      User Page
+// Login Page
+Route::get('/users/login', [UserController::class, 'login'])->middleware(['must.not.login']);
+Route::post('/users/login', [UserController::class, 'postLogin'])->middleware(['must.not.login']);
+// Register Page
+Route::get('/users/register', [UserController::class, 'register'])->middleware(['must.not.login']);
+Route::post('/users/register', [UserController::class, 'postRegister'])->middleware(['must.not.login']);
+// Profile & Update Profile Page
+Route::get('/users/profile', [UserController::class, 'profile'])->middleware('must.login');
+Route::post('users/profile', [UserController::class, 'postUpdateProfile'])->middleware('must.login');
+// Change Password Page
+Route::get('/users/update-password', [UserController::class, 'updatePassword'])->middleware('must.login');
+Route::post('/users/update-password', [UserController::class, 'postUpdatePassword'])->middleware('must.login');
+// Logout
+Route::get('/users/logout', [UserController::class, 'logout'])->middleware('must.login');
+
 
 Route::get('/welcome', function () {
     return view('welcome');
