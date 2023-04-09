@@ -3,7 +3,6 @@
 namespace App\Repositories\Session;
 
 use App\Models\Session;
-use App\Models\User;
 use LaravelEasyRepository\Repository;
 
 interface SessionRepository extends Repository

@@ -8,12 +8,10 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
+use App\Repositories\User\UserRepository;
 use Exception;
-use Illuminate\Auth\Events\Login;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use LaravelEasyRepository\Service;
-use App\Repositories\User\UserRepository;
 
 class UserServiceImplement extends Service implements UserService
 {
@@ -79,7 +77,7 @@ class UserServiceImplement extends Service implements UserService
      */
     public function updateProfile(UpdateProfileRequest $request): void
     {
-        UpdateProfileRequest::validating($request, $this->userRepository);
+        UpdateProfileRequest::validating($request);
 
         $user = $this->userRepository->findById($request->id);
         $user->name = $request->name;

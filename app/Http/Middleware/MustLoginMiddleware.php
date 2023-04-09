@@ -4,13 +4,16 @@ namespace App\Http\Middleware;
 
 use App\Services\Session\SessionService;
 use Closure;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class MustLoginMiddleware
 {
     private SessionService $sessionService;
 
+    /**
+     * @throws BindingResolutionException
+     */
     public function __construct()
     {
         $this->sessionService = app()->make(SessionService::class);

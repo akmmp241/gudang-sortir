@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Exceptions\ValidationUserException;
-use App\Repositories\User\UserRepository;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
@@ -23,7 +23,7 @@ class LoginRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -35,7 +35,7 @@ class LoginRequest extends FormRequest
     /**
      * @throws ValidationUserException
      */
-    public static function validating(self $request)
+    public static function validating(self $request): void
     {
         if ($request->email == null || $request->password == null ||
             trim($request->email) == "" || trim($request->password) == "") {
