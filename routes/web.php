@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
@@ -38,6 +39,21 @@ Route::post('/users/update-password', [UserController::class, 'postUpdatePasswor
 // Logout
 Route::get('/users/logout', [UserController::class, 'logout'])->middleware('must.login');
 
+//      Category Page
+// Add Category Page
+Route::get('/dashboard/category', [CategoryController::class, 'category'])->middleware(['must.login']);
+Route::post('/dashboard/category', [CategoryController::class, 'postCategory'])->middleware('must.login');
+// Edit Category Page
+Route::get('/dashboard/category/update-category/{categoryId}', [CategoryController::class, 'updateCategory'])
+    ->where('categoryId', '([0-9A-Za-z]*)')
+    ->middleware(['must.login', 'category']);
+Route::post('/dashboard/category/update-category/{categoryId}', [CategoryController::class, 'postUpdateCategory'])
+    ->where('categoryId', '([0-9A-Za-z]*)')
+    ->middleware(['must.login', 'category']);
+// Delete Category
+Route::get('/dashboard/category/delete/{categoryId}', [CategoryController::class, 'deleteCategory'])
+    ->where('categoryId', '([0-9A-Za-z]*)')
+    ->middleware(['must.login', 'category']);
 
 Route::get('/welcome', function () {
     return view('welcome');
