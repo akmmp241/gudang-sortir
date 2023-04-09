@@ -70,9 +70,10 @@ class CategoryController extends Controller
         }
     }
 
-    public function deleteCategory(string $categoryId): void
+    public function deleteCategory(string $categoryId): RedirectResponse
     {
         $user = $this->sessionService->current();
         $this->categoryService->deleteCategory($categoryId, $user->id);
+        return redirect()->back()->with(['message' => 'berhasil menghapus category']);
     }
 }
