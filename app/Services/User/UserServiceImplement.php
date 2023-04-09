@@ -74,14 +74,17 @@ class UserServiceImplement extends Service implements UserService
         $this->userRepository->updating($user);
     }
 
+    /**
+     * @throws ValidationUserException
+     */
     public function updateProfile(UpdateProfileRequest $request): void
     {
-        $request->validated($this->userRepository);
+        UpdateProfileRequest::validating($request, $this->userRepository);
 
         $user = $this->userRepository->findById($request->id);
         $user->name = $request->name;
         $user->email = $request->email;
 
-        $this->userRepository->updating($user);
+        $this->userRepository->save($user);
     }
 }

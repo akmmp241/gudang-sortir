@@ -6,6 +6,7 @@ use App\Exceptions\ValidationUserException;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdatePasswordRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use App\Services\Session\SessionService;
 use App\Services\Session\SessionServiceImplement;
 use App\Services\User\UserService;
@@ -69,6 +70,26 @@ class UserController extends Controller
     {
         $this->sessionService->destroying();
         return redirect('/');
+    }
+
+    public function profile(): View
+    {
+        $user = $this->sessionService->current();
+        return view('User.profile', [
+            'user' => $user
+        ]);
+    }
+
+    public function postUpdateProfile(UpdateProfileRequest $request): RedirectResponse
+    {
+        $userId = $this->sessionService->current()->id;
+        $request->id = $userId;
+        try {
+            $this->userService->updateProfile($request);
+            return redirect()->back()->with(['message' => 'update profile success']);
+        } catch (ValidationUserException $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     public function updatePassword(): View

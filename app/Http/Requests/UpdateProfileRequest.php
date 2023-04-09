@@ -28,47 +28,22 @@ class UpdateProfileRequest extends FormRequest
         ];
     }
 
-//    public static function validating(self $request, UserRepository $userRepository)
-//    {
-//        if ($request->email == null || $request->name == null ||
-//            trim($request->email) == "" || trim($request->name) == "") {
-//            throw ValidationUserException::blank();
-//        }
-//
-//        if (!preg_match("/^[A-z\s]+$/", $request->name)) {
-//            throw ValidationUserException::nameNotValid();
-//        }
-//
-//        if (!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $request->email)) {
-//            throw ValidationUserException::emailNotValid();
-//        }
-//
-//        $user = $userRepository->findByEmail($request->email);
-//        if ($user != null) {
-//            throw ValidationUserException::duplicateEmail();
-//        }
-//    }
-
-    public function validated(UserRepository $key = null, $default = null, )
+    /**
+     * @throws ValidationUserException
+     */
+    public static function validating(self $request, UserRepository $userRepository): void
     {
-        if ($this->email == null || $this->name == null ||
-            trim($this->email) == "" || trim($this->name) == "") {
+        if ($request->email == null || $request->name == null ||
+            trim($request->email) == "" || trim($request->name) == "") {
             throw ValidationUserException::blank();
         }
 
-        if (!preg_match("/^[A-z\s]+$/", $this->name)) {
+        if (!preg_match("/^[A-z\s]+$/", $request->name)) {
             throw ValidationUserException::nameNotValid();
         }
 
-        if (!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $this->email)) {
+        if (!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $request->email)) {
             throw ValidationUserException::emailNotValid();
         }
-
-        $user = $key->findByEmail($this->email);
-        if ($user != null) {
-            throw ValidationUserException::duplicateEmail();
-        }
     }
-
-
 }
