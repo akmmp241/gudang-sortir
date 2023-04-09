@@ -46,9 +46,9 @@ class CategoryRepositoryImplement extends Eloquent implements CategoryRepository
             ->first();
     }
 
-    public function deleteById(int $id, int $id_user): void
+    public function deleteById(string $category_id, int $id_user): void
     {
-        $this->findByCategoryId($id, $id_user)->delete();
+        $this->findByCategoryId($category_id, $id_user)->delete();
     }
 
 
