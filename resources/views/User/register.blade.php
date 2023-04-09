@@ -5,6 +5,9 @@
         @error('error')
         <p>{{ $message }}</p>
         @enderror
+        @if(session('message'))
+            <p>{{ session('message') }}</p>
+        @endif
         <label for="name">fullname: </label><label>
             <input type="text" name="name" autocomplete="off" placeholder="your fullname" value="{{ old('name', '') }}">
         </label>
@@ -22,4 +25,5 @@
         </label>
         <button type="submit" name="submit">Submit</button>
     </form>
+    <p>sudah punya akun? <a href="/users/login">Login</a></p>
 </div>

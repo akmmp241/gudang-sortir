@@ -5,6 +5,9 @@
         @error('error')
             <p>{{ $message }}</p>
         @enderror
+        @if(session('message'))
+            <p>{{ session('message') }}</p>
+        @endif
         <label for="oldPassword">old Password: </label><label>
             <input type="password" name="oldPassword" autocomplete="off" placeholder="old password"
                    value="{{ old('oldPassword', '') }}">

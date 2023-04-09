@@ -105,7 +105,7 @@ class UserController extends Controller
         $request->id = $userId;
         try {
             $this->userService->updatePassword($request);
-            return redirect('/dashboard');
+            return redirect('/users/profile')->with(['message' => 'berhasil mengubah password']);
         } catch (ValidationUserException $e) {
             return back()->withErrors(['error' => $e->getMessage()]);
         }
