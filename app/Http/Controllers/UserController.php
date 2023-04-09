@@ -11,6 +11,7 @@ use App\Services\Session\SessionServiceImplement;
 use App\Services\User\UserService;
 use App\Services\User\UserServiceImplement;
 use Exception;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -20,6 +21,9 @@ class UserController extends Controller
     private SessionServiceImplement $sessionService;
 
 
+    /**
+     * @throws BindingResolutionException
+     */
     public function __construct()
     {
         $this->userService = app()->make(UserService::class);
