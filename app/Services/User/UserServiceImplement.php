@@ -64,7 +64,7 @@ class UserServiceImplement extends Service implements UserService
     /**
      * @throws ValidationUserException
      */
-    public function updatePassword(UpdatePasswordRequest $request)
+    public function updatePassword(UpdatePasswordRequest $request): void
     {
         UpdatePasswordRequest::validating($request, $this->userRepository);
 
@@ -74,8 +74,14 @@ class UserServiceImplement extends Service implements UserService
         $this->userRepository->updating($user);
     }
 
-    public function updateProfile(UpdateProfileRequest $request)
+    public function updateProfile(UpdateProfileRequest $request): void
     {
+        $request->validated($this->userRepository);
 
+        $user = $this->userRepository->findById($request->id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        $this->userRepository->updating($user);
     }
 }
