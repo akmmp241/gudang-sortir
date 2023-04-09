@@ -3,8 +3,11 @@
     <form action="/users/login" method="POST">
         @csrf
         @error('error')
-        <p>{{ $message }}</p>
+            <p>{{ $message }}</p>
         @enderror
+        @if(session('message'))
+            <p>{{ session('message') }}</p>
+        @endif
         <label for="email">email: </label><label>
             <input type="email" name="email" autocomplete="off" placeholder="your fullname"
                    value="{{ old('email', '') }}">
@@ -15,4 +18,5 @@
         </label>
         <button type="submit" name="submit">Submit</button>
     </form>
+    <p>belum punya akun? <a href="/users/register">Register</a></p>
 </div>
