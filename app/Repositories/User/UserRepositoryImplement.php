@@ -2,10 +2,9 @@
 
 namespace App\Repositories\User;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use LaravelEasyRepository\Implementations\Eloquent;
-use App\Models\User;
 
 class UserRepositoryImplement extends Eloquent implements UserRepository
 {

@@ -2,9 +2,8 @@
 
 namespace App\Repositories\Session;
 
-use Illuminate\Database\Eloquent\Model;
-use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Session;
+use LaravelEasyRepository\Implementations\Eloquent;
 
 class SessionRepositoryImplement extends Eloquent implements SessionRepository
 {
@@ -12,7 +11,7 @@ class SessionRepositoryImplement extends Eloquent implements SessionRepository
     {
     }
 
-    public function save(Session $session)
+    public function save(Session $session): void
     {
         $session->save();
     }

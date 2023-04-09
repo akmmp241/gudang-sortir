@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Exceptions\ValidationCategoryException;
 use App\Repositories\Category\CategoryRepository;
-use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
@@ -26,7 +26,7 @@ class AddCategoryRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, Rule|array|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {

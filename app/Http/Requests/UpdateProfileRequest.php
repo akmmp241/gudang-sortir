@@ -4,9 +4,11 @@ namespace App\Http\Requests;
 
 use App\Exceptions\ValidationUserException;
 use App\Repositories\User\UserRepository;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
+ * @property $id
  * @property $name
  * @property $email
  */
@@ -23,7 +25,7 @@ class UpdateProfileRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -35,7 +37,7 @@ class UpdateProfileRequest extends FormRequest
     /**
      * @throws ValidationUserException
      */
-    public static function validating(self $request, UserRepository $userRepository): void
+    public static function validating(self $request): void
     {
         if ($request->email == null || $request->name == null ||
             trim($request->email) == "" || trim($request->name) == "") {

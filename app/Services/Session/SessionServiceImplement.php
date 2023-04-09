@@ -4,10 +4,9 @@ namespace App\Services\Session;
 
 use App\Models\Session;
 use App\Models\User;
-use App\Repositories\User\UserRepository;
-use Illuminate\Support\Facades\Cookie;
-use LaravelEasyRepository\Service;
 use App\Repositories\Session\SessionRepository;
+use App\Repositories\User\UserRepository;
+use LaravelEasyRepository\Service;
 
 class SessionServiceImplement extends Service implements SessionService
 {
@@ -21,7 +20,7 @@ class SessionServiceImplement extends Service implements SessionService
         $this->userRepository = $userRepository;
     }
 
-    public function creating(int $id)
+    public function creating(int $id): void
     {
         $session = new Session();
         $session->token = uniqid();
@@ -36,7 +35,7 @@ class SessionServiceImplement extends Service implements SessionService
     public function destroying(): void
     {
         $token = $_COOKIE[self::$COOKIE_NAME] ?? '';
-        $session = $this->sessionRepository->deleteByToken($token);
+        $this->sessionRepository->deleteByToken($token);
 
         setcookie(self::$COOKIE_NAME, '', 1, '/');
 //        Cookie::forget(self::$COOKIE_NAME, '/');
