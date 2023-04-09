@@ -7,6 +7,10 @@ use App\Repositories\User\UserRepository;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * @property $oldPassword
+ * @property $newPassword
+ */
 class UpdatePasswordRequest extends FormRequest
 {
     /**

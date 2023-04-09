@@ -6,6 +6,10 @@ use App\Exceptions\ValidationUserException;
 use App\Repositories\User\UserRepository;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property $name
+ * @property $email
+ */
 class UpdateProfileRequest extends FormRequest
 {
     /**

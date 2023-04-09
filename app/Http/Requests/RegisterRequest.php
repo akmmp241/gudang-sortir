@@ -7,6 +7,12 @@ use App\Repositories\User\UserRepository;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property $name
+ * @property $email
+ * @property $password
+ * @property $confirm
+ */
 class RegisterRequest extends FormRequest
 {
     /**

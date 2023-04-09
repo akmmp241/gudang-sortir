@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static where(string $column, string $value)
+ * @property $id
+ * @property $token
+ * @property $id_user
+ * @property $created_at
+ * @property $updated_at
  */
 class Session extends Model
 {
