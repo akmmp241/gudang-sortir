@@ -28,7 +28,7 @@ class CategoryMiddleware
     /**
      * Handle an incoming request.
      */
-    public function handle(Request $request, Closure $next): RedirectResponse
+    public function handle(Request $request, Closure $next): RedirectResponse|Response
     {
         $user = $this->sessionService->current();
         $path = explode("/", $request->path());
