@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user');
             $table->string('category_id');
             $table->string('name_category');
-            $table->text('description');
+            $table->text('description')->nullable(true);
             $table->timestamps();
 
             $table->foreign('id_user')

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('item_id');
             $table->unsignedBigInteger('id_user');
             $table->integer('quantity')->default(0);
-            $table->text('description');
+            $table->text('description')->nullable(true);
             $table->timestamps();
 
             $table->foreign('transaction_id')

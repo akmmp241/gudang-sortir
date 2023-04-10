@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('transaction_type', function (Blueprint $table) {
             $table->string('transaction_code')->primary();
             $table->string('transaction_name');
-            $table->text('description');
+            $table->text('description')->nullable(true);
             $table->timestamps();
         });
     }

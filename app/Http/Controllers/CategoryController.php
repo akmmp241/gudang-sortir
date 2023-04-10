@@ -52,7 +52,7 @@ class CategoryController extends Controller
     {
         $user = $this->sessionService->current();
         $category = $this->categoryService->getCategory($categoryId, $user->id);
-        return view('Dashboard.Category.update', [
+        return view('Dashboard.Category.update-category', [
             'category' => $category
         ]);
     }
@@ -70,9 +70,10 @@ class CategoryController extends Controller
         }
     }
 
-    public function deleteCategory(string $categoryId): void
+    public function deleteCategory(string $categoryId): RedirectResponse
     {
         $user = $this->sessionService->current();
         $this->categoryService->deleteCategory($categoryId, $user->id);
+        return redirect()->back()->with(['message' => 'berhasil menghapus category']);
     }
 }

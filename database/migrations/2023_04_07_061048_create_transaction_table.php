@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('transaction_id');
             $table->string('counter');
             $table->dateTime('transaction_date');
-            $table->text('description');
+            $table->text('description')->nullable(true);
             $table->timestamps();
 
             $table->foreign('id_user')

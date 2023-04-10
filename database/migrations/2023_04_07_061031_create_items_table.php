@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('counter');
             $table->string('name_item');
             $table->integer('quantity')->default(0);
-            $table->text('description');
+            $table->text('description')->nullable(true);
             $table->timestamps();
 
             $table->foreign('id_user')

@@ -20,5 +20,5 @@ interface CategoryRepository extends Repository
 
     public function findByName(string $name, int $user): ?Category;
 
-    public function deleteById(int $id, int $id_user): void;
+    public function deleteById(string $category_id, int $id_user): void;
 }
