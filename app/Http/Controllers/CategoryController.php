@@ -52,7 +52,7 @@ class CategoryController extends Controller
     {
         $user = $this->sessionService->current();
         $category = $this->categoryService->getCategory($categoryId, $user->id);
-        return view('Dashboard.Category.update', [
+        return view('Dashboard.Category.update-category', [
             'category' => $category
         ]);
     }
