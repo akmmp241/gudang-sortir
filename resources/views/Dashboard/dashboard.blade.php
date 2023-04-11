@@ -8,6 +8,8 @@
 
 <a href="/dashboard/category">category</a>
 <br>
+<a href="/dashboard/item">item</a>
+<br>
 <a href="/users/profile">profile</a>
 <br>
 <a href="/users/logout">logout</a>
