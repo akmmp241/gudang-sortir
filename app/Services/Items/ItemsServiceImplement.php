@@ -71,7 +71,7 @@ class ItemsServiceImplement extends Service implements ItemsService
     /**
      * @throws ValidationItemsException
      */
-    public function deleteItem(DeleteItemsRequest $request, string $item_id, string $id_user): void
+    public function deleteItem(DeleteItemsRequest $request, string $item_id, int $id_user): void
     {
         DeleteItemsRequest::validating($request, $this->itemsRepository);
         $this->itemsRepository->deleteById($item_id, $id_user);
@@ -79,6 +79,6 @@ class ItemsServiceImplement extends Service implements ItemsService
 
     public function getCounter(int $id_user): string
     {
-        return $this->itemsRepository->getCounter($id_user);
+        return sprintf('%05s', $this->itemsRepository->getCounter($id_user)+1);
     }
 }

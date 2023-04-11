@@ -19,7 +19,7 @@ interface ItemsService extends BaseService
 
     public function getItemById(string $categoryId, int $id_user): ?Items;
 
-    public function deleteItem(DeleteItemsRequest $request, string $item_id, string $id_user): void;
+    public function deleteItem(DeleteItemsRequest $request, string $item_id, int $id_user): void;
 
     public function getCounter(int $id_user): string;
 }
