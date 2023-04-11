@@ -7,31 +7,36 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @method static where(string $column, string $value)
+ * @method static where(string $column, int $value)
  * @property $id
- * @property $token
  * @property $id_user
+ * @property $item_id
+ * @property $id_category
+ * @property $counter
+ * @property $name_item
+ * @property $quantity
+ * @property $description
  * @property $created_at
  * @property $updated_at
  */
-class Session extends Model
+class Items extends Model
 {
     use HasFactory;
 
-    protected $table = 'sessions';
+    protected $table = 'items';
 
     protected $guarded = [
         'id'
-    ];
-
-    protected $hidden = [
-        'token',
-        'id_user'
     ];
 
 //    Table Relation
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'id_category', 'id');
     }
 }

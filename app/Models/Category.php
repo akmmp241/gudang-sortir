@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @method static where(string $column, int $value)
@@ -27,8 +28,14 @@ class Category extends Model
         'id'
     ];
 
+//    Table Relation
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(Items::class, 'id_category', 'id');
     }
 }
