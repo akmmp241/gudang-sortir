@@ -38,8 +38,8 @@ class DeleteItemsRequest extends FormRequest
     public static function validating(self $request, ItemsRepository $itemsRepository): void
     {
         $path = explode('/', $request->path());
-        $categoryId = end($path);
-        $item = $itemsRepository->getItemsByIdItems($categoryId, $request->id_user);
+        $itemsId = end($path);
+        $item = $itemsRepository->getItemsByIdItems($itemsId, $request->id_user);
         if ($item->quantity > 0) {
             throw ValidationItemsException::categoryNotValid();
         }

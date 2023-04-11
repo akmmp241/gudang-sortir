@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -54,6 +55,19 @@ Route::post('/dashboard/category/update-category/{categoryId}', [CategoryControl
 Route::get('/dashboard/category/delete/{categoryId}', [CategoryController::class, 'deleteCategory'])
     ->where('categoryId', '([0-9A-Za-z]*)')
     ->middleware(['must.login', 'category']);
+
+//      Item Page
+Route::get('/dashboard/item', [ItemsController::class, 'item'])->middleware('must.login');
+Route::post('/dashboard/item', [ItemsController::class, 'postItem'])->middleware('must.login');
+Route::get('/dashboard/item/update-item/{categoryId}', [ItemsController::class, 'updateItem'])
+    ->where('categoryId', '([0-9A-Za-z-.]*)')
+    ->middleware(['must.login', 'item']);
+Route::post('/dashboard/item/update-item/{categoryId}', [ItemsController::class, 'postUpdateItem'])
+    ->where('categoryId', '([0-9A-Za-z-.]*)')
+    ->middleware(['must.login', 'item']);
+Route::get('/dashboard/item/delete/{categoryId}', [ItemsController::class, 'deleteItem'])
+    ->where('categoryId', '([0-9A-Za-z-.]*)')
+    ->middleware(['must.login', 'item']);
 
 Route::get('/welcome', function () {
     return view('welcome');
