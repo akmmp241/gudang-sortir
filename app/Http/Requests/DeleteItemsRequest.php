@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Exceptions\ValidationItemsException;
 use App\Repositories\Items\ItemsRepository;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -9,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  * @property $id_user
  */
-class DeleteCategoryRequest extends FormRequest
+class DeleteItemsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,10 +32,16 @@ class DeleteCategoryRequest extends FormRequest
         ];
     }
 
+    /**
+     * @throws ValidationItemsException
+     */
     public static function validating(self $request, ItemsRepository $itemsRepository): void
     {
         $path = explode('/', $request->path());
         $categoryId = end($path);
-        $item = $itemsRepository->getItemsByIdCategory($categoryId, $request->id_user);
+        $item = $itemsRepository->getItemsByIdItems($categoryId, $request->id_user);
+        if ($item->quantity > 0) {
+            throw ValidationItemsException::categoryNotValid();
+        }
     }
 }
