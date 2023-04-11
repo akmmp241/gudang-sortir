@@ -26,7 +26,7 @@ class ItemsController extends Controller
      */
     public function __construct()
     {
-        self::$sessionService = app()->make(SessionRepository::class);
+        self::$sessionService = app()->make(SessionService::class);
         $this->itemsService = app()->make(ItemsService::class);
         $this->categoryService = app()->make(CategoryService::class);
     }
@@ -70,6 +70,7 @@ class ItemsController extends Controller
 
     public function postUpdateItem(UpdateItemsRequest $request, string $categoryId): RedirectResponse
     {
+        $request->id_user = self::userInSession()->id;
         try {
             $this->itemsService->updateItems($request);
             return redirect('/dashboard/item')->with(['message' => 'berhasil mengubah barang']);
@@ -80,8 +81,9 @@ class ItemsController extends Controller
 
     public function deleteItem(DeleteItemsRequest $request, string $categoryId): RedirectResponse
     {
+        $request->id_user = self::userInSession()->id;
         try {
-            $this->itemsService->deleteItem($request, $categoryId, self::userInSession()->id);
+            $this->itemsService->deleteItem($request, $categoryId, $request->id_user);
             return redirect()->back()->with(['message' => 'berhasil menghapus barang']);
         } catch (ValidationItemsException $exception) {
             return redirect()->back()->withErrors(['error' => $exception->getMessage()]);
