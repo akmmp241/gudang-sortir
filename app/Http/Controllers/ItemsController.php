@@ -8,6 +8,7 @@ use App\Http\Requests\DeleteItemsRequest;
 use App\Http\Requests\UpdateItemsRequest;
 use App\Models\User;
 use App\Repositories\Session\SessionRepository;
+use App\Services\Category\CategoryService;
 use App\Services\Items\ItemsService;
 use App\Services\Session\SessionService;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -18,6 +19,7 @@ class ItemsController extends Controller
 {
     private static SessionService $sessionService;
     private ItemsService $itemsService;
+    private CategoryService $categoryService;
 
     /**
      * @throws BindingResolutionException
@@ -26,6 +28,7 @@ class ItemsController extends Controller
     {
         self::$sessionService = app()->make(SessionRepository::class);
         $this->itemsService = app()->make(ItemsService::class);
+        $this->categoryService = app()->make(CategoryService::class);
     }
 
 
@@ -36,9 +39,13 @@ class ItemsController extends Controller
 
     public function item(): View
     {
-        $item = $this->itemsService->getAll(self::userInSession()->id);
+        $items = $this->itemsService->getAll(self::userInSession()->id);
+        $categories = $this->categoryService->allCategory(self::userInSession()->id);
+        $counter = $this->itemsService->getCounter(self::userInSession()->id);
         return view('Dashboard.Item.item', [
-            'item' => $item
+            'items' => $items,
+            'categories' => $categories,
+            'counter' => $counter
         ]);
     }
 
