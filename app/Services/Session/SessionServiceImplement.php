@@ -49,6 +49,6 @@ class SessionServiceImplement extends Service implements SessionService
             return null;
         }
 
-        return $this->userRepository->findById($session->id_user);
+        return $session->user;
     }
 }
