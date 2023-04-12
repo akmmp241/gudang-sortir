@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property $description
  * @property $created_at
  * @property $updated_at
+ * @property $user
+ * @property $category
  */
 class Items extends Model
 {
