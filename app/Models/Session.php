@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property $id_user
  * @property $created_at
  * @property $updated_at
+ * @property $user
  */
 class Session extends Model
 {
