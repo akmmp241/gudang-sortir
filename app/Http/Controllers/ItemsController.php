@@ -32,26 +32,24 @@ class ItemsController extends Controller
     }
 
 
-    private static function userInSession(): ?User
+    private static function ID_USER_IN_SESSION(): ?int
     {
-        return self::$sessionService->current();
+        return self::$sessionService->current()->id;
     }
 
     public function item(): View
     {
-        $items = $this->itemsService->getAll(self::userInSession()->id);
-        $categories = $this->categoryService->allCategory(self::userInSession()->id);
-        $counter = $this->itemsService->getCounter(self::userInSession()->id);
+        $items = $this->itemsService->getAll(self::ID_USER_IN_SESSION());
+        $counter = $this->itemsService->getCounter(self::ID_USER_IN_SESSION());
         return view('Dashboard.Item.item', [
             'items' => $items,
-            'categories' => $categories,
             'counter' => $counter
         ]);
     }
 
     public function postItem(AddItemsRequest $request): RedirectResponse
     {
-        $request->id_user = self::userInSession()->id;
+        $request->id_user = self::ID_USER_IN_SESSION();
         try {
             $this->itemsService->addItems($request);
             return redirect()->back()->with(['message' => 'berhasil menambahkan data']);
@@ -62,7 +60,7 @@ class ItemsController extends Controller
 
     public function updateItem(string $categoryId): View
     {
-        $item = $this->itemsService->getItemById($categoryId, self::userInSession()->id);
+        $item = $this->itemsService->getItemById($categoryId, self::ID_USER_IN_SESSION());
         return view('Dashboard.Item.update-item', [
             'item' => $item
         ]);
@@ -70,7 +68,7 @@ class ItemsController extends Controller
 
     public function postUpdateItem(UpdateItemsRequest $request, string $categoryId): RedirectResponse
     {
-        $request->id_user = self::userInSession()->id;
+        $request->id_user = self::ID_USER_IN_SESSION();
         try {
             $this->itemsService->updateItems($request);
             return redirect('/dashboard/item')->with(['message' => 'berhasil mengubah barang']);
@@ -81,7 +79,7 @@ class ItemsController extends Controller
 
     public function deleteItem(DeleteItemsRequest $request, string $categoryId): RedirectResponse
     {
-        $request->id_user = self::userInSession()->id;
+        $request->id_user = self::ID_USER_IN_SESSION();
         try {
             $this->itemsService->deleteItem($request, $categoryId, $request->id_user);
             return redirect()->back()->with(['message' => 'berhasil menghapus barang']);

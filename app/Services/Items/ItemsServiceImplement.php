@@ -79,6 +79,6 @@ class ItemsServiceImplement extends Service implements ItemsService
 
     public function getCounter(int $id_user): string
     {
-        return sprintf('%05s', $this->itemsRepository->getCounter($id_user)+1);
+        return sprintf('%05s', $this->itemsRepository->getCounter($id_user) + 1);
     }
 }

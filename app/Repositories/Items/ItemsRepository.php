@@ -4,6 +4,7 @@ namespace App\Repositories\Items;
 
 use App\Models\Items;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use LaravelEasyRepository\Repository;
 
 interface ItemsRepository extends Repository
@@ -14,11 +15,11 @@ interface ItemsRepository extends Repository
 
     public function allItems(int $id_user): ?Collection;
 
-    public function getItemsByIdItems(string $items_id, int $user): ?Items;
+    public function getItemsByIdItems(string $items_id, int $user): Items|Model|null;
 
-    public function getItemsByName(string $name, int $id_user): ?Items;
+    public function getItemsByName(string $name, int $id_user): Items|Model|null;
 
-    public function getItemsByIdCategory(int $id_category, int $id_user): ?Items;
+    public function getItemsByIdCategory(int $id_category, int $id_user): Items|Model|null;
 
     public function getCounter(int $id_user): ?string;
 
