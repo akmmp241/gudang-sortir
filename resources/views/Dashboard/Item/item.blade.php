@@ -14,13 +14,14 @@
            placeholder="nama barang">
     <br>
     <select name="category_id" id="id-kategori">
-        @if(isset($categories))
-            @foreach($categories as $category)
-                <option value="{{ $category->category_id }}">{{ $category->category_id }}</option>
-            @endforeach
-        @else
-            <option value="null">kosong</option>
-        @endif
+        @foreach($items->first()->category->all() as $category)
+            @if($category != null)
+                    <option value="{{ $category->category_id }}">{{ $category->category_id }}</option>
+            @else
+                <option value="null">kosong</option>
+            @endif
+        @endforeach
+
     </select>
     <br>
     <input type="text" name="description" id="deskripsi" value="{{ request('description') }}"
@@ -43,12 +44,12 @@
         <td>Deskripsi</td>
         <td>Aksi</td>
     </tr>
-    @if(!isset($items))
+    @if($items->all() == null)
         <tr>
             <td colspan="6" align="center">data belum ada</td>
         </tr>
     @else
-        @foreach($items as $item)
+        @foreach($items->all() as $item)
             <tr>
                 <td>{{ $item->item_id }}</td>
                 <td>{{ $item->name_item }}</td>
