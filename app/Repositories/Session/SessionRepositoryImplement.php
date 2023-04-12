@@ -3,6 +3,7 @@
 namespace App\Repositories\Session;
 
 use App\Models\Session;
+use Illuminate\Database\Eloquent\Model;
 use LaravelEasyRepository\Implementations\Eloquent;
 
 class SessionRepositoryImplement extends Eloquent implements SessionRepository
@@ -16,9 +17,9 @@ class SessionRepositoryImplement extends Eloquent implements SessionRepository
         $session->save();
     }
 
-    public function findByToken(string $token): ?Session
+    public function findByToken(string $token): Session|Model|null
     {
-        return Session::where('token', $token)->first();
+        return Session::with('user')->where('token', $token)->first();
     }
 
     public function deleteByToken(string $token): void

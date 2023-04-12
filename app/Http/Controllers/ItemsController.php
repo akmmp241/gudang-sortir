@@ -40,11 +40,9 @@ class ItemsController extends Controller
     public function item(): View
     {
         $items = $this->itemsService->getAll(self::ID_USER_IN_SESSION());
-        $categories = $this->categoryService->allCategory(self::ID_USER_IN_SESSION());
         $counter = $this->itemsService->getCounter(self::ID_USER_IN_SESSION());
         return view('Dashboard.Item.item', [
             'items' => $items,
-            'categories' => $categories,
             'counter' => $counter
         ]);
     }
