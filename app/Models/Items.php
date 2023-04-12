@@ -42,3 +42,4 @@ class Items extends Model
         return $this->belongsTo(Category::class, 'id_category', 'id');
     }
 }
+// reset commit
