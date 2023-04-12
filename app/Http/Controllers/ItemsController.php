@@ -6,8 +6,6 @@ use App\Exceptions\ValidationItemsException;
 use App\Http\Requests\AddItemsRequest;
 use App\Http\Requests\DeleteItemsRequest;
 use App\Http\Requests\UpdateItemsRequest;
-use App\Models\User;
-use App\Repositories\Session\SessionRepository;
 use App\Services\Category\CategoryService;
 use App\Services\Items\ItemsService;
 use App\Services\Session\SessionService;
@@ -40,9 +38,11 @@ class ItemsController extends Controller
     public function item(): View
     {
         $items = $this->itemsService->getAll(self::ID_USER_IN_SESSION());
+        $categories = $this->categoryService->allCategory(self::ID_USER_IN_SESSION());
         $counter = $this->itemsService->getCounter(self::ID_USER_IN_SESSION());
         return view('Dashboard.Item.item', [
             'items' => $items,
+            'categories' => $categories,
             'counter' => $counter
         ]);
     }

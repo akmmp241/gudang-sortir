@@ -21,28 +21,24 @@ class ItemsRepositoryImplement extends Eloquent implements ItemsRepository
 
     public function allItems(int $id_user): ?Collection
     {
-        return Items::with(['user', 'category'])
-            ->where('id_user', $id_user)->get();
+        return Items::where('id_user', $id_user)->get();
     }
 
-    public function getItemsByIdItems(string $items_id, int $user): Items|Model|null
+    public function getItemsByIdItems(string $items_id, int $user): ?Items
     {
-        return Items::with(['user', 'category'])
-            ->where('item_id', $items_id)
+        return Items::where('item_id', $items_id)
             ->where('id_user', $user)->first();
     }
 
-    public function getItemsByName(string $name, int $id_user): Items|Model|null
+    public function getItemsByName(string $name, int $id_user): ?Items
     {
-        return Items::with(['user', 'category'])
-            ->where('name_item', $name)
+        return Items::where('name_item', $name)
             ->where('id_user', $id_user)->first();
     }
 
-    public function getItemsByIdCategory(int $id_category, int $id_user): Items|Model|null
+    public function getItemsByIdCategory(int $id_category, int $id_user): ?Items
     {
-        return Items::with(['user', 'category'])
-            ->where('id_category', $id_category)
+        return Items::where('id_category', $id_category)
             ->where('id_user', $id_user)->first();
     }
 

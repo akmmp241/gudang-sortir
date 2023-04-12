@@ -17,9 +17,9 @@ class SessionRepositoryImplement extends Eloquent implements SessionRepository
         $session->save();
     }
 
-    public function findByToken(string $token): Session|Model|null
+    public function findByToken(string $token): ?Session
     {
-        return Session::with('user')->where('token', $token)->first();
+        return Session::where('token', $token)->first();
     }
 
     public function deleteByToken(string $token): void

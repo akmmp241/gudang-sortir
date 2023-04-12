@@ -14,13 +14,13 @@
            placeholder="nama barang">
     <br>
     <select name="category_id" id="id-kategori">
-        @foreach($items->first()->category->all() as $category)
-            @if($category != null)
-                    <option value="{{ $category->category_id }}">{{ $category->category_id }}</option>
-            @else
-                <option value="null">kosong</option>
-            @endif
-        @endforeach
+        @if($categories->all() != null)
+            @foreach($categories as $category)
+                <option value="{{ $category->category_id }}">{{ $category->category_id }}</option>
+            @endforeach
+        @else
+            <option value="null">kosong</option>
+        @endif
 
     </select>
     <br>

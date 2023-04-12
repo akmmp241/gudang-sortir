@@ -10,7 +10,7 @@ interface SessionRepository extends Repository
 {
     public function save(Session $session);
 
-    public function findByToken(string $token): Session|Model|null;
+    public function findByToken(string $token): ?Session;
 
     public function deleteByToken(string $token);
 }
