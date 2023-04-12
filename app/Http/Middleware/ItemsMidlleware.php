@@ -31,7 +31,7 @@ class ItemsMidlleware
         $path = explode('/', $request->path());
         $itemId = end($path);
 
-        $item = $this->itemsRepository->getItemsByIdItems($itemId, $user->id);
+        $item = $this->itemsRepository->getItemsByIdItems($itemId, $user->id, false);
         return $next($request);
     }
 }

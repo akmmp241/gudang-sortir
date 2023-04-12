@@ -24,7 +24,7 @@ class SessionRepositoryImplement extends Eloquent implements SessionRepository
 
     public function deleteByToken(string $token): void
     {
-        Session::where('token', $token)->delete();
+        Session::with('user')->where('token', $token)->delete();
     }
 
 

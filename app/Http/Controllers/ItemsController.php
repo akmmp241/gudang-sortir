@@ -19,7 +19,6 @@ class ItemsController extends Controller
 {
     private static SessionService $sessionService;
     private ItemsService $itemsService;
-    private CategoryService $categoryService;
 
     /**
      * @throws BindingResolutionException
@@ -28,7 +27,6 @@ class ItemsController extends Controller
     {
         self::$sessionService = app()->make(SessionService::class);
         $this->itemsService = app()->make(ItemsService::class);
-        $this->categoryService = app()->make(CategoryService::class);
     }
 
 
@@ -60,7 +58,7 @@ class ItemsController extends Controller
 
     public function updateItem(string $categoryId): View
     {
-        $item = $this->itemsService->getItemById($categoryId, self::ID_USER_IN_SESSION());
+        $item = $this->itemsService->getItemById($categoryId, self::ID_USER_IN_SESSION(), false);
         return view('Dashboard.Item.update-item', [
             'item' => $item
         ]);

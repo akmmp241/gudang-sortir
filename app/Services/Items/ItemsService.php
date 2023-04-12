@@ -17,7 +17,7 @@ interface ItemsService extends BaseService
 
     public function getAll(int $id_user): ?Collection;
 
-    public function getItemById(string $categoryId, int $id_user): ?Items;
+    public function getItemById(string $categoryId, int $id_user, bool $relation): ?Items;
 
     public function deleteItem(DeleteItemsRequest $request, string $item_id, int $id_user): void;
 

@@ -50,7 +50,7 @@ class ItemsServiceImplement extends Service implements ItemsService
     {
         UpdateItemsRequest::validating($request);
 
-        $item = $this->itemsRepository->getItemsByIdItems($request->item_id, $request->id_user);
+        $item = $this->itemsRepository->getItemsByIdItems($request->item_id, $request->id_user, false);
 
         $item->name_item = $request->name_item;
         $item->description = $request->description;
@@ -60,12 +60,12 @@ class ItemsServiceImplement extends Service implements ItemsService
 
     public function getAll(int $id_user): ?Collection
     {
-        return $this->itemsRepository->allItems($id_user);
+        return $this->itemsRepository->allItems($id_user, true);
     }
 
-    public function getItemById(string $categoryId, int $id_user): ?Items
+    public function getItemById(string $categoryId, int $id_user, bool $relation): ?Items
     {
-        return $this->itemsRepository->getItemsByIdItems($categoryId, $id_user);
+        return $this->itemsRepository->getItemsByIdItems($categoryId, $id_user, $relation);
     }
 
     /**

@@ -13,13 +13,13 @@ interface ItemsRepository extends Repository
 
     public function updating(Items $items): void;
 
-    public function allItems(int $id_user): ?Collection;
+    public function allItems(int $id_user, bool $relation): ?Collection;
 
-    public function getItemsByIdItems(string $items_id, int $user): Items|Model|null;
+    public function getItemsByIdItems(string $items_id, int $user, bool $relation): Items|Model|null;
 
-    public function getItemsByName(string $name, int $id_user): Items|Model|null;
+    public function getItemsByName(string $name, int $id_user, bool $relation): Items|Model|null;
 
-    public function getItemsByIdCategory(int $id_category, int $id_user): Items|Model|null;
+    public function getItemsByIdCategory(int $id_category, int $id_user, bool $relation): Items|Model|null;
 
     public function getCounter(int $id_user): ?string;
 

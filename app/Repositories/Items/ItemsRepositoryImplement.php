@@ -19,43 +19,57 @@ class ItemsRepositoryImplement extends Eloquent implements ItemsRepository
         $items->update();
     }
 
-    public function allItems(int $id_user): ?Collection
+    public function allItems(int $id_user, bool $relation): ?Collection
     {
-        return Items::with(['user', 'category'])
-            ->where('id_user', $id_user)->get();
+        if ($relation) {
+            return Items::with('category')
+                ->where('id_user', $id_user)->get();
+        }
+        return Items::where('id_user', $id_user)->get();
     }
 
-    public function getItemsByIdItems(string $items_id, int $user): Items|Model|null
+    public function getItemsByIdItems(string $items_id, int $user, bool $relation): Items|Model|null
     {
-        return Items::with(['user', 'category'])
+        if (!$relation) {
+            return Items::where('item_id', $items_id)
+                ->where('id_user', $user)->first();
+        }
+        return Items::with('category')
             ->where('item_id', $items_id)
             ->where('id_user', $user)->first();
     }
 
-    public function getItemsByName(string $name, int $id_user): Items|Model|null
+    public function getItemsByName(string $name, int $id_user, bool $relation): Items|Model|null
     {
+        if (!$relation) {
+            return Items::where('name_item', $name)
+                ->where('id_user', $id_user)->first();
+        }
         return Items::with(['user', 'category'])
             ->where('name_item', $name)
             ->where('id_user', $id_user)->first();
     }
 
-    public function getItemsByIdCategory(int $id_category, int $id_user): Items|Model|null
+    public function getItemsByIdCategory(int $id_category, int $id_user, bool $relation): Items|Model|null
     {
-        return Items::with(['user', 'category'])
+        if (!$relation) {
+            return Items::where('id_category', $id_category)
+                ->where('id_user', $id_user)->first();
+        }
+        return Items::with('category')
             ->where('id_category', $id_category)
             ->where('id_user', $id_user)->first();
     }
 
     public function getCounter(int $id_user): ?string
     {
-        return Items::with(['user', 'category'])
-            ->where('id_user', $id_user)
+        return Items::where('id_user', $id_user)
             ->max('counter');
     }
 
     public function deleteById(string $id_items, int $id_user): void
     {
-        $this->getItemsByIdItems($id_items, $id_user)->delete();
+        Items::where('item_id', $id_items,)->where('id_user', $id_user)->delete();
     }
 
 }

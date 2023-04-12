@@ -39,7 +39,7 @@ class DeleteItemsRequest extends FormRequest
     {
         $path = explode('/', $request->path());
         $itemsId = end($path);
-        $item = $itemsRepository->getItemsByIdItems($itemsId, $request->id_user);
+        $item = $itemsRepository->getItemsByIdItems($itemsId, $request->id_user, false);
         if ($item->quantity > 0) {
             throw ValidationItemsException::categoryNotValid();
         }

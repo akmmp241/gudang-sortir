@@ -57,12 +57,12 @@ class AddItemsRequest extends FormRequest
             throw ValidationItemsException::categoryNotValid();
         }
 
-        $item = $itemsRepository->getItemsByIdItems($request->counter, $request->id_user);
+        $item = $itemsRepository->getItemsByIdItems($request->counter, $request->id_user, false);
         if ($item !== null) {
             throw ValidationItemsException::duplicate();
         }
 
-        $item = $itemsRepository->getItemsByName($request->name_item, $request->id_user);
+        $item = $itemsRepository->getItemsByName($request->name_item, $request->id_user, false);
         if ($item !== null) {
             throw ValidationItemsException::duplicate();
         }

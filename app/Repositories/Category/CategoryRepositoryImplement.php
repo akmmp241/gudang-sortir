@@ -3,6 +3,7 @@
 namespace App\Repositories\Category;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Category;
 
@@ -24,24 +25,26 @@ class CategoryRepositoryImplement extends Eloquent implements CategoryRepository
 
     public function findAll(int $id_user): ?Collection
     {
-        return Category::where('id_user', $id_user)->get();
+        return Category::with('user')->where('id_user', $id_user)->get();
     }
 
-    public function findById(int $id): ?Category
+    public function findById(int $id): Category|Model|null
     {
-        return Category::find($id);
+        return Category::with('user')->find($id);
     }
 
-    public function findByCategoryId(string $categoryId, int $id_user): ?Category
+    public function findByCategoryId(string $categoryId, int $id_user): Category|Model|null
     {
-        return Category::where('category_id', $categoryId)
+        return Category::with('user')
+            ->where('category_id', $categoryId)
             ->where('id_user', $id_user)
             ->first();
     }
 
-    public function findByName(string $name, int $user): ?Category
+    public function findByName(string $name, int $user): Category|Model|null
     {
-        return Category::where('name_category', $name)
+        return Category::with('user')
+            ->where('name_category', $name)
             ->where('id_user', $user)
             ->first();
     }
