@@ -3,6 +3,7 @@
 namespace App\Services\Category;
 
 use App\Http\Requests\AddCategoryRequest;
+use App\Http\Requests\DeleteCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Collection;
@@ -18,5 +19,5 @@ interface CategoryService extends BaseService
 
     public function getCategory(string $category_id, string $id_user): ?Category;
 
-    public function deleteCategory(string $categoryId, int $id_user): void;
+    public function deleteCategory(DeleteCategoryRequest $request, string $categoryId, int $id_user): void;
 }

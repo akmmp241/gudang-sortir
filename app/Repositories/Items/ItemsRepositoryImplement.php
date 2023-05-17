@@ -3,8 +3,8 @@
 namespace App\Repositories\Items;
 
 use App\Models\Items;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use LaravelEasyRepository\Implementations\Eloquent;
 
 class ItemsRepositoryImplement extends Eloquent implements ItemsRepository
@@ -22,6 +22,33 @@ class ItemsRepositoryImplement extends Eloquent implements ItemsRepository
     public function allItems(int $id_user): ?Collection
     {
         return Items::where('id_user', $id_user)->get();
+    }
+
+    public function getCustom(?string $field, ?string $category, ?string $order, int $id_user): ?Collection
+    {
+        $item = DB::table('items', 'i')
+            ->join('categories as c', 'c.id', '=', 'i.id_category')
+            ->where('i.id_user', '=', $id_user);
+
+        if ($category != null && $category != '') {
+            $item->where('c.name_category', '=', $category);
+        }
+
+        if ($field != null && $field != '') {
+            if ($order != null && $order != '') {
+                $item->orderBy($field, $order);
+            } else {
+                $item->orderBy('i.id', 'asc');
+            }
+        } else {
+            if ($order != null && $order != '') {
+                $item->orderBy('i.id', $order);
+            } else {
+                $item->orderBy('i.id', 'asc');
+            }
+        }
+
+        return $item->get();
     }
 
     public function getItemsByIdItems(string $items_id, int $user): ?Items

@@ -4,8 +4,11 @@ namespace App\Services\Category;
 
 use App\Exceptions\ValidationCategoryException;
 use App\Http\Requests\AddCategoryRequest;
+use App\Http\Requests\DeleteCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
+use App\Repositories\Items\ItemsRepository;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Collection;
 use LaravelEasyRepository\Service;
 use App\Repositories\Category\CategoryRepository;
@@ -59,8 +62,9 @@ class CategoryServiceImplement extends Service implements CategoryService
         return $this->categoryRepository->findByCategoryId($category_id, $id_user);
     }
 
-    public function deleteCategory(string $categoryId, int $id_user): void
+    public function deleteCategory(DeleteCategoryRequest $request, string $categoryId, int $id_user): void
     {
+        $request::validating($request, app()->make(ItemsRepository::class), $this->categoryRepository);
         $this->categoryRepository->deleteById($categoryId, $id_user);
     }
 }
