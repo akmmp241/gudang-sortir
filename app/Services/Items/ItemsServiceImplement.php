@@ -4,11 +4,12 @@ namespace App\Services\Items;
 
 use App\Exceptions\ValidationItemsException;
 use App\Http\Requests\AddItemsRequest;
+use App\Http\Requests\CustomItemRequest;
 use App\Http\Requests\DeleteItemsRequest;
 use App\Http\Requests\UpdateItemsRequest;
 use App\Models\Items;
 use App\Repositories\Category\CategoryRepository;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use LaravelEasyRepository\Service;
 use App\Repositories\Items\ItemsRepository;
 
@@ -58,8 +59,21 @@ class ItemsServiceImplement extends Service implements ItemsService
         $this->itemsRepository->updating($item);
     }
 
-    public function getAll(int $id_user): ?Collection
+    public function getAll(?CustomItemRequest $request, int $id_user): ?Collection
     {
+        if ($request != null) {
+            $customItemRequest = $request::validating($request, $this->categoryRepository);
+
+            if ($request->has('order') || $request->has('field') || $request->has('filter')) {
+                return $this->itemsRepository->getCustom(
+                    $customItemRequest->field,
+                    $customItemRequest->category,
+                    $customItemRequest->order,
+                    $request->id_user
+                );
+            }
+        }
+
         return $this->itemsRepository->allItems($id_user);
     }
 

@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\ValidationCategoryException;
 use App\Http\Requests\AddCategoryRequest;
+use App\Http\Requests\DeleteCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Services\Category\CategoryService;
 use App\Services\Category\CategoryServiceImplement;
 use App\Services\Session\SessionService;
 use App\Services\Session\SessionServiceImplement;
+use Exception;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -16,7 +18,7 @@ use Illuminate\View\View;
 class CategoryController extends Controller
 {
     private CategoryServiceImplement $categoryService;
-    private SessionServiceImplement $sessionService;
+    private static SessionServiceImplement $sessionService;
 
     /**
      * @throws BindingResolutionException
@@ -24,13 +26,17 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->categoryService = app()->make(CategoryService::class);
-        $this->sessionService = app()->make(SessionService::class);
+        self::$sessionService = app()->make(SessionService::class);
+    }
+
+    private static function ID_USER_IN_SESSION(): ?int
+    {
+        return self::$sessionService->current()->id;
     }
 
     public function category(): View
     {
-        $user = $this->sessionService->current();
-        $category = $this->categoryService->allCategory($user->id);
+        $category = $this->categoryService->allCategory(self::ID_USER_IN_SESSION());
         return view('Dashboard.Category.category', [
             'category' => $category
         ]);
@@ -38,8 +44,7 @@ class CategoryController extends Controller
 
     public function postCategory(AddCategoryRequest $request): RedirectResponse
     {
-        $user = $this->sessionService->current();
-        $request->id_user = $user->id;
+        $request->id_user = self::ID_USER_IN_SESSION();
         try {
             $this->categoryService->addCategory($request);
             return redirect()->back()->with(['message' => 'berhasil menambahkan kategori']);
@@ -50,8 +55,7 @@ class CategoryController extends Controller
 
     public function updateCategory(string $categoryId): View
     {
-        $user = $this->sessionService->current();
-        $category = $this->categoryService->getCategory($categoryId, $user->id);
+        $category = $this->categoryService->getCategory($categoryId, self::ID_USER_IN_SESSION());
         return view('Dashboard.Category.update-category', [
             'category' => $category
         ]);
@@ -59,8 +63,7 @@ class CategoryController extends Controller
 
     public function postUpdateCategory(UpdateCategoryRequest $request, string $categoryId): RedirectResponse
     {
-        $user = $this->sessionService->current();
-        $request->id_user = $user->id;
+        $request->id_user = self::ID_USER_IN_SESSION();
         $request->category_id = $categoryId;
         try {
             $this->categoryService->updateCategory($request);
@@ -70,10 +73,14 @@ class CategoryController extends Controller
         }
     }
 
-    public function deleteCategory(string $categoryId): RedirectResponse
+    public function deleteCategory(DeleteCategoryRequest $request, string $categoryId): RedirectResponse
     {
-        $user = $this->sessionService->current();
-        $this->categoryService->deleteCategory($categoryId, $user->id);
-        return redirect()->back()->with(['message' => 'berhasil menghapus category']);
+        $request->id_user = self::ID_USER_IN_SESSION();
+        try {
+            $this->categoryService->deleteCategory($request, $categoryId, self::ID_USER_IN_SESSION());
+            return redirect()->back()->with(['message' => 'berhasil menghapus category']);
+        } catch (Exception $exception) {
+            return redirect()->back()->withErrors(['error' => $exception->getMessage()]);
+        }
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemsController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -68,6 +69,13 @@ Route::post('/dashboard/item/update-item/{categoryId}', [ItemsController::class,
 Route::get('/dashboard/item/delete/{categoryId}', [ItemsController::class, 'deleteItem'])
     ->where('categoryId', '([0-9A-Za-z-.]*)')
     ->middleware(['must.login', 'item']);
+
+//      Transaction Page
+Route::get('/dashboard/transaction', [TransactionController::class, 'transaction'])->middleware('must.login');
+Route::get('/dashboard/transaction/masuk', [TransactionController::class, 'transactionItem'])->middleware('must.login');
+Route::get('/dashboard/transaction/keluar', [TransactionController::class, 'transactionItem'])->middleware('must.login');
+Route::post('/dashboard/transaction/masuk', [TransactionController::class, 'postTransactionItem'])->middleware('must.login');
+Route::post('/dashboard/transaction/keluar', [TransactionController::class, 'postTransactionItem'])->middleware('must.login');
 
 Route::get('/welcome', function () {
     return view('welcome');

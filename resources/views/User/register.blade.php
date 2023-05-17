@@ -1,9 +1,13 @@
+<head>
+    <link rel="stylesheet" href="{{ asset('assets/css/error.css') }}">
+</head>
+<body>
 <h1>{{ $title }}</h1>
 <div>
     <form action="/users/register" method="POST">
         @csrf
         @error('error')
-        <p>{{ $message }}</p>
+        <p class="error">{{ $message }}</p>
         @enderror
         @if(session('message'))
             <p>{{ session('message') }}</p>
@@ -27,3 +31,4 @@
     </form>
     <p>sudah punya akun? <a href="/users/login">Login</a></p>
 </div>
+</body>
