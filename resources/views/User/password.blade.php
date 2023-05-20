@@ -1,9 +1,13 @@
+<head>
+    <link rel="stylesheet" href="{{ asset('assets/css/error.css') }}">
+</head>
+<body>
 <h1>{{ $title }}</h1>
 <div>
     <form action="/users/update-password" method="POST">
         @csrf
         @error('error')
-            <p>{{ $message }}</p>
+            <p class="error">{{ $message }}</p>
         @enderror
         @if(session('message'))
             <p>{{ session('message') }}</p>
@@ -19,3 +23,4 @@
         <button type="submit" name="submit">Submit</button>
     </form>
 </div>
+</body>

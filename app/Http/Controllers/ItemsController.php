@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\ValidationItemsException;
 use App\Http\Requests\AddItemsRequest;
+use App\Http\Requests\CustomItemRequest;
 use App\Http\Requests\DeleteItemsRequest;
 use App\Http\Requests\UpdateItemsRequest;
 use App\Services\Category\CategoryService;
 use App\Services\Items\ItemsService;
 use App\Services\Session\SessionService;
+use Exception;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -35,11 +36,13 @@ class ItemsController extends Controller
         return self::$sessionService->current()->id;
     }
 
-    public function item(): View
+    public function item(CustomItemRequest $request): View
     {
-        $items = $this->itemsService->getAll(self::ID_USER_IN_SESSION());
+        $request->id_user = self::ID_USER_IN_SESSION();
+        $items = $this->itemsService->getAll($request, self::ID_USER_IN_SESSION());
         $categories = $this->categoryService->allCategory(self::ID_USER_IN_SESSION());
         $counter = $this->itemsService->getCounter(self::ID_USER_IN_SESSION());
+
         return view('Dashboard.Item.item', [
             'items' => $items,
             'categories' => $categories,
@@ -50,10 +53,11 @@ class ItemsController extends Controller
     public function postItem(AddItemsRequest $request): RedirectResponse
     {
         $request->id_user = self::ID_USER_IN_SESSION();
+
         try {
             $this->itemsService->addItems($request);
             return redirect()->back()->with(['message' => 'berhasil menambahkan data']);
-        } catch (ValidationItemsException $exception) {
+        } catch (Exception $exception) {
             return redirect()->back()->withErrors(['error' => $exception->getMessage()]);
         }
     }
@@ -61,18 +65,20 @@ class ItemsController extends Controller
     public function updateItem(string $categoryId): View
     {
         $item = $this->itemsService->getItemById($categoryId, self::ID_USER_IN_SESSION());
+
         return view('Dashboard.Item.update-item', [
             'item' => $item
         ]);
     }
 
-    public function postUpdateItem(UpdateItemsRequest $request, string $categoryId): RedirectResponse
+    public function postUpdateItem(UpdateItemsRequest $request): RedirectResponse
     {
         $request->id_user = self::ID_USER_IN_SESSION();
+
         try {
             $this->itemsService->updateItems($request);
             return redirect('/dashboard/item')->with(['message' => 'berhasil mengubah barang']);
-        } catch (ValidationItemsException $exception) {
+        } catch (Exception $exception) {
             return redirect()->back()->withErrors(['error' => $exception->getMessage()]);
         }
     }
@@ -83,7 +89,7 @@ class ItemsController extends Controller
         try {
             $this->itemsService->deleteItem($request, $categoryId, $request->id_user);
             return redirect()->back()->with(['message' => 'berhasil menghapus barang']);
-        } catch (ValidationItemsException $exception) {
+        } catch (Exception $exception) {
             return redirect()->back()->withErrors(['error' => $exception->getMessage()]);
         }
     }

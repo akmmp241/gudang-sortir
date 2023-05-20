@@ -1,3 +1,7 @@
+<head>
+    <link rel="stylesheet" href="{{ asset('assets/css/error.css') }}">
+</head>
+<body>
 <h1>{{ $title }}</h1>
 <div>
     <form action="/users/login" method="POST">
@@ -6,7 +10,7 @@
             <p>{{ $message }}</p>
         @enderror
         @if(session('message'))
-            <p>{{ session('message') }}</p>
+            <p class="error">{{ session('message') }}</p>
         @endif
         <label for="email">email: </label><label>
             <input type="email" name="email" autocomplete="off" placeholder="your fullname"
@@ -20,3 +24,4 @@
     </form>
     <p>belum punya akun? <a href="/users/register">Register</a></p>
 </div>
+</body>

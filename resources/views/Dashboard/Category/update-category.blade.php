@@ -1,7 +1,11 @@
+<head>
+    <link rel="stylesheet" href="{{ asset('assets/css/error.css') }}">
+</head>
+<body>
 <form action="/dashboard/category/update-category/{{ $category->category_id }}" method="POST">
     @csrf
     @error('error')
-        <p>{{ $message }}</p>
+        <p class="error">{{ $message }}</p>
     @enderror
     @if(session('message'))
         <p>{{ session('message') }}</p>
@@ -12,3 +16,4 @@
     <br>
     <input type="submit" name="submit" id="submit">
 </form>
+</body>
