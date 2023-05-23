@@ -9,6 +9,7 @@ use App\Http\Requests\DeleteItemsRequest;
 use App\Http\Requests\UpdateItemsRequest;
 use App\Models\Items;
 use App\Repositories\Category\CategoryRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use LaravelEasyRepository\Service;
 use App\Repositories\Items\ItemsRepository;
@@ -59,22 +60,23 @@ class ItemsServiceImplement extends Service implements ItemsService
         $this->itemsRepository->updating($item);
     }
 
-    public function getAll(?CustomItemRequest $request, int $id_user): ?Collection
+    public function getAll(?CustomItemRequest $request, int $id_user, bool $paginate): Collection|LengthAwarePaginator
     {
         if ($request != null) {
             $customItemRequest = $request::validating($request, $this->categoryRepository);
 
-            if ($request->has('order') || $request->has('field') || $request->has('filter')) {
+            if ($request->has('order') || $request->has('field') || $request->has('category')) {
                 return $this->itemsRepository->getCustom(
                     $customItemRequest->field,
                     $customItemRequest->category,
                     $customItemRequest->order,
-                    $request->id_user
+                    $request->id_user,
+                    $paginate
                 );
             }
         }
 
-        return $this->itemsRepository->allItems($id_user);
+        return $this->itemsRepository->allItems($id_user, $paginate);
     }
 
     public function getItemById(string $categoryId, int $id_user): ?Items

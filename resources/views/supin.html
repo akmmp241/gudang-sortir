@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="./styles/style.css"/>
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <title>Sign In & Sign Up</title>
+</head>
+<body>
+<div class="container">
+    <div class="forms-container">
+        <div class="signin-signup">
+            <form action="" class="sign-in-form">
+                <h2 class="title">Masuk</h2>
+                <div class="input-field">
+                    <i class="fas fa-envelope"></i>
+                    <input type="text" placeholder="Email"/>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password"/>
+                </div>
+                <input type="submit" value="Masuk" class="btn solid"/>
+            </form>
+
+            <form action="" class="sign-up-form">
+                <h2 class="title">Daftar</h2>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Username"/>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" placeholder="Email"/>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password"/>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Konfirmasi Password"/>
+                </div>
+                <input type="submit" value="Daftar" class="btn solid"/>
+            </form>
+        </div>
+    </div>
+    <div class="panels-container">
+        <div class="panel left-panel">
+            <div class="content">
+                <h3>Belum memiliki akun Gudagsortir?</h3>
+                <p>Silahkan mendaftar untuk mendapatkan berbagai fitur menarik dari kami.</p>
+                <button class="btn transparent" id="sign-up-btn">Daftar</button>
+            </div>
+
+            <img src="./img/masuk.png" alt="" class="image"/>
+        </div>
+
+        <div class="panel right-panel">
+            <div class="content">
+                <h3>Sudah memiliki akun Gudangsortir?</h3>
+                <p>Jika anda sudah memiliki akun silahkan masuk untuk menikmati layanan kami.</p>
+                <button class="btn transparent" id="sign-in-btn">Masuk</button>
+            </div>
+
+            <img src="./img/daftar.png" alt="" class="image"/>
+        </div>
+    </div>
+</div>
+</body>
+<script src="./js/script.js"></script>
+</html>

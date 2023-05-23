@@ -44,7 +44,8 @@ Route::get('/users/logout', [UserController::class, 'logout'])->middleware('must
 //      Category Page
 // Add Category Page
 Route::get('/dashboard/category', [CategoryController::class, 'category'])->middleware(['must.login']);
-Route::post('/dashboard/category', [CategoryController::class, 'postCategory'])->middleware('must.login');
+Route::get('/dashboard/category/add', [CategoryController::class, 'addCategory'])->middleware(['must.login']);
+Route::post('/dashboard/category/add', [CategoryController::class, 'postCategory'])->middleware('must.login');
 // Edit Category Page
 Route::get('/dashboard/category/update-category/{categoryId}', [CategoryController::class, 'updateCategory'])
     ->where('categoryId', '([0-9A-Za-z]*)')
@@ -59,7 +60,8 @@ Route::get('/dashboard/category/delete/{categoryId}', [CategoryController::class
 
 //      Item Page
 Route::get('/dashboard/item', [ItemsController::class, 'item'])->middleware('must.login');
-Route::post('/dashboard/item', [ItemsController::class, 'postItem'])->middleware('must.login');
+Route::get('/dashboard/item/add', [ItemsController::class, 'addItem'])->middleware('must.login');
+Route::post('/dashboard/item/add', [ItemsController::class, 'postItem'])->middleware('must.login');
 Route::get('/dashboard/item/update-item/{categoryId}', [ItemsController::class, 'updateItem'])
     ->where('categoryId', '([0-9A-Za-z-.]*)')
     ->middleware(['must.login', 'item']);

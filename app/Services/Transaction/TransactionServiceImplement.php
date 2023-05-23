@@ -13,6 +13,7 @@ use App\Repositories\TransactionDetail\TransactionDetailRepository;
 use App\Repositories\TransactionType\TransactionTypeRepository;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use LaravelEasyRepository\Service;
@@ -94,27 +95,28 @@ class TransactionServiceImplement extends Service implements TransactionService
         }
     }
 
-    public function getAllTransaction(?CustomTransactionRequest $request, string $id_user): Collection
+    public function getAllTransaction(?CustomTransactionRequest $request, string $id_user, bool $paginate): Collection|LengthAwarePaginator
     {
         if ($request != null) {
             $requestAfterValidation = $request::validating($request, $this->itemsRepository);
 
-            if ($request->has('order') || $request->has('field') || $request->has('type') || $request->has('filter')) {
+            if ($request->has('order') || $request->has('field') || $requestAfterValidation->type != null || $request->has('item')) {
                 return $this->transactionDetailRepository->getCustomData(
                     $requestAfterValidation->field,
                     $requestAfterValidation->type,
                     $requestAfterValidation->item,
                     $requestAfterValidation->order,
-                    $request->id_user
+                    $request->id_user,
+                    $paginate
                 );
             }
 
             if ($request->search != null) {
-                return $this->transactionDetailRepository->getBySearch($request->search, $id_user);
+                return $this->transactionDetailRepository->getBySearch($request->search, $id_user, $paginate);
             }
         }
 
-        return $this->transactionDetailRepository->getAll($id_user);
+        return $this->transactionDetailRepository->getAll($id_user, $paginate);
     }
 
     public function getCounter(string $id_user): ?string

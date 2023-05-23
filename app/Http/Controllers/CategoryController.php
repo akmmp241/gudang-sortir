@@ -36,9 +36,19 @@ class CategoryController extends Controller
 
     public function category(): View
     {
-        $category = $this->categoryService->allCategory(self::ID_USER_IN_SESSION());
+        $user = self::$sessionService->current();
+        $categories = $this->categoryService->allCategory(self::ID_USER_IN_SESSION(), true);
         return view('Dashboard.Category.category', [
-            'category' => $category
+            'categories' => $categories,
+            'user' => $user
+        ]);
+    }
+
+    public function addCategory(): View
+    {
+        $user = self::$sessionService->current();
+        return view('Dashboard.Category.form-kategori', [
+            'user' => $user
         ]);
     }
 
@@ -47,7 +57,7 @@ class CategoryController extends Controller
         $request->id_user = self::ID_USER_IN_SESSION();
         try {
             $this->categoryService->addCategory($request);
-            return redirect()->back()->with(['message' => 'berhasil menambahkan kategori']);
+            return redirect('/dashboard/category')->with(['message' => 'berhasil menambahkan kategori']);
         } catch (ValidationCategoryException $exception) {
             return redirect()->back()->withErrors(['error' => $exception->getMessage()]);
         }
@@ -55,9 +65,11 @@ class CategoryController extends Controller
 
     public function updateCategory(string $categoryId): View
     {
+        $user = self::$sessionService->current();
         $category = $this->categoryService->getCategory($categoryId, self::ID_USER_IN_SESSION());
         return view('Dashboard.Category.update-category', [
-            'category' => $category
+            'category' => $category,
+            'user' => $user
         ]);
     }
 

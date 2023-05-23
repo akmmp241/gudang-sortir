@@ -3,6 +3,7 @@
 namespace App\Repositories\Items;
 
 use App\Models\Items;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use LaravelEasyRepository\Implementations\Eloquent;
@@ -19,26 +20,30 @@ class ItemsRepositoryImplement extends Eloquent implements ItemsRepository
         $items->update();
     }
 
-    public function allItems(int $id_user): ?Collection
+    public function allItems(int $id_user, bool $paginate): Collection|LengthAwarePaginator
     {
+        if ($paginate) {
+            return Items::where('id_user', $id_user)->paginate(10);
+
+        }
         return Items::where('id_user', $id_user)->get();
     }
 
-    public function getCustom(?string $field, ?string $category, ?string $order, int $id_user): ?Collection
+    public function getCustom(?string $field, ?string $category, ?string $order, int $id_user, bool $paginate): Collection|LengthAwarePaginator
     {
         $item = DB::table('items', 'i')
             ->join('categories as c', 'c.id', '=', 'i.id_category')
             ->where('i.id_user', '=', $id_user);
 
         if ($category != null && $category != '') {
-            $item->where('c.name_category', '=', $category);
+            $item->where('c.category_id', '=', $category);
         }
 
         if ($field != null && $field != '') {
             if ($order != null && $order != '') {
                 $item->orderBy($field, $order);
             } else {
-                $item->orderBy('i.id', 'asc');
+                $item->orderBy($field, 'asc');
             }
         } else {
             if ($order != null && $order != '') {
@@ -48,6 +53,9 @@ class ItemsRepositoryImplement extends Eloquent implements ItemsRepository
             }
         }
 
+        if ($paginate) {
+            return $item->paginate(10);
+        }
         return $item->get();
     }
 

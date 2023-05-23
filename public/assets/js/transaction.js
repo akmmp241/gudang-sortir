@@ -33,4 +33,4 @@ order.onchange = function () {
     window.location = window.location.origin + window.location.pathname
     addOrUpdateUrlParam('order', order.value)
     window.location = window.location.href
-};y
+};

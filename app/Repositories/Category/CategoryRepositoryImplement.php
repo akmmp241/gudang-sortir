@@ -3,10 +3,12 @@
 namespace App\Repositories\Category;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Category;
 
-class CategoryRepositoryImplement extends Eloquent implements CategoryRepository{
+class CategoryRepositoryImplement extends Eloquent implements CategoryRepository
+{
 
     public function __construct()
     {
@@ -22,8 +24,11 @@ class CategoryRepositoryImplement extends Eloquent implements CategoryRepository
         $category->update();
     }
 
-    public function findAll(int $id_user): ?Collection
+    public function findAll(int $id_user, bool $paginate): Collection|LengthAwarePaginator
     {
+        if ($paginate) {
+            return Category::where('id_user', $id_user)->paginate(8);
+        }
         return Category::where('id_user', $id_user)->get();
     }
 

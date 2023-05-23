@@ -39,12 +39,12 @@ class CustomItemRequest extends FormRequest
     public static function validating(self $request, CategoryRepository $categoryRepository): self
     {
         $temp = array();
-        $categories = $categoryRepository->findAll($request->id_user);
+        $categories = $categoryRepository->findAll($request->id_user, false);
         if ($categories->all() == null) {
             $temp[] = '';
         } else {
             foreach ($categories->all() as $category) {
-                $temp[] = $category->name_category;
+                $temp[] = $category->category_id;
             }
         }
         $request->categories_id = $temp;

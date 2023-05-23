@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.header {
+    width: 100%;
+    height: 340px;
+    background-color: #043873;
+}
+
+.header .nav {
+    height: 80px;
+    width: 100%;
+    padding: 10px 10px 0;
+    border-bottom: solid 1px #ccc;
+}
+
+.header .nav div {
+    width: 93%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+}
+
+.header .nav div a img{
+    height: 65px;
+}
+
+.header .nav div .profile {
+    color: #D9d9d9;
+    font-weight: normal;
+}
+
+.header .nav div .profile a  {
+    color: #D9d9d9;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.header .header-content {
+    color: #efefef;
+}
+
+.header .header-content div {
+    margin-top: 65px;
+    margin-left: 75px;
+}
+
+.header .header-content div h2 {
+    font-size: 33px;
+    letter-spacing: 1px;
+}
+
+.header .header-content div p {
+    font-size: 16px;
+}
+
+.header .header-content .kembali {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px 40px;
+    gap: 10px;
+    width: 176px;
+    height: 52px;
+    background: #4F9CF9;
+    border: 1px solid #000000;
+    box-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    float: right;
+    margin-right: 80px;
+    color: #fff;
+}
+
+.header .header-content .kembali p {
+    /*margin-right: 10px;*/
+    font-size: 18px;
+}
+
+.wrap {
+    position: absolute;
+    width: 870px;
+    height: 575px;
+    left: calc(50% - 870px/2);
+    top: calc(50% - 575px/2 + 40px);
+
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.20);
+    background: #FFFFFF;
+    border-radius: 15px;
+    /*border: solid 1px #000;*/
+
+    display: flex;
+    justify-content: space-between;
+
+    margin-left: auto;
+}
+
+.wrap .form {
+    margin: 40px 0 40px 40px;
+}
+
+.wrap .form h1 {
+    font-size: 30px;
+}
+
+.wrap .form p {
+    margin-top: -15px;
+    color: #8A8A8A;
+    width: calc(100% - 40px);
+}
+
+.wrap .form form {
+    margin-top: 25px;
+}
+
+.wrap .form form fieldset .first {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.wrap .form form fieldset .first label {
+    font-weight: 450;
+}
+
+.wrap .form form fieldset .first input {
+    background-color: rgba(217, 217, 217, 0.51);
+    color: rgba(0, 0, 0, 0.56);
+    width: calc(100% - 40px);
+    border-radius: 10px;
+}
+
+.wrap .form form fieldset .first input:read-only {
+    background-color: rgba(0, 0, 0, 0.22);
+    color: rgba(0, 0, 0, 0.56);
+    cursor: no-drop;
+}
+
+.wrap .form form fieldset .batal {
+    width: calc(100% - 40px);
+    flex-direction: row;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrap .form form fieldset .batal a {
+    width: 115px;
+    text-decoration: none;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background: #4F9CF9;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+    transition: 250ms;
+}
+
+.wrap .form form fieldset .batal a:hover {
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    background-color: #043873;
+    color: #6c97bd;
+    transition: 250ms;
+}
+
+.wrap .form form fieldset .batal button {
+    width: 115px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background-color: #4F9CF9;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    color: #fff;
+    transition: 250ms;
+    cursor: pointer;
+}
+
+.wrap .form form fieldset .batal button:hover {
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    background-color: #043873;
+    color: #6c97bd;
+    transition: 250ms;
+}
+
+.wrap .image {
+    width: fit-content;
+}
+
+.wrap .image .picture {
+    height: 300px;
+    width: fit-content;
+}
+
+.wrap .form form fieldset .first-second {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 20px;
+    width: calc(100% - 40px);
+}
+
+.wrap .form form fieldset .first-second .second {
+    display: flex;
+    flex-direction: column;
+}
+
+.wrap .form form fieldset .first-second label {
+    font-weight: 450;
+}
+
+.wrap .form form fieldset .first-second input {
+    background-color: rgba(217, 217, 217, 0.51);
+    color: rgba(0, 0, 0, 0.56);
+    width: 175px;
+    max-width: 175px;
+    border-radius: 10px;
+}
+
+.wrap .form form fieldset .first-second select {
+    background-color: rgba(217, 217, 217, 0.51);
+    color: rgba(0, 0, 0, 0.56);
+    width: 175px;
+    max-width: 175px;
+    border-radius: 10px;
+}

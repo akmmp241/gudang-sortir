@@ -37,28 +37,29 @@ class TransactionController extends Controller
     public function transaction(CustomTransactionRequest $request): View
     {
         $request->id_user = self::ID_USER_IN_SESSION();
-        $items = $this->itemsService->getAll(null, self::ID_USER_IN_SESSION());
+        $items = $this->itemsService->getAll(null, self::ID_USER_IN_SESSION(), false);
 
-        $transactions = $this->transactionService->getAllTransaction($request, self::ID_USER_IN_SESSION());
+        $transactions = $this->transactionService->getAllTransaction($request, self::ID_USER_IN_SESSION(), true);
 
         if ($request->has('search') && trim($request->search) != null) {
-            $transactions = $this->transactionService->getAllTransaction($request, self::ID_USER_IN_SESSION());
+            $transactions = $this->transactionService->getAllTransaction($request, self::ID_USER_IN_SESSION(), true);
         }
 
-        if ($request->has('order') || $request->has('field') || $request->has('type') || $request->has('filter')) {
-            $transactions = $this->transactionService->getAllTransaction($request, self::ID_USER_IN_SESSION());
+        if ($request->has('order') || $request->has('field') || $request->has('type') || $request->has('item')) {
+            $transactions = $this->transactionService->getAllTransaction($request, self::ID_USER_IN_SESSION(), true);
         }
 
         return view('Dashboard.Transaction.transaction', [
             'transactions' => $transactions,
-            'items' => $items
+            'items' => $items,
+            'user' => self::$sessionService->current()
         ]);
     }
 
     public function transactionItem(TransactionRequest $request): View
     {
         $date = new DateTime;
-        $items = $this->itemsService->getAll(null, self::ID_USER_IN_SESSION());
+        $items = $this->itemsService->getAll(null, self::ID_USER_IN_SESSION(), false);
         $parseUrl = explode('/', $request->path());
         $type = end($parseUrl);
 
@@ -68,11 +69,12 @@ class TransactionController extends Controller
             $transactionId = "BK-" . $this->transactionService->getCounter(self::ID_USER_IN_SESSION());
         }
 
-        return view("Dashboard.transaction.form", [
+        return view("Dashboard.Transaction.form", [
             'transactionId' => $transactionId,
             'date' => $date->format('Y-m-d H:i'),
             'items' => $items,
-            'type' => $type
+            'type' => $type,
+            'user' => self::$sessionService->current()
         ]);
     }
 

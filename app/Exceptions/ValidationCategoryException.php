@@ -20,7 +20,7 @@ class ValidationCategoryException extends Exception
      */
     public static function idNotValid()
     {
-        throw new self('Id harus kapital dan tidak boleh mengandung karakter spesial');
+        throw new self('Id harus huruf besar dan tidak boleh mengandung karakter spesial');
     }
 
     /**
