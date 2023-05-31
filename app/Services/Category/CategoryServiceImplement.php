@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Repositories\Items\ItemsRepository;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use LaravelEasyRepository\Service;
 use App\Repositories\Category\CategoryRepository;
 
@@ -52,9 +53,9 @@ class CategoryServiceImplement extends Service implements CategoryService
         $this->categoryRepository->updating($category);
     }
 
-    public function allCategory(int $id_user): ?Collection
+    public function allCategory(int $id_user, bool $paginate): Collection|LengthAwarePaginator
     {
-        return $this->categoryRepository->findAll($id_user);
+        return $this->categoryRepository->findAll($id_user, $paginate);
     }
 
     public function getCategory(string $category_id, string $id_user): ?Category

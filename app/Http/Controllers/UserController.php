@@ -44,7 +44,7 @@ class UserController extends Controller
             $this->userService->register($request);
             return redirect('/users/login');
         } catch (Exception $exception) {
-            return back()->withErrors(['error' => $exception->getMessage()]);
+            return redirect('/users/login?register=true')->withErrors(['error' => $exception->getMessage()]);
         }
     }
 

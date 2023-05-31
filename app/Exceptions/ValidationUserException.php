@@ -11,7 +11,7 @@ class ValidationUserException extends Exception
      */
     public static function blank()
     {
-        throw new self('kolom tidka boleh kosong');
+        throw new self('kolom tidak boleh kosong');
     }
 
     /**

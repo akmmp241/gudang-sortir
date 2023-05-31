@@ -3,6 +3,7 @@
 namespace App\Repositories\TransactionDetail;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\TransactionDetail;
@@ -26,14 +27,18 @@ class TransactionDetailRepositoryImplement extends Eloquent implements Transacti
             ->where('id_user', $id_user)->first();
     }
 
-    public function getAll(int $id_user): ?Collection
+    public function getAll(int $id_user, bool $paginate): Collection|LengthAwarePaginator
     {
+        if ($paginate) {
+            return TransactionDetail::where('id_user', $id_user)->paginate(8);
+        }
+
         return TransactionDetail::where('id_user', $id_user)->get();
     }
 
-    public function getBySearch(string $keyword, int $id_user): \Illuminate\Support\Collection
+    public function getBySearch(string $keyword, int $id_user, bool $paginate): \Illuminate\Support\Collection|LengthAwarePaginator
     {
-        return DB::table('transaction_detail', 'd')
+        $data = DB::table('transaction_detail', 'd')
             ->join('transaction as t', 't.id', '=', 'd.transaction_id')
             ->join('items as i', 'i.id', '=', 'd.item_id')
             ->join('categories as c', 'c.id', '=', 'i.id_category')
@@ -43,17 +48,22 @@ class TransactionDetailRepositoryImplement extends Eloquent implements Transacti
             ->orWhere('d.description', 'LIKE', '%' . $keyword . '%')
             ->orWhere('t.transaction_date', 'LIKE', '%' . $keyword . '%')
             ->orWhere('c.name_category', 'LIKE', '%' . $keyword . '%')
-            ->where('d.id_user', '=', $id_user)
-            ->get();
+            ->where('d.id_user', '=', $id_user);
+
+        if ($paginate) {
+            return $data->paginate(8);
+        }
+        return $data->get();
     }
 
-    public function getCustomData(?string $field, ?string $type, ?string $item, ?string $order, int $id_user): ?\Illuminate\Support\Collection
+    public function getCustomData(?string $field, ?string $type, ?string $item, ?string $order, int $id_user, bool $paginate): \Illuminate\Support\Collection|LengthAwarePaginator
     {
         $data = DB::table('transaction_detail', 'd')
             ->join('transaction as t', 't.id', '=', 'd.transaction_id')
             ->join('items as i', 'i.id', '=', 'd.item_id')
             ->join('categories as c', 'c.id', '=', 'i.id_category')
-            ->join('transaction_type as ty', 'ty.transaction_code', '=', 't.transaction_code');
+            ->join('transaction_type as ty', 'ty.transaction_code', '=', 't.transaction_code')
+            ->where('d.id_user', '=', $id_user);
 
         if ($type != null && $type != '') {
             $data->where('t.transaction_code', '=', $type);
@@ -67,7 +77,7 @@ class TransactionDetailRepositoryImplement extends Eloquent implements Transacti
             if ($order != null && $order != '') {
                 $data->orderBy($field, $order);
             } else {
-                $data->orderBy('t.id', $order);
+                $data->orderBy($field, 'asc');
             }
         } else {
             if ($order != null && $order != '') {
@@ -75,6 +85,10 @@ class TransactionDetailRepositoryImplement extends Eloquent implements Transacti
             } else {
                 $data->orderBy('t.id', 'asc');
             }
+        }
+
+        if ($paginate) {
+            return $data->paginate(8);
         }
 
         return $data->get();

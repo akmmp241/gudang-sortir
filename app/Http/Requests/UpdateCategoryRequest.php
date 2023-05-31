@@ -56,10 +56,5 @@ class UpdateCategoryRequest extends FormRequest
         if (preg_match('/[`!@#$%^&*()+=\\[\]\';,.\/{}|":<>?~\\\\]/', $request->description)) {
             throw ValidationCategoryException::descriptionNotValid();
         }
-
-        $category = $categoryRepository->findByName($request->name_category, $request->id_user);
-        if ($category != null) {
-            throw ValidationCategoryException::duplicate();
-        }
     }
 }

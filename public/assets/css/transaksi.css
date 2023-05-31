@@ -1,0 +1,303 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.header {
+    width: 100%;
+    height: 340px;
+    background-color: #043873;
+}
+
+.header .nav {
+    height: 80px;
+    width: 100%;
+    padding: 10px 10px 0;
+    border-bottom: solid 1px #ccc;
+}
+
+.header .nav div {
+    width: 93%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+}
+
+.header .nav div a img{
+    height: 65px;
+}
+
+.header .nav div .profile {
+    color: #D9d9d9;
+    font-weight: normal;
+}
+
+.header .nav div .profile a  {
+    color: #D9d9d9;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.header .header-content {
+    color: #efefef;
+}
+
+.header .header-content div {
+    margin-top: 65px;
+    margin-left: 75px;
+}
+
+.header .header-content div h2 {
+    font-size: 33px;
+    letter-spacing: 1px;
+}
+
+.header .header-content div p {
+    font-size: 16px;
+}
+
+.header .header-content .kembali {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px 40px;
+    gap: 10px;
+    width: 176px;
+    height: 52px;
+    background: #4F9CF9;
+    border: 1px solid #000000;
+    box-shadow: 10px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    float: right;
+    margin-right: 80px;
+    color: #fff;
+    transition: 250ms;
+}
+
+.header .header-content .kembali:hover {
+    /*background: rgba(79, 156, 249, 0.35);*/
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.25);
+    transition: 250ms;
+}
+
+.header .header-content .kembali p {
+    /*margin-right: 10px;*/
+    font-size: 18px;
+}
+
+.button {
+    width: 40%;
+    display: flex;
+    gap: 60px;
+    margin-left: 75px;
+    margin-top: -77px;
+}
+
+.button a {
+    text-decoration: none;
+    color: #000;
+}
+
+.button a div {
+    border: solid 2px #ccc;
+    width: 235px;
+    height: 153px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    border-radius: 15px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    background-color: #fff;
+    transition: 250ms;
+}
+
+.button a:hover div {
+    border-radius: 65px;
+    transition: 250ms;
+}
+
+.button a div img {
+    height: 80px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.content {
+    width: 91%;
+    margin: 40px auto 80px;
+}
+
+.content table {
+    border-radius: 15px;
+    width: 100%;
+    text-align: center;
+}
+
+.content table .title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.content table .first {
+    font-weight: 600;
+}
+
+table td, table th {
+    padding: 15px !important;
+}
+
+.content table .ubah, .content table .hapus {
+    color: #000;
+}
+
+.ubah {
+    background-color: lawngreen;
+}
+
+.hapus {
+    background-color: red;
+}
+
+.content .filtering {
+    position: absolute;
+    width: 195px;
+    height: 40px;
+    left: 650px;
+    top: 388px;
+    display: flex;
+    align-items: center;
+    gap: 175px;
+}
+
+.content .filtering form fieldset {
+    /*width: calc(120% + 10px);*/
+    max-width: calc(130% + 13px);
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.content .filtering form fieldset div {
+    display: flex;
+    gap: 15px;
+}
+
+.content .filtering form fieldset .select {
+    display: flex;
+    gap: 20px;
+}
+
+.content .filtering form fieldset .select select {
+    background-color: #D9D9D9;
+    max-width: 100px;
+}
+
+.content .filtering form fieldset input {
+    width: 230px;
+}
+
+.content .filtering form fieldset button {
+    background-color: #4F9CF9 !important;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.pagination {
+    width: 91%;
+    height: 40px;
+    margin: 40px auto 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.pagination .page {
+    display: flex;
+    /*border-bottom: solid 1px black;*/
+    gap: 10px;
+    align-items: center;
+    max-height: 30px;
+}
+
+.pagination .page a {
+    text-decoration: none;
+    border: solid 1px black;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.pagination .previus {
+    color: #fff;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.20);
+    background-color: #043873;
+    border: 1px solid #000000;
+    padding: 7px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pagination .previus:hover {
+    transition: 250ms;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.20);
+}
+
+.pagination .previus a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.pagination .previus:hover a {
+    color: #43647f;
+}
+
+.pagination .previus p {
+    text-decoration: none;
+    color: #43647f;
+}
+
+.pagination .next {
+    color: #fff;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.20);
+    background-color: #043873;
+    border: 1px solid #000000;
+    padding: 7px 12px;
+    border-radius: 5px;
+}
+
+
+.pagination .next:hover {
+    transition: 250ms;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.20);
+}
+
+.pagination .next a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.pagination .next:hover a {
+    color: #43647f;
+}
+
+.pagination .next p {
+    text-decoration: none;
+    color: #43647f;
+}
+
+.pagination .page .active {
+    padding: 10px;
+    font-weight: bolder;
+    transition: 250ms;
+}

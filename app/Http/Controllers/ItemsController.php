@@ -39,14 +39,27 @@ class ItemsController extends Controller
     public function item(CustomItemRequest $request): View
     {
         $request->id_user = self::ID_USER_IN_SESSION();
-        $items = $this->itemsService->getAll($request, self::ID_USER_IN_SESSION());
-        $categories = $this->categoryService->allCategory(self::ID_USER_IN_SESSION());
+        $items = $this->itemsService->getAll($request, self::ID_USER_IN_SESSION(), true);
+        $categories = $this->categoryService->allCategory(self::ID_USER_IN_SESSION(), false);
         $counter = $this->itemsService->getCounter(self::ID_USER_IN_SESSION());
 
         return view('Dashboard.Item.item', [
             'items' => $items,
             'categories' => $categories,
-            'counter' => $counter
+            'counter' => $counter,
+            'user' => self::$sessionService->current()
+        ]);
+    }
+
+    public function addItem(): View
+    {
+        $counter = $this->itemsService->getCounter(self::ID_USER_IN_SESSION());
+        $categories = $this->categoryService->allCategory(self::ID_USER_IN_SESSION(), false);
+
+        return view('Dashboard.Item.form-item', [
+            'user' => self::$sessionService->current(),
+            'counter' => $counter,
+            'categories' => $categories
         ]);
     }
 
@@ -56,7 +69,7 @@ class ItemsController extends Controller
 
         try {
             $this->itemsService->addItems($request);
-            return redirect()->back()->with(['message' => 'berhasil menambahkan data']);
+            return redirect('/dashboard/item')->with(['message' => 'berhasil menambahkan data']);
         } catch (Exception $exception) {
             return redirect()->back()->withErrors(['error' => $exception->getMessage()]);
         }
@@ -67,7 +80,8 @@ class ItemsController extends Controller
         $item = $this->itemsService->getItemById($categoryId, self::ID_USER_IN_SESSION());
 
         return view('Dashboard.Item.update-item', [
-            'item' => $item
+            'item' => $item,
+            'user' => self::$sessionService->current()
         ]);
     }
 

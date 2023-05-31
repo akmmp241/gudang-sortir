@@ -39,7 +39,7 @@ class CustomTransactionRequest extends FormRequest
 
     public static function validating(self $request, ItemsRepository $itemsRepository): self
     {
-        $items = $itemsRepository->allItems($request->id_user);
+        $items = $itemsRepository->allItems($request->id_user, false);
         $temp = array();
         if ($items->all() == null) {
             $temp[] = '';
